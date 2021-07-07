@@ -1,0 +1,16 @@
+.DS_Store
+.dart_tool/
+
+.packages
+.pub/
+
+build/
+*.iml
+*.ipr
+*.iws
+.idea/
+.gradle
+pubspec.lock
+podfile.lock
+
+local.properties
