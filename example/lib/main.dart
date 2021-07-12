@@ -24,11 +24,19 @@ class _MyAppState extends State<MyApp> {
   }
 
   void _startSession() async {
+
     String sessionResultText = 'Unknown';
     var config = CameraConfig();
+    config.isViewFinderEnabled = false;
+    config.success.message = "Gelukt";
+    config.success.previewDuration = 0.5;
+    // config.model.fileName = "model";
+    // config.model.modelLabels = "labelmap";
+    config.overlayColor = Color.fromARGB(1, 225, 50, 168);
     try {
       var result = await KlippaScannerSdk.startSession(config, license);
       sessionResultText = 'Finished';
+      print(result);
     } on PlatformException catch (e) {
       sessionResultText = 'Failed to start session ' + e.toString();
     }
