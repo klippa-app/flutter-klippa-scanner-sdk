@@ -14,10 +14,24 @@ buildscript {
     }
 }
 
+def keystoreProperties = new Properties()
+def keystorePropertiesFile = rootProject.file('key.properties')
+if (keystorePropertiesFile.exists()) {
+    keystoreProperties.load(new FileInputStream(keystorePropertiesFile))
+}
+
 rootProject.allprojects {
     repositories {
         google()
         jcenter()
+        maven { url "https://jitpack.io" }
+        maven {
+            credentials {
+                username System.getenv()['KLIPPA_SCANNER_SDK_USERNAME'] ? System.getenv()['KLIPPA_SCANNER_SDK_USERNAME'] : (keystoreProperties["klippa.scanner.sdk.username"] ? keystoreProperties["klippa.scanner.sdk.username"] : '')
+                password System.getenv()['KLIPPA_SCANNER_SDK_PASSWORD'] ? System.getenv()['KLIPPA_SCANNER_PASSWORD'] : (keystoreProperties["klippa.scanner.sdk.password"] ? keystoreProperties["klippa.scanner.sdk.password"] : '')
+            }
+            url System.getenv()['KLIPPA_SCANNER_SDK_URL'] ? System.getenv()['KLIPPA_SCANNER_SDK_URL'] : (keystoreProperties["klippa.scanner.sdk.url"] ? keystoreProperties["klippa.scanner.sdk.url"] : 'https://custom-ocr.klippa.com/sdk/android/maven')
+        }
     }
 }
 
@@ -25,16 +39,21 @@ apply plugin: 'com.android.library'
 apply plugin: 'kotlin-android'
 
 android {
-    compileSdkVersion 30
+    compileSdkVersion 29
 
     sourceSets {
         main.java.srcDirs += 'src/main/kotlin'
     }
     defaultConfig {
-        minSdkVersion 16
+        minSdkVersion 21
+    }
+    lintOptions {
+        disable 'InvalidPackage'
     }
 }
 
 dependencies {
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
+    def klippaScannerVersion = project.hasProperty('klippaScannerVersion') ? project.klippaScannerVersion : "2.0.3"
+    implementation "com.klippa:scanner:$klippaScannerVersion"
 }
