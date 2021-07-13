@@ -15,6 +15,17 @@ allprojects {
     repositories {
         google()
         jcenter()
+        maven {
+            credentials {
+                username '{your-username}'
+                password '{your-password}'
+            }
+            url "https://custom-ocr.klippa.com/sdk/android/maven"
+        }
+        maven { url "https://jitpack.io/" }
+    }
+    project.ext {
+        klippaScannerVersion = "2.0.3"
     }
 }
 
