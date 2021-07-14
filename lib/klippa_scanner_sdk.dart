@@ -28,6 +28,8 @@ class Dimensions {
 
   /// To add extra vertical padding to the cropped image.
   num height;
+
+  Dimensions(this.width, this.height);
 }
 
 class SuccessOptions {
@@ -59,7 +61,7 @@ class CameraConfig {
   bool allowMultipleDocuments;
 
   /// Whethe the "multi-document-mode" should be enabled by default.
-  bool defaultMultiDocuments;
+  bool defaultMultipleDocuments;
 
   /// Whether the crop mode (auto edge detection) should be enabled by default.
   bool defaultCrop;
@@ -89,7 +91,7 @@ class CameraConfig {
   TimerOptions timer = new TimerOptions();
 
   /// To add extra horizontal and / or vertical padding to the cropped image.
-  Dimensions cropPadding = new Dimensions();
+  Dimensions cropPadding = new Dimensions(0, 0);
 
   /// After capture, show a checkmark preview with this success message, instead of a preview of the image.
   SuccessOptions success = new SuccessOptions();
@@ -188,8 +190,8 @@ class KlippaScannerSdk {
       parameters["AllowMultipleDocuments"] = config.allowMultipleDocuments;
     }
 
-    if (config.defaultMultiDocuments != null) {
-      parameters["DefaultMultipleDocuments"] = config.defaultMultiDocuments;
+    if (config.defaultMultipleDocuments != null) {
+      parameters["DefaultMultipleDocuments"] = config.defaultMultipleDocuments;
     }
 
     if (config.defaultCrop != null) {
@@ -258,7 +260,7 @@ class KlippaScannerSdk {
 
     if (config.shutterButton != null) {
       if(config.shutterButton.allowshutterButton != null) {
-        parameters["ShutterButton.allowshutterButton"] = config.shutterButton.allowshutterButton;
+        parameters["ShutterButton.allowShutterButton"] = config.shutterButton.allowshutterButton;
       }
       if (config.shutterButton.hideShutterbutton != null) {
         parameters["ShutterButton.hideShutterbutton"] = config.shutterButton.hideShutterbutton;
@@ -315,7 +317,7 @@ class KlippaScannerSdk {
     }
 
     if (config.overlayColorAlpha != null) {
-      parameters["OverlayColor"] = config.overlayColorAlpha;
+      parameters["OverlayColorAlpha"] = config.overlayColorAlpha;
     }
 
     if (config.warningBackgroundColor != null) {

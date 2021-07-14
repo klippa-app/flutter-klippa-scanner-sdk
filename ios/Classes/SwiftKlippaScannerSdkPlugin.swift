@@ -53,7 +53,7 @@ public class SwiftKlippaScannerSdkPlugin: NSObject, FlutterPlugin, ImageScannerC
             KlippaScanner.setup.moveCloserMessage = moveCloserMessage as? String ?? ""
         }
         
-        if let imageMovingMessage = builderArgs?["imageMovingMessage"] {
+        if let imageMovingMessage = builderArgs?["ImageMovingMessage"] {
             KlippaScanner.setup.imageMovingMessage = imageMovingMessage as? String ?? ""
         }
         
@@ -95,11 +95,9 @@ public class SwiftKlippaScannerSdkPlugin: NSObject, FlutterPlugin, ImageScannerC
         }
         
         if let allowShutterButton = builderArgs?["ShutterButton.allowShutterButton"] {
-            KlippaScanner.setup.allowShutterButton = allowShutterButton as? Bool ?? true
-        }
-        
-        if let hideShutterButton = builderArgs?["ShutterButton.hideShutterbutton"] {
-            KlippaScanner.setup.hideShutterButton = hideShutterButton as? Bool ?? false
+            if let hideShutterButton = builderArgs?["ShutterButton.hideShutterbutton"] {
+               KlippaScanner.setup.set(allowShutterButton: allowShutterButton as? Bool ?? true, hideShutterButton: hideShutterButton as? Bool ?? false)
+            }
         }
         
         if let imageTooBrightMessage = builderArgs?["ImageTooBrightMessage"] {
@@ -123,6 +121,10 @@ public class SwiftKlippaScannerSdkPlugin: NSObject, FlutterPlugin, ImageScannerC
         if let overlayColor = builderArgs?["OverlayColor"] {
             let color = overlayColor as? String ?? ""
             KlippaScanner.setup.overlayColor = hexColorToUIColor(hex: color)
+        }
+
+        if let overlayColorAlpha = builderArgs?["OverlayColorAlpha"] {
+            KlippaScanner.setup.overlayColorAlpha = overlayColorAlpha as? CGFloat ?? 0.75
         }
         
         if let warningBackgroundColor = builderArgs?["WarningBackgroundColor"] {
@@ -171,7 +173,6 @@ public class SwiftKlippaScannerSdkPlugin: NSObject, FlutterPlugin, ImageScannerC
         if modelFile != "" && modelLabels != "" {
             KlippaScanner.setup.modelFile = modelFile
             KlippaScanner.setup.modelLabels = modelLabels
-//             KlippaScanner.setup.modelViewController = rootViewController.superclass as! UIViewController.Type
             KlippaScanner.setup.runWithModel = true
         }
 
