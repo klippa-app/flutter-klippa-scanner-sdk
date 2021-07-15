@@ -117,7 +117,7 @@ class CameraConfig {
   String outputFileName;
 
   /// The threshold of how sensitive the motion detection is. (lower value is higher sensitivity, default 50)
-  String imageMovingSensitivityAndroid;
+  num imageMovingSensitivityAndroid;
 
   /// iOS Options
 
