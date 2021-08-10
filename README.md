@@ -122,7 +122,7 @@ If you want to change the repository:
 Edit the file `android/key.properties`, add the sdk repository URL:
 
 ```
-klippa.scanner.sdl.url={repository-url}
+klippa.scanner.sdk.url={repository-url}
 ```
 
 Replace `{repository-url` with the URL that you want to use.
