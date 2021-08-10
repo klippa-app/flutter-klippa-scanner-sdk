@@ -1,7 +1,10 @@
 name: Build CI
 
-# Trigger the workflow on push or pull request
-on: [push]
+on:
+  push:
+
+  # Allows to run this workflow manually from the Actions tab
+  workflow_dispatch:
 
 jobs:
   build:
