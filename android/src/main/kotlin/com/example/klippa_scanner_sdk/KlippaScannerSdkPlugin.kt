@@ -192,6 +192,10 @@ class KlippaScannerSdkPlugin: FlutterPlugin, MethodCallHandler, ActivityAware, P
         KlippaScanner.images.imageMovingSensitivity = call.argument<Int>("ImageMovingSensitivityAndroid")!!
       }
 
+      if (call.hasArgument("ImageMovingMessage")) {
+        KlippaScanner.messages.imageMovingMessage = call.argument<String>("ImageMovingMessage")!!
+      }
+
       val klippaScannerIntent = Intent(context, KlippaScanner::class.java)
       resultHandler = result
       activityPluginBinding!!.addActivityResultListener(this)
