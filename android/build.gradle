@@ -1,4 +1,4 @@
-group 'com.example.klippa_scanner_sdk'
+group 'com.klippa.scanner.klippa_scanner_sdk'
 version '1.0-SNAPSHOT'
 
 buildscript {

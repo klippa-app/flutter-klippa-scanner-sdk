@@ -1,4 +1,4 @@
-package com.example.klippa_scanner_sdk_example
+package com.klippa.scanner.klippa_scanner_sdk_example
 
 import io.flutter.embedding.android.FlutterActivity
 
