@@ -1,4 +1,4 @@
-package com.example.klippa_scanner_sdk
+package com.klippa.scanner.klippa_scanner_sdk
 
 
 import android.app.Activity
