@@ -218,7 +218,7 @@ public class SwiftKlippaScannerSdkPlugin: NSObject, FlutterPlugin, ImageScannerC
         let resultDict = [
             "Images" : images,
             "MultipleDocuments" : result.multipleDocumentsModeEnabled,
-            "Crop": result.cropEnabled
+            "Crop": result.cropEnabled,
             "TimerEnabled" : result.timerEnabled
         ] as [String : Any]
         
