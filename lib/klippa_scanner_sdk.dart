@@ -1,4 +1,3 @@
-
 import 'dart:async';
 import 'dart:ui';
 
@@ -11,10 +10,12 @@ class ModelOptions {
 
   /// The name of the label file when using custom object detection.
   String modelLabels;
-
 }
 
 class TimerOptions {
+  /// Whether the timerButton is shown or hidden.
+  bool allowed;
+
   /// Whether automatically capturing of images is enabled. Only available when using a custom object detection model.
   bool enabled;
 
@@ -34,25 +35,21 @@ class Dimensions {
 
 class SuccessOptions {
   /// After capture, show a checkmark preview with this success message, instead of a preview of the image.
-   String message;
+  String message;
 
   /// The amount of seconds the success message should be visible for, should be a float.
-   num previewDuration;
+  num previewDuration;
 }
 
-enum DefaultColor {
-  original, grayscale
-}
+enum DefaultColor { original, grayscale }
 
 class ShutterButton {
   /// Whether to allow or disallow the shutter button to work (can only be disabled if a model is supplied)
-   bool allowshutterButton;
+  bool allowshutterButton;
 
   /// Whether the shutter button should be hidden (only works if allowShutterButton is false)
-   bool hideShutterbutton;
+  bool hideShutterButton;
 }
-
-
 
 class CameraConfig {
   /// Global options.
@@ -84,6 +81,12 @@ class CameraConfig {
   /// The amount of seconds the preview should be visible for, should be a float.
   num previewDuration;
 
+  /// To limit the amount of images that can be taken.
+  num imageLimit;
+
+  /// The message to display when the limit has reached
+  String imageLimitReachedMessage;
+
   /// If you would like to use a custom model for object detection. Model + labels file should be packaged in your bundle.
   ModelOptions model = new ModelOptions();
 
@@ -106,12 +109,6 @@ class CameraConfig {
 
   /// What the default color conversion will be (grayscale, original)
   DefaultColor defaultColor;
-
-  /// To limit the amount of images that can be taken.
-  num imageLimit;
-
-  /// The message to display when the limit has reached
-  String imageLimitReachedMessage;
 
   /// The filename to be given to the image results.
   String outputFileName;
@@ -178,9 +175,10 @@ class KIVHexColor {
 
 class KlippaScannerSdk {
   static const MethodChannel _channel =
-  const MethodChannel('klippa_scanner_sdk');
+      const MethodChannel('klippa_scanner_sdk');
 
-  static Future<Map> startSession(final CameraConfig config, String license) async {
+  static Future<Map> startSession(
+      final CameraConfig config, String license) async {
     Map<String, dynamic> parameters = {};
     parameters['License'] = license;
 
@@ -232,6 +230,9 @@ class KlippaScannerSdk {
     }
 
     if (config.timer != null) {
+      if (config.timer.allowed != null) {
+        parameters["Timer.allowed"] = config.timer.allowed;
+      }
       if (config.timer.enabled != null) {
         parameters["Timer.enabled"] = config.timer.enabled;
       }
@@ -259,13 +260,22 @@ class KlippaScannerSdk {
     }
 
     if (config.shutterButton != null) {
-      if(config.shutterButton.allowshutterButton != null) {
-        parameters["ShutterButton.allowShutterButton"] = config.shutterButton.allowshutterButton;
+      if (config.shutterButton.allowshutterButton != null) {
+        parameters["ShutterButton.allowShutterButton"] =
+            config.shutterButton.allowshutterButton;
       }
-      if (config.shutterButton.hideShutterbutton != null) {
-        parameters["ShutterButton.hideShutterbutton"] = config.shutterButton.hideShutterbutton;
+      if (config.shutterButton.hideShutterButton != null) {
+        parameters["ShutterButton.hideShutterButton"] =
+            config.shutterButton.hideShutterButton;
       }
+    }
 
+    if (config.imageLimit != null) {
+      parameters["ImageLimit"] = config.imageLimit;
+    }
+
+    if (config.imageLimitReachedMessage != null) {
+      parameters["ImageLimitReachedMessage"] = config.imageLimitReachedMessage;
     }
 
     /// Android only
@@ -278,20 +288,13 @@ class KlippaScannerSdk {
       parameters["DefaultColor"] = describeEnum(config.defaultColor);
     }
 
-    if (config.imageLimit != null) {
-      parameters["ImageLimit"] = config.imageLimit;
-    }
-
-    if (config.imageLimitReachedMessage != null) {
-      parameters["ImageLimitReachedMessage"] = config.imageLimitReachedMessage;
-    }
-
     if (config.outputFileName != null) {
       parameters["OutputFilename"] = config.outputFileName;
     }
 
     if (config.imageMovingSensitivityAndroid != null) {
-      parameters["ImageMovingSensitivityAndroid"] = config.imageMovingSensitivityAndroid;
+      parameters["ImageMovingSensitivityAndroid"] =
+          config.imageMovingSensitivityAndroid;
     }
 
     /// iOS only
@@ -305,15 +308,18 @@ class KlippaScannerSdk {
     }
 
     if (config.primaryColor != null) {
-      parameters["PrimaryColor"] = KIVHexColor.flutterColorToHex(config.primaryColor, true);
+      parameters["PrimaryColor"] =
+          KIVHexColor.flutterColorToHex(config.primaryColor, true);
     }
 
     if (config.accentColor != null) {
-      parameters["AccentColor"] = KIVHexColor.flutterColorToHex(config.accentColor, true);
+      parameters["AccentColor"] =
+          KIVHexColor.flutterColorToHex(config.accentColor, true);
     }
 
     if (config.overlayColor != null) {
-      parameters["OverlayColor"] = KIVHexColor.flutterColorToHex(config.overlayColor, true);
+      parameters["OverlayColor"] =
+          KIVHexColor.flutterColorToHex(config.overlayColor, true);
     }
 
     if (config.overlayColorAlpha != null) {
@@ -321,23 +327,28 @@ class KlippaScannerSdk {
     }
 
     if (config.warningBackgroundColor != null) {
-      parameters["WarningBackgroundColor"] = KIVHexColor.flutterColorToHex(config.warningBackgroundColor, true);
+      parameters["WarningBackgroundColor"] =
+          KIVHexColor.flutterColorToHex(config.warningBackgroundColor, true);
     }
 
     if (config.warningTextColor != null) {
-      parameters["WarningTextColor"] = KIVHexColor.flutterColorToHex(config.warningTextColor, true);
+      parameters["WarningTextColor"] =
+          KIVHexColor.flutterColorToHex(config.warningTextColor, true);
     }
 
     if (config.iconEnabledColor != null) {
-      parameters["IconEnabledColor"] = KIVHexColor.flutterColorToHex(config.iconEnabledColor, true);
+      parameters["IconEnabledColor"] =
+          KIVHexColor.flutterColorToHex(config.iconEnabledColor, true);
     }
 
     if (config.iconDisabledColor != null) {
-      parameters["IconDisabledColor"] = KIVHexColor.flutterColorToHex(config.iconDisabledColor, true);
+      parameters["IconDisabledColor"] =
+          KIVHexColor.flutterColorToHex(config.iconDisabledColor, true);
     }
 
     if (config.reviewIconColor != null) {
-      parameters["ReviewIconColor"] = KIVHexColor.flutterColorToHex(config.reviewIconColor, true);
+      parameters["ReviewIconColor"] =
+          KIVHexColor.flutterColorToHex(config.reviewIconColor, true);
     }
 
     if (config.isViewFinderEnabled != null) {
@@ -345,14 +356,16 @@ class KlippaScannerSdk {
     }
 
     if (config.imageMovingSensitivityiOS != null) {
-      parameters["ImageMovingSensitivityiOS"] = config.imageMovingSensitivityiOS;
+      parameters["ImageMovingSensitivityiOS"] =
+          config.imageMovingSensitivityiOS;
     }
 
     if (config.storeImagesToCameraRol != null) {
       parameters["StoreImagesToCameraRoll"] = config.storeImagesToCameraRol;
     }
 
-    final Map startSessionResult = await _channel.invokeMethod('startSession', parameters);
+    final Map startSessionResult =
+        await _channel.invokeMethod('startSession', parameters);
     return startSessionResult;
   }
 }
