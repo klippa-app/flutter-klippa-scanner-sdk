@@ -228,8 +228,8 @@ class KlippaScannerSdkPlugin: FlutterPlugin, MethodCallHandler, ActivityAware, P
         images.add(imageDict)
       }
 
-      val multipleDocuments: Boolean = extras.getBoolean(KlippaScanner.DEFAULT_CREATE_MULTIPLE_RECEIPTS)
-      val cropEnabled: Boolean = extras.getBoolean(KlippaScanner.DEFAULT_CROP)
+      val multipleDocuments: Boolean = extras.getBoolean(KlippaScanner.CREATE_MULTIPLE_RECEIPTS)
+      val cropEnabled: Boolean = extras.getBoolean(KlippaScanner.CROP)
       val timerEnabled: Boolean = extras.getBoolean(KlippaScanner.TIMER_ENABLED)
 
       val resultDict = mapOf(
