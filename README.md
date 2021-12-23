@@ -181,7 +181,8 @@ config.imageMovingMessage = "Too much movement";
 config.model.fileName = "model";
 config.model.modelLabels = "labelmap";
 
-// If you would like to enable automatic capturing of images.
+// If you want to adjust the timer options.
+config.timer.allowed = true
 config.timer.enabled = true;
 config.timer.duration = 1.0;
 
@@ -194,6 +195,12 @@ config.success.message = "Success!";
 
 // The amount of seconds the preview should be visible for, should be a float.
 config.previewDuration = 1.0;
+
+// To limit the amount of images that can be taken.
+config.imageLimit = 10;
+
+// The message to display when the limit has been reached.
+config.imageLimitReachedMessage = "You have reached the image limit";
 
 ```
 
@@ -208,12 +215,6 @@ config.storagePath = "/sdcard/scanner";
 
 // The filename to use for the output images, supports replacement tokens %dateTime% and %randomUUID%.
 config.outputFileName = "KlippaScannerExample-%dateTime%-%randomUUID%";
-
-// To limit the amount of images that can be taken.
-config.imageLimit = 10;
-
-// The message to display when the limit has been reached.
-config.imageLimitReachedMessage = "You have reached the image limit";
 
 // The threshold sensitive the motion detection is. (lower value is higher sensitivity, default 50).
 config.imageMovingSensitivityAndroid = 50;
