@@ -126,6 +126,10 @@ class KlippaScannerSdkPlugin: FlutterPlugin, MethodCallHandler, ActivityAware, P
         KlippaScanner.model.modelLabels = call.argument<String>("Model.modelLabels")!!
       }
 
+      if (call.hasArgument("Timer.allowed")) {
+        KlippaScanner.menu.allowTimer = call.argument<Boolean>("Timer.allowed")!!
+      }
+
       if (call.hasArgument("Timer.enabled")) {
         KlippaScanner.menu.isTimerEnabled = call.argument<Boolean>("Timer.enabled")!!
       }
@@ -159,8 +163,8 @@ class KlippaScannerSdkPlugin: FlutterPlugin, MethodCallHandler, ActivityAware, P
         KlippaScanner.shutterButton.allowShutterButton = call.argument<Boolean>("ShutterButton.allowshutterButton")!!
       }
 
-      if (call.hasArgument("ShutterButton.hideShutterbutton")) {
-        KlippaScanner.shutterButton.hideShutterButton = call.argument<Boolean>("ShutterButton.hideShutterbutton")!!
+      if (call.hasArgument("ShutterButton.hideShutterButton")) {
+        KlippaScanner.shutterButton.hideShutterButton = call.argument<Boolean>("ShutterButton.hideShutterButton")!!
       }
 
       if (call.hasArgument("StoragePath")) {
@@ -215,8 +219,27 @@ class KlippaScannerSdkPlugin: FlutterPlugin, MethodCallHandler, ActivityAware, P
       val receivedData = data ?: return false
       val extras = receivedData.extras ?: return false
 
-      val images: ArrayList<Image> = extras.getParcelableArrayList<Image>(KlippaScanner.IMAGES) as ArrayList<Image>
-      Toast.makeText(context, "Result was " + images.size + " images", Toast.LENGTH_LONG).show()
+      val receivedImages: ArrayList<Image> = extras.getParcelableArrayList<Image>(KlippaScanner.IMAGES) as ArrayList<Image>
+
+      val images: MutableList<Map<String, String>> = mutableListOf()
+
+      for (image in receivedImages) {
+        val imageDict = mapOf("Filepath" to image.filePath)
+        images.add(imageDict)
+      }
+
+      val multipleDocuments: Boolean = extras.getBoolean(KlippaScanner.CREATE_MULTIPLE_RECEIPTS)
+      val cropEnabled: Boolean = extras.getBoolean(KlippaScanner.CROP)
+      val timerEnabled: Boolean = extras.getBoolean(KlippaScanner.TIMER_ENABLED)
+
+      val resultDict = mapOf(
+        "Images" to images,
+        "MultipleDocuments" to multipleDocuments, 
+        "Crop" to cropEnabled, 
+        "TimerEnabled" to timerEnabled)
+      
+      resultHandler?.success(resultDict)
+      resultHandler = null
       return true
     } else if (requestCode == this.SESSION_REQUEST_CODE && resultCode == Activity.RESULT_CANCELED) {
       var error: String? = null
@@ -224,10 +247,9 @@ class KlippaScannerSdkPlugin: FlutterPlugin, MethodCallHandler, ActivityAware, P
         error = data.getStringExtra(KlippaScanner.ERROR)
       }
       if (error != null) {
-        Toast.makeText(context, "Scanner was canceled with error: $error", Toast.LENGTH_LONG).show()
-        println(error)
+        resultHandler?.error(E_CANCELED, "Scanner was canceled with error: $error", null)
       } else {
-        Toast.makeText(context, "Scanner was canceled", Toast.LENGTH_LONG).show()
+        resultHandler?.error(E_CANCELED, "Scanner was canceled", null)
       }
       return false
     }
