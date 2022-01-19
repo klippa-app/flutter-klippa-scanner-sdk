@@ -102,6 +102,9 @@ class CameraConfig {
   /// Whether to disable/hide the shutterbutton (only works if a model is supplied).
   ShutterButton shutterButton = new ShutterButton();
 
+  /// Whether the camera automatically saves the images to the camera roll (iOS) / gallery (Android). Default true.
+  bool storeImagesToCameraRol;
+
   /// Android Options
 
   /// Where to put the image results
@@ -156,9 +159,6 @@ class CameraConfig {
 
   /// The threshold sensitive the motion detection is. (lower value is higher sensitivity, default 200).
   num imageMovingSensitivityiOS;
-
-  /// Whether the camera automatically saves the images to the camera roll. Default true. (iOS version 0.4.2 and up only)
-  bool storeImagesToCameraRol;
 }
 
 /// A helper to convert flutter Color to a hex ARGB.

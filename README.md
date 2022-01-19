@@ -202,6 +202,9 @@ config.imageLimit = 10;
 // The message to display when the limit has been reached.
 config.imageLimitReachedMessage = "You have reached the image limit";
 
+// Whether the camera automatically saves the images to the camera roll (iOS) / gallery (Android). Default true.
+config.storeImagesToCameraRol = true;
+
 ```
 
 ## Android only
@@ -230,9 +233,6 @@ config.imagetooDarkMessage = "The image is too dark";
 
 // Whether the camera has a view finder overlay (a helper grid so the user knows where the document should be), should be a Boolean.
 config.isViewFinderEnabled = true;
-
-// Whether the camera automatically saves the images to the camera roll. Default true.
-config.storeImagesToCameraRol = true;
 
 // The threshold sensitive the motion detection is. (lower value is higher sensitivity, default 200).
 config.imageMovingSensitivityiOS = 200;
