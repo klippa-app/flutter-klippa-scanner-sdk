@@ -200,6 +200,10 @@ class KlippaScannerSdkPlugin: FlutterPlugin, MethodCallHandler, ActivityAware, P
         KlippaScanner.messages.imageMovingMessage = call.argument<String>("ImageMovingMessage")!!
       }
 
+      if (call.hasArgument("StoreImagesToCameraRoll")) {
+        KlippaScanner.storeImagesToGallery = call.argument<Boolean>("StoreImagesToCameraRoll")!!
+      }
+
       val klippaScannerIntent = Intent(context, KlippaScanner::class.java)
       resultHandler = result
       activityPluginBinding!!.addActivityResultListener(this)
