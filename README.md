@@ -274,6 +274,26 @@ config.reviewIconColor = Color.fromARGB(255, 219, 73, 73);
 config.overlayColorAlpha = 0.75; // manually set the alpha of the overlay bounding box.
 ```
 
+## How to change the strings of the SDK? (Android only)
+
+### Android
+
+Add or edit the file `android/app/src/res/values/strings.xml`, add the following:
+
+```XML
+<resources>
+    <string name="klippa_zoom_message">Move closer to the document</string>
+    <string name="klippa_image_limit_reached">You have reached the image limit</string>
+    <string name="klippa_success_message">Success</string>
+    <string name="klippa_image_moving_message">Moving too much</string>
+    <string name="klippa_delete_button_text">Delete Photo</string>
+    <string name="klippa_retake_button_text">Retake Photo</string>
+    <string name="klippa_cancel_button_text">Cancel</string>
+    <string name="klippa_cancel_delete_images">Delete photos and exit</string>
+    <string name="klippa_cancel_confirmation">Delete photos and exit scanner?</string>
+</resources>
+```
+
 ## Important iOS notes
 Older iOS versions do not ship the Swift libraries. To make sure the SDK works on older iOS versions, you can configure the build to embed the Swift libraries using the build setting `EMBEDDED_CONTENT_CONTAINS_SWIFT = YES`.
 
