@@ -202,6 +202,21 @@ config.imageLimit = 10;
 // The message to display when the limit has been reached.
 config.imageLimitReachedMessage = "You have reached the image limit";
 
+// The message to display when the cancel button has tapped.
+config.cancelConfirmationMessage = "Delete photos and exit scanner?";
+
+// The text of the delete imeage button.
+config.deleteButtonText = "Delete Photo";
+
+// The text of the retake image button.
+config.retakeButtonText = "Retake Photo";
+
+// The text of the cancel event button.
+config.cancelButtonText = "Cancel";
+
+// The text of the button shown as one of the delete confirmation alert dialog options.
+config.cancelAndDeleteImagesButtonText = "Delete photos and exit";
+
 // Whether the camera automatically saves the images to the camera roll (iOS) / gallery (Android). Default true.
 config.storeImagesToCameraRol = true;
 

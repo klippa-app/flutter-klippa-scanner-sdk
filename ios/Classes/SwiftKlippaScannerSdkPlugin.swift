@@ -115,6 +115,26 @@ public class SwiftKlippaScannerSdkPlugin: NSObject, FlutterPlugin, ImageScannerC
         if let imageLimitReachedMessage = builderArgs?["ImageLimitReachedMessage"] {
             KlippaScanner.setup.imageLimitReachedMessage = imageLimitReachedMessage  as? String ?? ""
         }
+
+        if let cancelConfirmationMessage = builderArgs?["CancelConfirmationMessage"] {
+            KlippaScanner.setup.cancelConfirmationMessage = cancelConfirmationMessage  as? String ?? ""
+        }
+
+        if let deleteButtonText = builderArgs?["DeleteButtonText"] {
+            KlippaScanner.setup.deleteButtonText = deleteButtonText  as? String ?? ""
+        }
+
+        if let retakeButtonText = builderArgs?["RetakeButtonText"] {
+            KlippaScanner.setup.retakeButtonText = retakeButtonText  as? String ?? ""
+        }
+
+        if let cancelButtonText = builderArgs?["CancelButtonText"] {
+            KlippaScanner.setup.cancelButtonText = cancelButtonText  as? String ?? ""
+        }
+
+        if let cancelAndDeleteImagesButtonText = builderArgs?["CancelAndDeleteImagesButtonText"] {
+            KlippaScanner.setup.cancelAndDeleteImagesButtonText = cancelAndDeleteImagesButtonText  as? String ?? ""
+        }
         
         if let primaryColor = builderArgs?["PrimaryColor"] {
             let color = primaryColor as? String ?? ""

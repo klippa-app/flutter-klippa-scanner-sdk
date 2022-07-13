@@ -84,8 +84,23 @@ class CameraConfig {
   /// To limit the amount of images that can be taken.
   num imageLimit;
 
-  /// The message to display when the limit has reached
+  /// The message to display when the limit has reached.
   String imageLimitReachedMessage;
+
+  /// The message to display when the cancel button has tapped.
+  String cancelConfirmationMessage;
+
+  /// The text of the delete imeage button.
+  String deleteButtonText;
+
+  /// The text of the retake image button.
+  String retakeButtonText;
+
+  /// The text of the cancel event button.
+  String cancelButtonText;
+
+  /// The text of the button shown as one of the delete confirmation alert dialog options.
+  String cancelAndDeleteImagesButtonText;
 
   /// If you would like to use a custom model for object detection. Model + labels file should be packaged in your bundle.
   ModelOptions model = new ModelOptions();
@@ -276,6 +291,28 @@ class KlippaScannerSdk {
 
     if (config.imageLimitReachedMessage != null) {
       parameters["ImageLimitReachedMessage"] = config.imageLimitReachedMessage;
+    }
+
+    if (config.cancelConfirmationMessage != null) {
+      parameters["CancelConfirmationMessage"] =
+          config.cancelConfirmationMessage;
+    }
+
+    if (config.deleteButtonText != null) {
+      parameters["DeleteButtonText"] = config.deleteButtonText;
+    }
+
+    if (config.retakeButtonText != null) {
+      parameters["RetakeButtonText"] = config.retakeButtonText;
+    }
+
+    if (config.cancelButtonText != null) {
+      parameters["CancelButtonText"] = config.cancelButtonText;
+    }
+
+    if (config.cancelAndDeleteImagesButtonText != null) {
+      parameters["CancelAndDeleteImagesButtonText"] =
+          config.cancelAndDeleteImagesButtonText;
     }
 
     /// Android only
