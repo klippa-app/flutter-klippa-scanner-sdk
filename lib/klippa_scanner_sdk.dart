@@ -84,7 +84,7 @@ class CameraConfig {
   /// To limit the amount of images that can be taken.
   num imageLimit;
 
-  /// The message to display when the limit has reached
+  /// The message to display when the limit has reached.
   String imageLimitReachedMessage;
 
   /// The text inside of the delete button.
@@ -303,6 +303,28 @@ class KlippaScannerSdk {
 
     if (config.imageLimitReachedMessage != null) {
       parameters["ImageLimitReachedMessage"] = config.imageLimitReachedMessage;
+    }
+
+    if (config.cancelConfirmationMessage != null) {
+      parameters["CancelConfirmationMessage"] =
+          config.cancelConfirmationMessage;
+    }
+
+    if (config.deleteButtonText != null) {
+      parameters["DeleteButtonText"] = config.deleteButtonText;
+    }
+
+    if (config.retakeButtonText != null) {
+      parameters["RetakeButtonText"] = config.retakeButtonText;
+    }
+
+    if (config.cancelButtonText != null) {
+      parameters["CancelButtonText"] = config.cancelButtonText;
+    }
+
+    if (config.cancelAndDeleteImagesButtonText != null) {
+      parameters["CancelAndDeleteImagesButtonText"] =
+          config.cancelAndDeleteImagesButtonText;
     }
 
     /// Android only

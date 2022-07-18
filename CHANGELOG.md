@@ -1,6 +1,6 @@
 ## 0.0.6
 
-- Bump iOS to version 0.5.0
+- Bump iOS to version 0.5.2
 
 ## 0.0.5
 

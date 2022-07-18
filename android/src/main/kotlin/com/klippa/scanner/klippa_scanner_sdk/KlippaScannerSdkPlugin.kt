@@ -188,6 +188,26 @@ class KlippaScannerSdkPlugin: FlutterPlugin, MethodCallHandler, ActivityAware, P
         KlippaScanner.messages.imageLimitReached = call.argument<String>("ImageLimitReachedMessage")!!
       }
 
+      if (call.hasArgument("CancelConfirmationMessage")) {
+        KlippaScanner.messages.cancelConfirmationMessage = call.argument<String>("CancelConfirmationMessage")!!
+      }
+
+      if (call.hasArgument("DeleteButtonText")) {
+        KlippaScanner.buttonTexts.deleteButtonText = call.argument<String>("DeleteButtonText")!!
+      }
+
+      if (call.hasArgument("RetakeButtonText")) {
+        KlippaScanner.buttonTexts.retakeButtonText = call.argument<String>("RetakeButtonText")!!
+      }
+
+      if (call.hasArgument("CancelButtonText")) {
+        KlippaScanner.buttonTexts.cancelButtonText = call.argument<String>("CancelButtonText")!!
+      }
+
+      if (call.hasArgument("CancelAndDeleteImagesButtonText")) {
+        KlippaScanner.buttonTexts.cancelAndDeleteImagesButtonText = call.argument<String>("CancelAndDeleteImagesButtonText")!!
+      }
+      
       if (call.hasArgument("OutputFilename")) {
         KlippaScanner.images.outputFileName = call.argument<String>("OutputFilename")!!
       }
