@@ -188,6 +188,26 @@ class KlippaScannerSdkPlugin: FlutterPlugin, MethodCallHandler, ActivityAware, P
         KlippaScanner.messages.imageLimitReached = call.argument<String>("ImageLimitReachedMessage")!!
       }
 
+      if (call.hasArgument("CancelConfirmationMessage")) {
+        KlippaScanner.messages.cancelConfirmationMessage = call.argument<String>("CancelConfirmationMessage")!!
+      }
+
+      if (call.hasArgument("DeleteButtonText")) {
+        KlippaScanner.buttonTexts.deleteButtonText = call.argument<String>("DeleteButtonText")!!
+      }
+
+      if (call.hasArgument("RetakeButtonText")) {
+        KlippaScanner.buttonTexts.retakeButtonText = call.argument<String>("RetakeButtonText")!!
+      }
+
+      if (call.hasArgument("CancelButtonText")) {
+        KlippaScanner.buttonTexts.cancelButtonText = call.argument<String>("CancelButtonText")!!
+      }
+
+      if (call.hasArgument("CancelAndDeleteImagesButtonText")) {
+        KlippaScanner.buttonTexts.cancelAndDeleteImagesButtonText = call.argument<String>("CancelAndDeleteImagesButtonText")!!
+      }
+      
       if (call.hasArgument("OutputFilename")) {
         KlippaScanner.images.outputFileName = call.argument<String>("OutputFilename")!!
       }
@@ -200,8 +220,28 @@ class KlippaScannerSdkPlugin: FlutterPlugin, MethodCallHandler, ActivityAware, P
         KlippaScanner.messages.imageMovingMessage = call.argument<String>("ImageMovingMessage")!!
       }
 
+      if (call.hasArgument("OrientationWarningMessage")) {
+        KlippaScanner.messages.orientationWarningMessage = call.argument<String>("OrientationWarningMessage")!!
+      }
+
       if (call.hasArgument("StoreImagesToCameraRoll")) {
         KlippaScanner.storeImagesToGallery = call.argument<Boolean>("StoreImagesToCameraRoll")!!
+      }
+
+      if (call.hasArgument("ShouldGoToReviewScreenWhenImageLimitReached")) {
+        KlippaScanner.menu.shouldGoToReviewScreenWhenImageLimitReached = call.argument<Boolean>("ShouldGoToReviewScreenWhenImageLimitReached")!!
+      }
+
+      if (call.hasArgument("UserCanRotateImage")) {
+        KlippaScanner.menu.userCanRotateImage = call.argument<Boolean>("UserCanRotateImage")!!
+      }
+
+      if (call.hasArgument("UserCanCropManually")) {
+        KlippaScanner.menu.userCanCropManually = call.argument<Boolean>("UserCanCropManually")!!
+      }
+
+      if (call.hasArgument("UserCanChangeColorSetting")) {
+        KlippaScanner.menu.userCanChangeColorSetting = call.argument<Boolean>("UserCanChangeColorSetting")!!
       }
 
       val klippaScannerIntent = Intent(context, KlippaScanner::class.java)

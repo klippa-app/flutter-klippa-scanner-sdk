@@ -4,7 +4,7 @@
 [![Build Status][build-status]][build-url]
 
 [build-status]:https://github.com/klippa-app/flutter-klippa-scanner-sdk/workflows/Build%20CI/badge.svg
-[build-url]:https://github.com/klippa-app/nativescript-http/actions
+[build-url]:https://github.com/klippa-app/flutter-klippa-scanner-sdk/actions
 [dart-version]:https://img.shields.io/pub/v/klippa_scanner_sdk.svg
 [dart-url]:https://pub.dev/packages/klippa_scanner_sdk
 
@@ -177,6 +177,9 @@ config.moveCloserMessage = "Move closer to the document";
 // The warning message when the camera preview has to much motion to be able to automatically take a photo.
 config.imageMovingMessage = "Too much movement";
 
+// The warning message when the camera turned out of portrait mode.
+config.orientationWarningMessage = "Hold your phone in portrait mode";
+
 // If you would like to use a custom model for object detection. Model + labels file should be packaged in your bundle.
 config.model.fileName = "model";
 config.model.modelLabels = "labelmap";
@@ -185,6 +188,18 @@ config.model.modelLabels = "labelmap";
 config.timer.allowed = true
 config.timer.enabled = true;
 config.timer.duration = 1.0;
+
+// Whether to go to the Review Screen once the image limit has been reached. (default false)
+config.shouldGoToReviewScreenWhenImageLimitReached = false;
+    
+// Whether to hide or show the rotate button in the Review Screen. (default shown/true)
+config.userCanRotateImage = false;
+
+// Whether to hide or show the cropping button in the Review Screen. (default shown/true)
+config.userCanCropManually = false;
+
+// Whether to hide or show the color changing button in the Review Screen. (default shown/true)
+config.userCanChangeColorSetting = false;
 
 // To add extra horizontal and / or vertical padding to the cropped image.
 config.cropPadding = Dimensions(100, 100);
@@ -201,6 +216,21 @@ config.imageLimit = 10;
 
 // The message to display when the limit has been reached.
 config.imageLimitReachedMessage = "You have reached the image limit";
+
+// The message to display when the cancel button has tapped.
+config.cancelConfirmationMessage = "Delete photos and exit scanner?";
+
+// The text of the delete imeage button.
+config.deleteButtonText = "Delete Photo";
+
+// The text of the retake image button.
+config.retakeButtonText = "Retake Photo";
+
+// The text of the cancel event button.
+config.cancelButtonText = "Cancel";
+
+// The text of the button shown as one of the delete confirmation alert dialog options.
+config.cancelAndDeleteImagesButtonText = "Delete photos and exit";
 
 // Whether the camera automatically saves the images to the camera roll (iOS) / gallery (Android). Default true.
 config.storeImagesToCameraRol = true;
@@ -272,6 +302,27 @@ config.iconEnabledColor = Color.fromARGB(255, 0, 59, 255);
 config.iconDisabledColor = Color.fromARGB(255, 255, 0, 191);
 config.reviewIconColor = Color.fromARGB(255, 219, 73, 73);
 config.overlayColorAlpha = 0.75; // manually set the alpha of the overlay bounding box.
+```
+
+## How to change the strings of the SDK? (Android only)
+
+### Android
+
+Add or edit the file `android/app/src/res/values/strings.xml`, add the following:
+
+```XML
+<resources>
+    <string name="klippa_zoom_message">Move closer to the document</string>
+    <string name="klippa_image_limit_reached">You have reached the image limit</string>
+    <string name="klippa_success_message">Success</string>
+    <string name="klippa_image_moving_message">Moving too much</string>
+    <string name="klippa_orientation_warning_message">Hold your phone in portrait mode</string>
+    <string name="klippa_delete_button_text">Delete Photo</string>
+    <string name="klippa_retake_button_text">Retake Photo</string>
+    <string name="klippa_cancel_button_text">Cancel</string>
+    <string name="klippa_cancel_delete_images">Delete photos and exit</string>
+    <string name="klippa_cancel_confirmation">Delete photos and exit scanner?</string>
+</resources>
 ```
 
 ## Important iOS notes

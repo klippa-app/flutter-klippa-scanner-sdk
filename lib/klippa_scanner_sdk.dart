@@ -69,6 +69,9 @@ class CameraConfig {
   /// The warning message when the camera preview has to much motion to be able to automatically take a photo.
   String imageMovingMessage;
 
+  // The warning message when the camera turned out of portrait mode.
+  String orientationWarningMessage;
+
   /// The max width of the result image.
   num imageMaxWidth;
 
@@ -84,8 +87,35 @@ class CameraConfig {
   /// To limit the amount of images that can be taken.
   num imageLimit;
 
-  /// The message to display when the limit has reached
+  /// The message to display when the limit has reached.
   String imageLimitReachedMessage;
+
+  /// The text inside of the delete button.
+  String deleteButtonText;
+
+  /// The text inside of the retake button.
+  String retakeButtonText;
+
+  /// The text inside of the cancel button.
+  String cancelButtonText;
+
+  /// The text inside of the cancel alert button.
+  String cancelAndDeleteImagesButtonText;
+
+  /// The text inside of the alert to confirm exiting the scanner.
+  String cancelConfirmationMessage;
+
+  /// Whether to go to the Review Screen once the image limit has been reached. (default false)
+  bool shouldGoToReviewScreenWhenImageLimitReached;
+
+  /// Whether to hide or show the rotate button in the Review Screen. (default shown/true)
+  bool userCanRotateImage;
+
+  /// Whether to hide or show the cropping button in the Review Screen. (default shown/true)
+  bool userCanCropManually;
+
+  /// Whether to hide or show the color changing button in the Review Screen. (default shown/true)
+  bool userCanChangeColorSetting;
 
   /// If you would like to use a custom model for object detection. Model + labels file should be packaged in your bundle.
   ModelOptions model = new ModelOptions();
@@ -204,6 +234,11 @@ class KlippaScannerSdk {
       parameters["ImageMovingMessage"] = config.imageMovingMessage;
     }
 
+    if (config.orientationWarningMessage != null) {
+      parameters["OrientationWarningMessage"] =
+          config.orientationWarningMessage;
+    }
+
     if (config.imageMaxWidth != null) {
       parameters["ImageMaxWidth"] = config.imageMaxWidth;
     }
@@ -278,6 +313,28 @@ class KlippaScannerSdk {
       parameters["ImageLimitReachedMessage"] = config.imageLimitReachedMessage;
     }
 
+    if (config.cancelConfirmationMessage != null) {
+      parameters["CancelConfirmationMessage"] =
+          config.cancelConfirmationMessage;
+    }
+
+    if (config.deleteButtonText != null) {
+      parameters["DeleteButtonText"] = config.deleteButtonText;
+    }
+
+    if (config.retakeButtonText != null) {
+      parameters["RetakeButtonText"] = config.retakeButtonText;
+    }
+
+    if (config.cancelButtonText != null) {
+      parameters["CancelButtonText"] = config.cancelButtonText;
+    }
+
+    if (config.cancelAndDeleteImagesButtonText != null) {
+      parameters["CancelAndDeleteImagesButtonText"] =
+          config.cancelAndDeleteImagesButtonText;
+    }
+
     /// Android only
 
     if (config.storagePath != null) {
@@ -305,6 +362,24 @@ class KlippaScannerSdk {
 
     if (config.imagetooDarkMessage != null) {
       parameters["ImageTooDarkMessage"] = config.imagetooDarkMessage;
+    }
+
+    if (config.shouldGoToReviewScreenWhenImageLimitReached != null) {
+      parameters["ShouldGoToReviewScreenWhenImageLimitReached"] =
+          config.shouldGoToReviewScreenWhenImageLimitReached;
+    }
+
+    if (config.userCanRotateImage != null) {
+      parameters["UserCanRotateImage"] = config.userCanRotateImage;
+    }
+
+    if (config.userCanCropManually != null) {
+      parameters["UserCanCropManually"] = config.userCanCropManually;
+    }
+
+    if (config.userCanChangeColorSetting != null) {
+      parameters["UserCanChangeColorSetting"] =
+          config.userCanChangeColorSetting;
     }
 
     if (config.primaryColor != null) {
