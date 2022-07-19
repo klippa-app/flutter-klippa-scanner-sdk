@@ -69,6 +69,9 @@ class CameraConfig {
   /// The warning message when the camera preview has to much motion to be able to automatically take a photo.
   String imageMovingMessage;
 
+  // The warning message when the camera turned out of portrait mode.
+  String orientationWarningMessage;
+
   /// The max width of the result image.
   num imageMaxWidth;
 
@@ -231,6 +234,11 @@ class KlippaScannerSdk {
       parameters["ImageMovingMessage"] = config.imageMovingMessage;
     }
 
+    if (config.orientationWarningMessage != null) {
+      parameters["OrientationWarningMessage"] =
+          config.orientationWarningMessage;
+    }
+
     if (config.imageMaxWidth != null) {
       parameters["ImageMaxWidth"] = config.imageMaxWidth;
     }
@@ -354,28 +362,6 @@ class KlippaScannerSdk {
 
     if (config.imagetooDarkMessage != null) {
       parameters["ImageTooDarkMessage"] = config.imagetooDarkMessage;
-    }
-
-    if (config.deleteButtonText != null) {
-      parameters["DeleteButtonText"] = config.deleteButtonText;
-    }
-
-    if (config.retakeButtonText != null) {
-      parameters["RetakeButtonText"] = config.retakeButtonText;
-    }
-
-    if (config.cancelButtonText != null) {
-      parameters["CancelButtonText"] = config.cancelButtonText;
-    }
-
-    if (config.cancelAndDeleteImagesButtonText != null) {
-      parameters["CancelAndDeleteImagesButtonText"] =
-          config.cancelAndDeleteImagesButtonText;
-    }
-
-    if (config.cancelConfirmationMessage != null) {
-      parameters["CancelConfirmationMessage"] =
-          config.cancelConfirmationMessage;
     }
 
     if (config.shouldGoToReviewScreenWhenImageLimitReached != null) {

@@ -177,6 +177,9 @@ config.moveCloserMessage = "Move closer to the document";
 // The warning message when the camera preview has to much motion to be able to automatically take a photo.
 config.imageMovingMessage = "Too much movement";
 
+// The warning message when the camera turned out of portrait mode.
+config.orientationWarningMessage = "Hold your phone in portrait mode";
+
 // If you would like to use a custom model for object detection. Model + labels file should be packaged in your bundle.
 config.model.fileName = "model";
 config.model.modelLabels = "labelmap";
@@ -185,6 +188,18 @@ config.model.modelLabels = "labelmap";
 config.timer.allowed = true
 config.timer.enabled = true;
 config.timer.duration = 1.0;
+
+// Whether to go to the Review Screen once the image limit has been reached. (default false)
+config.shouldGoToReviewScreenWhenImageLimitReached = false;
+    
+// Whether to hide or show the rotate button in the Review Screen. (default shown/true)
+config.userCanRotateImage = false;
+
+// Whether to hide or show the cropping button in the Review Screen. (default shown/true)
+config.userCanCropManually = false;
+
+// Whether to hide or show the color changing button in the Review Screen. (default shown/true)
+config.userCanChangeColorSetting = false;
 
 // To add extra horizontal and / or vertical padding to the cropped image.
 config.cropPadding = Dimensions(100, 100);
@@ -301,6 +316,7 @@ Add or edit the file `android/app/src/res/values/strings.xml`, add the following
     <string name="klippa_image_limit_reached">You have reached the image limit</string>
     <string name="klippa_success_message">Success</string>
     <string name="klippa_image_moving_message">Moving too much</string>
+    <string name="klippa_orientation_warning_message">Hold your phone in portrait mode</string>
     <string name="klippa_delete_button_text">Delete Photo</string>
     <string name="klippa_retake_button_text">Retake Photo</string>
     <string name="klippa_cancel_button_text">Cancel</string>

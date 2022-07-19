@@ -220,8 +220,28 @@ class KlippaScannerSdkPlugin: FlutterPlugin, MethodCallHandler, ActivityAware, P
         KlippaScanner.messages.imageMovingMessage = call.argument<String>("ImageMovingMessage")!!
       }
 
+      if (call.hasArgument("OrientationWarningMessage")) {
+        KlippaScanner.messages.orientationWarningMessage = call.argument<String>("OrientationWarningMessage")!!
+      }
+
       if (call.hasArgument("StoreImagesToCameraRoll")) {
         KlippaScanner.storeImagesToGallery = call.argument<Boolean>("StoreImagesToCameraRoll")!!
+      }
+
+      if (call.hasArgument("ShouldGoToReviewScreenWhenImageLimitReached")) {
+        KlippaScanner.menu.shouldGoToReviewScreenWhenImageLimitReached = call.argument<Boolean>("ShouldGoToReviewScreenWhenImageLimitReached")!!
+      }
+
+      if (call.hasArgument("UserCanRotateImage")) {
+        KlippaScanner.menu.userCanRotateImage = call.argument<Boolean>("UserCanRotateImage")!!
+      }
+
+      if (call.hasArgument("UserCanCropManually")) {
+        KlippaScanner.menu.userCanCropManually = call.argument<Boolean>("UserCanCropManually")!!
+      }
+
+      if (call.hasArgument("UserCanChangeColorSetting")) {
+        KlippaScanner.menu.userCanChangeColorSetting = call.argument<Boolean>("UserCanChangeColorSetting")!!
       }
 
       val klippaScannerIntent = Intent(context, KlippaScanner::class.java)

@@ -56,6 +56,10 @@ public class SwiftKlippaScannerSdkPlugin: NSObject, FlutterPlugin, ImageScannerC
         if let imageMovingMessage = builderArgs?["ImageMovingMessage"] {
             KlippaScanner.setup.imageMovingMessage = imageMovingMessage as? String ?? ""
         }
+
+        if let orientationWarningMessage = builderArgs?["OrientationWarningMessage"] {
+            KlippaScanner.setup.orientationWarningMessage = orientationWarningMessage as? String ?? ""
+        }
         
         if let imageMaxWidth = builderArgs?["ImageMaxWidth"] {
             KlippaScanner.setup.imageMaxWidth = imageMaxWidth as? CGFloat ?? 0
