@@ -240,7 +240,7 @@ config.storeImagesToCameraRol = true;
 ## Android only
 
 ```dart
-// What the default color conversion will be (grayscale, original).
+// What the default color conversion will be (grayscale, original, enhanced).
 config.defaultColor = DefaultColor.original;
 
 // Where to put the image results.
@@ -255,6 +255,18 @@ config.imageMovingSensitivityAndroid = 50;
 
 ## iOS only
 ```dart
+// What the default image color conversion will be (grayscale, original, enhanced).
+config.defaultImageColor = DefaultColor.original;
+
+// The text inside of the color selection alert dialog button named original.
+config.imageColorOriginalText = "original";
+
+// The text inside of the color selection alert dialog button named grayscale.
+config.imageColorGrayscaleText = "grayscale";
+
+// The text inside of the color selection alert dialog button named enhanced.
+config.imageColorEnhancedText = "enhanced";
+
 // The warning message when the camera result is too bright.
 config.imageTooBrightMessage = "The image is too bright";
 

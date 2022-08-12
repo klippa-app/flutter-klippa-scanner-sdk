@@ -41,7 +41,7 @@ class SuccessOptions {
   num previewDuration;
 }
 
-enum DefaultColor { original, grayscale }
+enum DefaultColor { original, grayscale, enhanced }
 
 class ShutterButton {
   /// Whether to allow or disallow the shutter button to work (can only be disabled if a model is supplied)
@@ -140,7 +140,7 @@ class CameraConfig {
   /// Where to put the image results
   String storagePath;
 
-  /// What the default color conversion will be (grayscale, original)
+  /// What the default color conversion will be (grayscale, original, enhanced).
   DefaultColor defaultColor;
 
   /// The filename to be given to the image results.
@@ -156,6 +156,18 @@ class CameraConfig {
 
   /// The warning message when the camera result is too dark.
   String imagetooDarkMessage;
+
+  /// What the default image color conversion will be (grayscale, original, enhanced).
+  DefaultColor defaultImageColor;
+
+  /// The text inside of the color selection alert dialog button named original.
+  String imageColorOriginalText;
+
+  /// The text inside of the color selection alert dialog button named grayscale.
+  String imageColorGrayscaleText;
+
+  /// The text inside of the color selection alert dialog button named enhanced.
+  String imageColorEnhancedText;
 
   /// The primary color of the interface, should be a hex RGB color string.
   Color primaryColor;
@@ -362,6 +374,22 @@ class KlippaScannerSdk {
 
     if (config.imagetooDarkMessage != null) {
       parameters["ImageTooDarkMessage"] = config.imagetooDarkMessage;
+    }
+
+    if (config.defaultImageColor != null) {
+      parameters["DefaultImageColor"] = describeEnum(config.defaultImageColor);
+    }
+
+    if (config.imageColorOriginalText != null) {
+      parameters["ImageColorOriginalText"] = config.imageColorOriginalText;
+    }
+
+    if (config.imageColorGrayscaleText != null) {
+      parameters["ImageColorGrayscaleText"] = config.imageColorGrayscaleText;
+    }
+
+    if (config.imageColorEnhancedText != null) {
+      parameters["ImageColorEnhancedText"] = config.imageColorEnhancedText;
     }
 
     if (config.shouldGoToReviewScreenWhenImageLimitReached != null) {

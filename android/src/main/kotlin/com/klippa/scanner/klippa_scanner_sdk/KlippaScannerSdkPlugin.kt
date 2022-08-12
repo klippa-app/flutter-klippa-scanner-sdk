@@ -175,8 +175,12 @@ class KlippaScannerSdkPlugin: FlutterPlugin, MethodCallHandler, ActivityAware, P
         val default = call.argument<String>("DefaultColor")!!
         if (default == "original") {
           KlippaScanner.colors.defaultColor = KlippaScanner.DefaultColor.ORIGINAL
-        } else {
+        } else if (default == "enhanced") {
+          KlippaScanner.colors.defaultColor = KlippaScanner.DefaultColor.ENHANCED
+        } else if (default == "grayscale") {
           KlippaScanner.colors.defaultColor = KlippaScanner.DefaultColor.GRAYSCALE
+        } else {
+          KlippaScanner.colors.defaultColor = KlippaScanner.DefaultColor.ORIGINAL
         }
       }
 
