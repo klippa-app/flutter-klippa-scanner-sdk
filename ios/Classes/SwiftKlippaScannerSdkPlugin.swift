@@ -116,6 +116,27 @@ public class SwiftKlippaScannerSdkPlugin: NSObject, FlutterPlugin, ImageScannerC
             KlippaScanner.setup.imageTooDarkMessage = imageTooDarkMessage  as? String ?? ""
         }
 
+        if let defaultImageColor = builderArgs?["DefaultImageColor"] {
+            let imageColor = defaultImageColor  as? String ?? "original"
+            if (imageColor == "original" || imageColor == "enhanced" || imageColor == "grayscale") {
+                KlippaScanner.setup.defaultImageColor = imageColor
+            } else {
+                KlippaScanner.setup.defaultImageColor = "original"
+            }
+        }
+
+        if let imageColorOriginalText = builderArgs?["ImageColorOriginalText"] {
+            KlippaScanner.setup.imageColorOriginalText = imageColorOriginalText  as? String ?? ""
+        }
+
+        if let imageColorGrayscaleText = builderArgs?["ImageColorGrayscaleText"] {
+            KlippaScanner.setup.imageColorGrayscaleText = imageColorGrayscaleText  as? String ?? ""
+        }
+
+        if let imageColorEnhancedText = builderArgs?["ImageColorEnhancedText"] {
+            KlippaScanner.setup.imageColorEnhancedText = imageColorEnhancedText  as? String ?? ""
+        }
+
         if let imageLimitReachedMessage = builderArgs?["ImageLimitReachedMessage"] {
             KlippaScanner.setup.imageLimitReachedMessage = imageLimitReachedMessage  as? String ?? ""
         }
