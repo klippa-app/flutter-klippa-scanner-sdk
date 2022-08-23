@@ -116,8 +116,8 @@ public class SwiftKlippaScannerSdkPlugin: NSObject, FlutterPlugin, ImageScannerC
             KlippaScanner.setup.imageTooDarkMessage = imageTooDarkMessage  as? String ?? ""
         }
 
-        if let defaultImageColor = builderArgs?["DefaultImageColor"] {
-            let imageColor = defaultImageColor  as? String ?? "original"
+        if let defaultColor = builderArgs?["DefaultColor"] {
+            let imageColor = defaultColor  as? String ?? "original"
             if (imageColor == "original" || imageColor == "enhanced" || imageColor == "grayscale") {
                 KlippaScanner.setup.defaultImageColor = imageColor
             } else {

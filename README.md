@@ -235,13 +235,14 @@ config.cancelAndDeleteImagesButtonText = "Delete photos and exit";
 // Whether the camera automatically saves the images to the camera roll (iOS) / gallery (Android). Default true.
 config.storeImagesToCameraRol = true;
 
+// What the default color conversion will be (grayscale, original, enhanced).
+config.defaultColor = DefaultColor.original;
+
 ```
 
 ## Android only
 
 ```dart
-// What the default color conversion will be (grayscale, original, enhanced).
-config.defaultColor = DefaultColor.original;
 
 // Where to put the image results.
 config.storagePath = "/sdcard/scanner";
@@ -255,8 +256,6 @@ config.imageMovingSensitivityAndroid = 50;
 
 ## iOS only
 ```dart
-// What the default image color conversion will be (grayscale, original, enhanced).
-config.defaultImageColor = DefaultColor.original;
 
 // The text inside of the color selection alert dialog button named original.
 config.imageColorOriginalText = "original";
