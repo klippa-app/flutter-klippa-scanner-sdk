@@ -1,10 +1,7 @@
-## 0.0.9
-
-- Renamed `defaultImageColor` to `defaultColor` for iOS. (Android and iOS now use the same naming).
-
 ## 0.0.8
 
 - Bump iOS to version 0.5.3
+- Added `defaultColor` support for iOS.
 
 ## 0.0.7
 
