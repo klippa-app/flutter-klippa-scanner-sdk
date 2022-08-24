@@ -157,9 +157,6 @@ class CameraConfig {
   /// The warning message when the camera result is too dark.
   String imagetooDarkMessage;
 
-  /// What the default image color conversion will be (grayscale, original, enhanced).
-  DefaultColor defaultImageColor;
-
   /// The text inside of the color selection alert dialog button named original.
   String imageColorOriginalText;
 
@@ -347,14 +344,14 @@ class KlippaScannerSdk {
           config.cancelAndDeleteImagesButtonText;
     }
 
+    if (config.defaultColor != null) {
+      parameters["DefaultColor"] = describeEnum(config.defaultColor);
+    }
+
     /// Android only
 
     if (config.storagePath != null) {
       parameters["StoragePath"] = config.storagePath;
-    }
-
-    if (config.defaultColor != null) {
-      parameters["DefaultColor"] = describeEnum(config.defaultColor);
     }
 
     if (config.outputFileName != null) {
@@ -374,10 +371,6 @@ class KlippaScannerSdk {
 
     if (config.imagetooDarkMessage != null) {
       parameters["ImageTooDarkMessage"] = config.imagetooDarkMessage;
-    }
-
-    if (config.defaultImageColor != null) {
-      parameters["DefaultImageColor"] = describeEnum(config.defaultImageColor);
     }
 
     if (config.imageColorOriginalText != null) {

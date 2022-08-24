@@ -30,7 +30,7 @@ class _MyAppState extends State<MyApp> {
     config.model.fileName = "model";
     config.model.modelLabels = "labelmap";
     config.storeImagesToCameraRol = true;
-    config.defaultImageColor = DefaultColor.original;
+    config.defaultColor = DefaultColor.original;
     config.imageColorOriginalText = "original";
     config.imageColorGrayscaleText = "grayscale";
     config.imageColorEnhancedText = "enhanced";
