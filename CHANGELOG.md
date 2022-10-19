@@ -2,6 +2,7 @@
 
 - Bump iOS to version 0.5.4
 - Bump Android to version 2.1.9
+- Bump Android compile and target SDK to 33.
 
 ## 0.0.8
 

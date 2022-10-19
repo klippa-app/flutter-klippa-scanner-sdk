@@ -26,14 +26,8 @@ class _MyAppState extends State<MyApp> {
   void _startSession() async {
     String sessionResultText = 'Unknown';
     var config = CameraConfig();
-
-    config.model.fileName = "model";
-    config.model.modelLabels = "labelmap";
+    // setup your scanner
     config.storeImagesToCameraRol = true;
-    config.defaultColor = DefaultColor.original;
-    config.imageColorOriginalText = "original";
-    config.imageColorGrayscaleText = "grayscale";
-    config.imageColorEnhancedText = "enhanced";
     try {
       var result = await KlippaScannerSdk.startSession(config, license);
       sessionResultText = 'Finished';
