@@ -25,7 +25,7 @@ allprojects {
         maven { url "https://jitpack.io/" }
     }
     project.ext {
-        klippaScannerVersion = "2.1.9"
+        klippaScannerVersion = "2.1.10"
     }
 }
 
