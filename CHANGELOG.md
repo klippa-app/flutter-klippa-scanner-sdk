@@ -1,3 +1,7 @@
+## 0.0.10
+
+- Bump Android to version 2.1.10
+
 ## 0.0.9
 
 - Bump iOS to version 0.5.4
