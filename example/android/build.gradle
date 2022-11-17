@@ -20,12 +20,12 @@ allprojects {
                 username '{your-username}'
                 password '{your-password}'
             }
-            url "https://custom-ocr.klippa.com/sdk/android/maven"
+            url "https://test.custom-ocr.klippa.com/sdk/android/maven"
         }
         maven { url "https://jitpack.io/" }
     }
     project.ext {
-        klippaScannerVersion = "2.1.10"
+        klippaScannerVersion = "3.0.0-rc20-test"
     }
 }
 

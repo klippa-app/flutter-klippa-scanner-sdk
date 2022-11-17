@@ -119,8 +119,15 @@ public class SwiftKlippaScannerSdkPlugin: NSObject, FlutterPlugin, ImageScannerC
         }
 
         if let defaultColor = builderArgs?["DefaultColor"] {
-            let imageColor = defaultColor  as? KlippaImageColor ?? .original
-            builder.klippaColors.imageColor = imageColor
+            let imageColor = defaultColor  as? String ?? "original"
+            switch imageColor {
+            case "grayscale":
+                builder.klippaColors.imageColor = .grayscale
+            case "enhanced":
+                builder.klippaColors.imageColor = .enhanced
+            default:
+                builder.klippaColors.imageColor = .original
+            }
         }
 
         if let imageColorOriginalText = builderArgs?["ImageColorOriginalText"] {
