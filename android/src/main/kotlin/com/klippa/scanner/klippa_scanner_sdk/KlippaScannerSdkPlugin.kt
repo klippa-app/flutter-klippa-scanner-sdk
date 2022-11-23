@@ -12,6 +12,7 @@ import com.klippa.scanner.KlippaScannerBuilder
 import com.klippa.scanner.KlippaScannerListener
 import com.klippa.scanner.model.KlippaImage
 import com.klippa.scanner.model.KlippaImageColor
+import com.klippa.scanner.model.KlippaObjectDetectionModel
 import com.klippa.scanner.model.KlippaScannerResult
 import io.flutter.embedding.engine.plugins.FlutterPlugin
 import io.flutter.embedding.engine.plugins.activity.ActivityAware
@@ -155,12 +156,14 @@ class KlippaScannerSdkPlugin: FlutterPlugin, MethodCallHandler, ActivityAware {
         builder.durations.previewDuration = call.argument<Double>("PreviewDuration")!!
       }
 
-      if (call.hasArgument("Model.fileName")) {
-        builder.objectDetectionModel?.modelName = call.argument<String>("Model.fileName")!!
-      }
+      if (call.hasArgument("Model.fileName") && call.hasArgument("Model.modelLabels")) {
+        val objectDetectionModel = KlippaObjectDetectionModel()
 
-      if (call.hasArgument("Model.modelLabels")) {
-        builder.objectDetectionModel?.modelLabels = call.argument<String>("Model.modelLabels")!!
+        objectDetectionModel.modelName = call.argument<String>("Model.fileName")!!
+        objectDetectionModel.modelLabels = call.argument<String>("Model.modelLabels")!!
+        objectDetectionModel.runWithModel = true
+
+        builder.objectDetectionModel = objectDetectionModel
       }
 
       if (call.hasArgument("Timer.allowed")) {
