@@ -1,3 +1,7 @@
+## 0.0.11
+
+- Bump Android to version 2.1.11
+
 ## 0.0.10
 
 - Bump Android to version 2.1.10
