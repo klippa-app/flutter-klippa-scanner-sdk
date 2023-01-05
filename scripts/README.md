@@ -1,7 +1,8 @@
 # Klippa Scanner SDK Version Incrementor
 
 A script to update the fallback versions of the Klippa Scanner SDK for both Android and iOS. It also updates the version number in `pubspec.yaml` and adds a new entry to `CHANGELOG.md` with the updated versions.
-Prerequisites
+
+## Prerequisites
 
 - `yq` command line YAML processor
 
