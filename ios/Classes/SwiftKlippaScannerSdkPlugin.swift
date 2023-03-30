@@ -2,7 +2,7 @@ import Flutter
 import UIKit
 import KlippaScanner
 
-public class SwiftKlippaScannerSdkPlugin: NSObject, FlutterPlugin, ImageScannerControllerDelegate {
+public class SwiftKlippaScannerSdkPlugin: NSObject, FlutterPlugin, KlippaScannerDelegate {
     private var resultHandler: FlutterResult? = nil
     private var E_MISSING_LICENSE = "E_MISSING_LICENSE"
     private var E_FAILED_TO_SHOW_SESSION = "E_FAILED_TO_SHOW_SESSION"
@@ -259,10 +259,10 @@ public class SwiftKlippaScannerSdkPlugin: NSObject, FlutterPlugin, ImageScannerC
         rootViewController.present(viewController, animated:true, completion:nil)
     }
 
-    public func imageScannerController(didFailWithError error: Error) {
+    public func klippaScannerDidFailWithError(error: Error) {
         print("didFailWithError");
         switch error {
-        case let licenseError as LicenseError:
+        case let licenseError as KlippaScannerLicenseError:
             resultHandler!(FlutterError.init(code: E_MISSING_LICENSE, message: licenseError.localizedDescription, details: nil))
         default:
             resultHandler!(FlutterError.init(code: E_MISSING_LICENSE, message: error.localizedDescription, details: nil))
@@ -270,7 +270,7 @@ public class SwiftKlippaScannerSdkPlugin: NSObject, FlutterPlugin, ImageScannerC
         resultHandler = nil;
     }
 
-    public func imageScannerController(didFinishScanningWithResult result: ImageScannerResult) {
+    public func klippaScannerDidFinishScanningWithResult(result: KlippaScannerResult) {
         var images: [[String: String]] = []
         for image in result.images {
             let imageDict = ["Filepath" : image.path]
@@ -288,7 +288,7 @@ public class SwiftKlippaScannerSdkPlugin: NSObject, FlutterPlugin, ImageScannerC
         resultHandler = nil
     }
 
-    public func imageScannerControllerDidCancel() {
+    public func klippaScannerDidCancel() {
         print("imageScannerControllerDidCancel");
         resultHandler!(FlutterError.init(code: E_CANCELED, message: "The user canceled", details: nil))
         resultHandler = nil;

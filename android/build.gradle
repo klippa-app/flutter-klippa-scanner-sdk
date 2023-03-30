@@ -40,7 +40,7 @@ rootProject.allprojects {
                 username System.getenv()['KLIPPA_SCANNER_SDK_USERNAME'] ? System.getenv()['KLIPPA_SCANNER_SDK_USERNAME'] : (keystoreProperties["klippa.scanner.sdk.username"] ? keystoreProperties["klippa.scanner.sdk.username"] : '')
                 password System.getenv()['KLIPPA_SCANNER_SDK_PASSWORD'] ? System.getenv()['KLIPPA_SCANNER_SDK_PASSWORD'] : (keystoreProperties["klippa.scanner.sdk.password"] ? keystoreProperties["klippa.scanner.sdk.password"] : '')
             }
-            url System.getenv()['KLIPPA_SCANNER_SDK_URL'] ? System.getenv()['KLIPPA_SCANNER_SDK_URL'] : (keystoreProperties["klippa.scanner.sdk.url"] ? keystoreProperties["klippa.scanner.sdk.url"] : 'https://test.custom-ocr.klippa.com/sdk/android/maven')
+            url System.getenv()['KLIPPA_SCANNER_SDK_URL'] ? System.getenv()['KLIPPA_SCANNER_SDK_URL'] : (keystoreProperties["klippa.scanner.sdk.url"] ? keystoreProperties["klippa.scanner.sdk.url"] : 'https://custom-ocr.klippa.com/sdk/android/maven')
         }
     }
 }
@@ -67,7 +67,7 @@ android {
 
 dependencies {
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
-    def klippaScannerVersion = project.hasProperty('klippaScannerVersion') ? project.klippaScannerVersion : "3.0.0-rc20-test"
+    def klippaScannerVersion = project.hasProperty('klippaScannerVersion') ? project.klippaScannerVersion : "3.0.0"
     implementation "com.klippa:scanner:$klippaScannerVersion"
     implementation 'com.google.android.material:material:1.6.1'
 }
