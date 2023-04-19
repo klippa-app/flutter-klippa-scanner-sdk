@@ -39,7 +39,7 @@ Replace the `{your-username}` and `{your-password}` values with the ones provide
 
 Edit the file `ios/Podfile`, add the Klippa CocoaPod:
 ```
-platform :ios, '11.0'
+platform :ios, '13.0'
 ENV['KLIPPA_SCANNER_SDK_USERNAME'] = '{your-username}'
 ENV['KLIPPA_SCANNER_SDK_PASSWORD'] = '{your-password}'
 
