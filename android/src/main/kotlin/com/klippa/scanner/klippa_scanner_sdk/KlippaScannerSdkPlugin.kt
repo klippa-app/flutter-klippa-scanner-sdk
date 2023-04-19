@@ -30,8 +30,18 @@ class KlippaScannerSdkPlugin: FlutterPlugin, MethodCallHandler, ActivityAware {
   /// This local reference serves to register the plugin with the Flutter Engine and unregister it
   /// when the Flutter Engine is detached from the Activity
   private lateinit var channel : MethodChannel
+  private lateinit var context: Context
+  private lateinit var activity: Activity
 
   private var activityPluginBinding : ActivityPluginBinding? = null
+
+  private val SESSION_REQUEST_CODE = 9293
+  private val E_ACTIVITY_DOES_NOT_EXIST = "E_ACTIVITY_DOES_NOT_EXIST"
+  private val E_MISSING_SESSION_TOKEN = "E_MISSING_SESSION_TOKEN"
+  private val E_FAILED_TO_SHOW_SESSION = "E_FAILED_TO_SHOW_SESSION"
+  private val E_CANCELED = "E_CANCELED"
+  private val E_UNKNOWN_ERROR = "E_UNKNOWN_ERROR"
+  private var resultHandler : Result? = null
 
   val listener = object : KlippaScannerListener {
 
@@ -66,17 +76,6 @@ class KlippaScannerSdkPlugin: FlutterPlugin, MethodCallHandler, ActivityAware {
     }
 
   }
-
-  private val SESSION_REQUEST_CODE = 9293
-  private val E_ACTIVITY_DOES_NOT_EXIST = "E_ACTIVITY_DOES_NOT_EXIST"
-  private val E_MISSING_SESSION_TOKEN = "E_MISSING_SESSION_TOKEN"
-  private val E_FAILED_TO_SHOW_SESSION = "E_FAILED_TO_SHOW_SESSION"
-  private val E_CANCELED = "E_CANCELED"
-  private val E_UNKNOWN_ERROR = "E_UNKNOWN_ERROR"
-  private var resultHandler : Result? = null
-
-  private lateinit var context: Context
-  private lateinit var activity: Activity
 
   override fun onAttachedToEngine(@NonNull flutterPluginBinding: FlutterPlugin.FlutterPluginBinding) {
     channel = MethodChannel(flutterPluginBinding.binaryMessenger, "klippa_scanner_sdk")
