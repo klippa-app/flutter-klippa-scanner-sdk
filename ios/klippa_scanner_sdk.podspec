@@ -4,7 +4,7 @@
 #
 Pod::Spec.new do |s|
   s.name             = 'klippa_scanner_sdk'
-  s.version          = '0.0.10'
+  s.version          = '0.1.0'
   s.summary          = 'Allows you to do document scanning with the Klippa Scanner SDK from Flutter apps.'
   s.description      = <<-DESC
 Allows you to do document scanning with the Klippa Scanner SDK from Flutter apps.
