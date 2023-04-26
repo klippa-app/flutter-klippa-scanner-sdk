@@ -1,7 +1,7 @@
 ## 0.1.0
 
 - Bump iOS to 1.0.0
-- Bump Android to 3.0.0
+- Bump Android to 3.0.1
 - Changed iOS deployment target from 11.0 to 13.0.
 
 ## 0.0.11
