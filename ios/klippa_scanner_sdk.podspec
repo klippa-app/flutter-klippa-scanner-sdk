@@ -4,7 +4,7 @@
 #
 Pod::Spec.new do |s|
   s.name             = 'klippa_scanner_sdk'
-  s.version          = '0.0.6'
+  s.version          = '0.1.0'
   s.summary          = 'Allows you to do document scanning with the Klippa Scanner SDK from Flutter apps.'
   s.description      = <<-DESC
 Allows you to do document scanning with the Klippa Scanner SDK from Flutter apps.
@@ -16,7 +16,7 @@ Allows you to do document scanning with the Klippa Scanner SDK from Flutter apps
   s.source_files = 'Classes/**/*'
   s.dependency 'Flutter'
   s.dependency 'Klippa-Scanner'
-  s.platform = :ios, '11.0'
+  s.platform = :ios, '13.0'
 
   # Flutter.framework does not contain a i386 slice.
   s.pod_target_xcconfig = { 'DEFINES_MODULE' => 'YES', 'EXCLUDED_ARCHS[sdk=iphonesimulator*]' => 'i386' }

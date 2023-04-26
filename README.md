@@ -39,7 +39,7 @@ Replace the `{your-username}` and `{your-password}` values with the ones provide
 
 Edit the file `ios/Podfile`, add the Klippa CocoaPod:
 ```
-platform :ios, '11.0'
+platform :ios, '13.0'
 ENV['KLIPPA_SCANNER_SDK_USERNAME'] = '{your-username}'
 ENV['KLIPPA_SCANNER_SDK_PASSWORD'] = '{your-password}'
 
@@ -159,7 +159,7 @@ config.defaultMultipleDocuments = true;
 
 // Ability to disable/hide the shutter button (only works when a model is supplied as well).
 config.shutterButton.allowshutterButton = true;
-config.shutterButton.hideShutterbutton = false;
+config.shutterButton.hideShutterButton = false;
 
 // Whether the crop mode (auto edge detection) should be enabled by default.
 config.defaultCrop = true;
@@ -185,7 +185,7 @@ config.model.fileName = "model";
 config.model.modelLabels = "labelmap";
 
 // If you want to adjust the timer options.
-config.timer.allowed = true
+config.timer.allowed = true;
 config.timer.enabled = true;
 config.timer.duration = 1.0;
 
