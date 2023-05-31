@@ -50,11 +50,11 @@ target 'Runner' do
     
     // Add this below flutter_install_all_ios_pods    
     if "#{ENV['KLIPPA_SCANNER_SDK_URL']}" == ""
-        ENV['KLIPPA_SCANNER_SDK_URL'] = File.read(File.join(File.dirname(File.realpath(__FILE__)), '.symlinks', 'plugins', 'klippa_scanner_sdk', 'ios', '.sdk_repo')).strip
+        ENV['KLIPPA_SCANNER_SDK_URL'] = File.read(File.join(File.dirname(File.realpath(__FILE__)), '.symlinks', 'plugins', 'klippa_scanner_sdk', 'ios', 'sdk_repo')).strip
     end
 
     if "#{ENV['KLIPPA_SCANNER_SDK_VERSION']}" == ""
-        ENV['KLIPPA_SCANNER_SDK_VERSION'] = File.read(File.join(File.dirname(File.realpath(__FILE__)), '.symlinks', 'plugins', 'klippa_scanner_sdk', 'ios', '.sdk_version')).strip
+        ENV['KLIPPA_SCANNER_SDK_VERSION'] = File.read(File.join(File.dirname(File.realpath(__FILE__)), '.symlinks', 'plugins', 'klippa_scanner_sdk', 'ios', 'sdk_version')).strip
     end
 
     pod 'Klippa-Scanner', podspec: "#{ENV['KLIPPA_SCANNER_SDK_URL']}/#{ENV['KLIPPA_SCANNER_SDK_USERNAME']}/#{ENV['KLIPPA_SCANNER_SDK_PASSWORD']}/KlippaScanner/#{ENV['KLIPPA_SCANNER_SDK_VERSION']}.podspec"

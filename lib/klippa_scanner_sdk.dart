@@ -1,121 +1,120 @@
 import 'dart:async';
-import 'dart:ui';
 
 import 'package:flutter/foundation.dart';
 import 'package:flutter/services.dart';
 
 class ModelOptions {
   /// The name of the model file when using custom object detection.
-  String fileName;
+  String? fileName;
 
   /// The name of the label file when using custom object detection.
-  String modelLabels;
+  String? modelLabels;
 }
 
 class TimerOptions {
   /// Whether the timerButton is shown or hidden.
-  bool allowed;
+  bool? allowed;
 
   /// Whether automatically capturing of images is enabled. Only available when using a custom object detection model.
-  bool enabled;
+  bool? enabled;
 
   /// The duration of the interval (in seconds) in which images are automatically captured, should be a float.
-  num duration;
+  num? duration;
 }
 
 class Dimensions {
   /// To add extra horizontal padding to the cropped image.
-  num width;
+  num? width;
 
   /// To add extra vertical padding to the cropped image.
-  num height;
+  num? height;
 
   Dimensions(this.width, this.height);
 }
 
 class SuccessOptions {
   /// After capture, show a checkmark preview with this success message, instead of a preview of the image.
-  String message;
+  String? message;
 
   /// The amount of seconds the success message should be visible for, should be a float.
-  num previewDuration;
+  num? previewDuration;
 }
 
 enum DefaultColor { original, grayscale, enhanced }
 
 class ShutterButton {
   /// Whether to allow or disallow the shutter button to work (can only be disabled if a model is supplied)
-  bool allowshutterButton;
+  bool? allowshutterButton;
 
   /// Whether the shutter button should be hidden (only works if allowShutterButton is false)
-  bool hideShutterButton;
+  bool? hideShutterButton;
 }
 
 class CameraConfig {
   /// Global options.
 
   /// Whether to show the icon to enable "multi-document"mode".
-  bool allowMultipleDocuments;
+  bool? allowMultipleDocuments;
 
   /// Whethe the "multi-document-mode" should be enabled by default.
-  bool defaultMultipleDocuments;
+  bool? defaultMultipleDocuments;
 
   /// Whether the crop mode (auto edge detection) should be enabled by default.
-  bool defaultCrop;
+  bool? defaultCrop;
 
   /// The warning message when someone should move closer to a document.
-  String moveCloserMessage;
+  String? moveCloserMessage;
 
   /// The warning message when the camera preview has to much motion to be able to automatically take a photo.
-  String imageMovingMessage;
+  String? imageMovingMessage;
 
   // The warning message when the camera turned out of portrait mode.
-  String orientationWarningMessage;
+  String? orientationWarningMessage;
 
   /// The max width of the result image.
-  num imageMaxWidth;
+  num? imageMaxWidth;
 
   /// The max height of the result image.
-  num imageMaxHeight;
+  num? imageMaxHeight;
 
   /// Set the quality (between 0-100) of the jpg encoder. Default is 100.
-  num imageMaxQuality;
+  num? imageMaxQuality;
 
   /// The amount of seconds the preview should be visible for, should be a float.
-  num previewDuration;
+  num? previewDuration;
 
   /// To limit the amount of images that can be taken.
-  num imageLimit;
+  num? imageLimit;
 
   /// The message to display when the limit has reached.
-  String imageLimitReachedMessage;
+  String? imageLimitReachedMessage;
 
   /// The text inside of the delete button.
-  String deleteButtonText;
+  String? deleteButtonText;
 
   /// The text inside of the retake button.
-  String retakeButtonText;
+  String? retakeButtonText;
 
   /// The text inside of the cancel button.
-  String cancelButtonText;
+  String? cancelButtonText;
 
   /// The text inside of the cancel alert button.
-  String cancelAndDeleteImagesButtonText;
+  String? cancelAndDeleteImagesButtonText;
 
   /// The text inside of the alert to confirm exiting the scanner.
-  String cancelConfirmationMessage;
+  String? cancelConfirmationMessage;
 
   /// Whether to go to the Review Screen once the image limit has been reached. (default false)
-  bool shouldGoToReviewScreenWhenImageLimitReached;
+  bool? shouldGoToReviewScreenWhenImageLimitReached;
 
   /// Whether to hide or show the rotate button in the Review Screen. (default shown/true)
-  bool userCanRotateImage;
+  bool? userCanRotateImage;
 
   /// Whether to hide or show the cropping button in the Review Screen. (default shown/true)
-  bool userCanCropManually;
+  bool? userCanCropManually;
 
   /// Whether to hide or show the color changing button in the Review Screen. (default shown/true)
-  bool userCanChangeColorSetting;
+  bool? userCanChangeColorSetting;
 
   /// If you would like to use a custom model for object detection. Model + labels file should be packaged in your bundle.
   ModelOptions model = new ModelOptions();
@@ -133,71 +132,71 @@ class CameraConfig {
   ShutterButton shutterButton = new ShutterButton();
 
   /// Whether the camera automatically saves the images to the camera roll (iOS) / gallery (Android). Default true.
-  bool storeImagesToCameraRol;
+  bool? storeImagesToCameraRol;
 
   /// Android Options
 
   /// Where to put the image results
-  String storagePath;
+  String? storagePath;
 
   /// What the default color conversion will be (grayscale, original, enhanced).
-  DefaultColor defaultColor;
+  DefaultColor? defaultColor;
 
   /// The filename to be given to the image results.
-  String outputFileName;
+  String? outputFileName;
 
   /// The threshold of how sensitive the motion detection is. (lower value is higher sensitivity, default 50)
-  num imageMovingSensitivityAndroid;
+  num? imageMovingSensitivityAndroid;
 
   /// iOS Options
 
   /// The warning message when the camera result is too bright.
-  String imageTooBrightMessage;
+  String? imageTooBrightMessage;
 
   /// The warning message when the camera result is too dark.
-  String imagetooDarkMessage;
+  String? imagetooDarkMessage;
 
   /// The text inside of the color selection alert dialog button named original.
-  String imageColorOriginalText;
+  String? imageColorOriginalText;
 
   /// The text inside of the color selection alert dialog button named grayscale.
-  String imageColorGrayscaleText;
+  String? imageColorGrayscaleText;
 
   /// The text inside of the color selection alert dialog button named enhanced.
-  String imageColorEnhancedText;
+  String? imageColorEnhancedText;
 
   /// The primary color of the interface, should be a hex RGB color string.
-  Color primaryColor;
+  Color? primaryColor;
 
   /// The accent color of the interface, should be a hex RGB color string.
-  Color accentColor;
+  Color? accentColor;
 
   /// The overlay color (when using document detection), should be a hex RGB color string.
-  Color overlayColor;
+  Color? overlayColor;
 
   /// The color of the background of the warning message, should be a hex RGB color string.
-  Color warningBackgroundColor;
+  Color? warningBackgroundColor;
 
   /// The color of the text of the warning message, should be a hex RGB color string.
-  Color warningTextColor;
+  Color? warningTextColor;
 
   /// The amount of opacity for the overlay, should be a float.
-  num overlayColorAlpha;
+  num? overlayColorAlpha;
 
   /// The color of the menu icons when they are enabled, should be a hex RGB color string.
-  Color iconEnabledColor;
+  Color? iconEnabledColor;
 
   /// The color of the menu icons when they are enabled, should be a hex RGB color string.
-  Color iconDisabledColor;
+  Color? iconDisabledColor;
 
   /// The color of the menu icons of the screen where you can review/edit the images, should be a hex RGB color string.
-  Color reviewIconColor;
+  Color? reviewIconColor;
 
   /// Whether the camera has a view finder overlay (a helper grid so the user knows where the document should be), should be a Boolean.
-  bool isViewFinderEnabled;
+  bool? isViewFinderEnabled;
 
   /// The threshold sensitive the motion detection is. (lower value is higher sensitivity, default 200).
-  num imageMovingSensitivityiOS;
+  num? imageMovingSensitivityiOS;
 }
 
 /// A helper to convert flutter Color to a hex ARGB.
@@ -264,54 +263,44 @@ class KlippaScannerSdk {
       parameters["PreviewDuration"] = config.previewDuration;
     }
 
-    if (config.model != null) {
-      if (config.model.fileName != null) {
-        parameters["Model.fileName"] = config.model.fileName;
-      }
-      if (config.model.modelLabels != null) {
-        parameters["Model.modelLabels"] = config.model.modelLabels;
-      }
+    if (config.model.fileName != null) {
+      parameters["Model.fileName"] = config.model.fileName;
+    }
+    if (config.model.modelLabels != null) {
+      parameters["Model.modelLabels"] = config.model.modelLabels;
     }
 
-    if (config.timer != null) {
-      if (config.timer.allowed != null) {
-        parameters["Timer.allowed"] = config.timer.allowed;
-      }
-      if (config.timer.enabled != null) {
-        parameters["Timer.enabled"] = config.timer.enabled;
-      }
-      if (config.timer.duration != null) {
-        parameters["Timer.duration"] = config.timer.duration;
-      }
+    if (config.timer.allowed != null) {
+      parameters["Timer.allowed"] = config.timer.allowed;
+    }
+    if (config.timer.enabled != null) {
+      parameters["Timer.enabled"] = config.timer.enabled;
+    }
+    if (config.timer.duration != null) {
+      parameters["Timer.duration"] = config.timer.duration;
     }
 
-    if (config.cropPadding != null) {
-      if (config.cropPadding.height != null) {
-        parameters["CropPadding.height"] = config.cropPadding.height;
-      }
-      if (config.cropPadding.width != null) {
-        parameters["CropPadding.width"] = config.cropPadding.width;
-      }
+    if (config.cropPadding.height != null) {
+      parameters["CropPadding.height"] = config.cropPadding.height;
+    }
+    if (config.cropPadding.width != null) {
+      parameters["CropPadding.width"] = config.cropPadding.width;
     }
 
-    if (config.success != null) {
-      if (config.success.previewDuration != null) {
-        parameters["Success.previewDuration"] = config.success.previewDuration;
-      }
-      if (config.success.message != null) {
-        parameters["Success.message"] = config.success.message;
-      }
+    if (config.success.previewDuration != null) {
+      parameters["Success.previewDuration"] = config.success.previewDuration;
+    }
+    if (config.success.message != null) {
+      parameters["Success.message"] = config.success.message;
     }
 
-    if (config.shutterButton != null) {
-      if (config.shutterButton.allowshutterButton != null) {
-        parameters["ShutterButton.allowShutterButton"] =
-            config.shutterButton.allowshutterButton;
-      }
-      if (config.shutterButton.hideShutterButton != null) {
-        parameters["ShutterButton.hideShutterButton"] =
-            config.shutterButton.hideShutterButton;
-      }
+    if (config.shutterButton.allowshutterButton != null) {
+      parameters["ShutterButton.allowShutterButton"] =
+          config.shutterButton.allowshutterButton;
+    }
+    if (config.shutterButton.hideShutterButton != null) {
+      parameters["ShutterButton.hideShutterButton"] =
+          config.shutterButton.hideShutterButton;
     }
 
     if (config.imageLimit != null) {
@@ -345,7 +334,7 @@ class KlippaScannerSdk {
     }
 
     if (config.defaultColor != null) {
-      parameters["DefaultColor"] = describeEnum(config.defaultColor);
+      parameters["DefaultColor"] = describeEnum(config.defaultColor!);
     }
 
     /// Android only
@@ -405,17 +394,17 @@ class KlippaScannerSdk {
 
     if (config.primaryColor != null) {
       parameters["PrimaryColor"] =
-          KIVHexColor.flutterColorToHex(config.primaryColor, true);
+          KIVHexColor.flutterColorToHex(config.primaryColor!, true);
     }
 
     if (config.accentColor != null) {
       parameters["AccentColor"] =
-          KIVHexColor.flutterColorToHex(config.accentColor, true);
+          KIVHexColor.flutterColorToHex(config.accentColor!, true);
     }
 
     if (config.overlayColor != null) {
       parameters["OverlayColor"] =
-          KIVHexColor.flutterColorToHex(config.overlayColor, true);
+          KIVHexColor.flutterColorToHex(config.overlayColor!, true);
     }
 
     if (config.overlayColorAlpha != null) {
@@ -424,27 +413,27 @@ class KlippaScannerSdk {
 
     if (config.warningBackgroundColor != null) {
       parameters["WarningBackgroundColor"] =
-          KIVHexColor.flutterColorToHex(config.warningBackgroundColor, true);
+          KIVHexColor.flutterColorToHex(config.warningBackgroundColor!, true);
     }
 
     if (config.warningTextColor != null) {
       parameters["WarningTextColor"] =
-          KIVHexColor.flutterColorToHex(config.warningTextColor, true);
+          KIVHexColor.flutterColorToHex(config.warningTextColor!, true);
     }
 
     if (config.iconEnabledColor != null) {
       parameters["IconEnabledColor"] =
-          KIVHexColor.flutterColorToHex(config.iconEnabledColor, true);
+          KIVHexColor.flutterColorToHex(config.iconEnabledColor!, true);
     }
 
     if (config.iconDisabledColor != null) {
       parameters["IconDisabledColor"] =
-          KIVHexColor.flutterColorToHex(config.iconDisabledColor, true);
+          KIVHexColor.flutterColorToHex(config.iconDisabledColor!, true);
     }
 
     if (config.reviewIconColor != null) {
       parameters["ReviewIconColor"] =
-          KIVHexColor.flutterColorToHex(config.reviewIconColor, true);
+          KIVHexColor.flutterColorToHex(config.reviewIconColor!, true);
     }
 
     if (config.isViewFinderEnabled != null) {
