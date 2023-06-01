@@ -1,3 +1,7 @@
+## 0.2.0
+
+ * Added dart sound null safety support
+
 ## 0.1.0
 
 - Bump iOS to 1.0.0
