@@ -1,3 +1,7 @@
+## 0.2.1
+
+* Bump Android to 3.0.2
+
 ## 0.2.0
 
  * Added dart sound null safety support
