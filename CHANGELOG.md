@@ -1,3 +1,9 @@
+## 0.2.2
+
+* Bump Android to 3.0.3
+* Bump iOS to 1.1.0
+* Update Android instructions in README.md
+
 ## 0.2.1
 
 * Bump Android to 3.0.2
