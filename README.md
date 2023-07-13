@@ -15,22 +15,11 @@ If you would like to use our scanner, please contact us [here](https://www.klipp
 
 ## Getting started
 ### Android
-Edit the file `android/build.gradle`, add the Klippa Maven repository:
+Edit the file android/key.properties, if it doesn't exist yet, create it. Add the SDK credentials:
 
-```groovy
-allprojects {
-    repositories {
-        // ... other repositories
-
-        maven {
-            credentials {
-                username "{your-username}"
-                password "{your-password}"
-            }
-            url "https://custom-ocr.klippa.com/sdk/android/maven"
-        }
-    }
-}
+```
+klippa.scanner.sdk.username={your-username}
+klippa.scanner.sdk.sdk.password={your-password}
 ```
 
 Replace the `{your-username}` and `{your-password}` values with the ones provided by Klippa.
