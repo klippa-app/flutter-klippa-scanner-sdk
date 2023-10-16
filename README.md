@@ -19,7 +19,7 @@ Edit the file android/key.properties, if it doesn't exist yet, create it. Add th
 
 ```
 klippa.scanner.sdk.username={your-username}
-klippa.scanner.sdk.sdk.password={your-password}
+klippa.scanner.sdk.password={your-password}
 ```
 
 Replace the `{your-username}` and `{your-password}` values with the ones provided by Klippa.
