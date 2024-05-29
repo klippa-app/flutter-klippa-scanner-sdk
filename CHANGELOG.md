@@ -1,3 +1,10 @@
+## 0.3.0
+
+* Bump Android to 3.1.4
+* Bump iOS to 1.2.1
+* Removed `allowMultipleDocuments` and `defaultMultipleDocuments` from `CameraConfig`
+* Added `startingIndex`, `cameraModeSingle`, `cameraModeMulti` and `cameraModeSegmented` to `CameraConfig`.
+
 ## 0.2.2
 
 * Bump Android to 3.0.3

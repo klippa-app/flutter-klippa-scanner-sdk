@@ -1,5 +1,5 @@
 buildscript {
-    ext.kotlin_version = '1.6.10'
+    ext.kotlin_version = '1.8.0'
     repositories {
         google()
         jcenter()
@@ -15,9 +15,6 @@ allprojects {
     repositories {
         google()
         jcenter()
-    }
-    project.ext {
-        klippaScannerVersion = "3.0.3"
     }
 }
 
