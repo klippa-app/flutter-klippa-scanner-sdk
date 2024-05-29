@@ -66,6 +66,16 @@ Edit the file `ios/{project-name}/Info.plist` and add the `NSCameraUsageDescript
 
 Add `klippa_scanner_sdk` as a dependency in your pubspec.yaml file.
 
+```yaml
+dependencies:
+  flutter:
+    sdk: flutter
+
+  klippa_scanner_sdk: ^x.y.z
+
+  # Rest of dependencies
+```
+
 ## Usage
 
 ```dart
@@ -118,7 +128,7 @@ Replace `{repository-url` with the URL that you want to use.
 
 ### iOS
 
-Edit the file `ios/Podfile`, add the followingline below the username/password if you want to change the version:
+Edit the file `ios/Podfile`, add the following line below the username/password if you want to change the version:
 ```
 ENV['KLIPPA_SCANNER_SDK_VERSION'] = '{version}'
 ```
@@ -140,14 +150,8 @@ Replace `{repository-url}` with the URL that you want to use.
 ## General
 
 ```dart
-// Whether to show the icon to enable "multi-document-mode"
-config.allowMultipleDocuments = true;
-
-// Whether the "multi-document-mode" should be enabled by default.
-config.defaultMultipleDocuments = true;
-
 // Ability to disable/hide the shutter button (only works when a model is supplied as well).
-config.shutterButton.allowshutterButton = true;
+config.shutterButton.allowShutterButton = true;
 config.shutterButton.hideShutterButton = false;
 
 // Whether the crop mode (auto edge detection) should be enabled by default.
@@ -191,7 +195,8 @@ config.userCanCropManually = false;
 config.userCanChangeColorSetting = false;
 
 // To add extra horizontal and / or vertical padding to the cropped image.
-config.cropPadding = Dimensions(100, 100);
+config.cropPadding.width = 100;
+config.cropPadding.height =  100;
 
 // After capture, show a checkmark preview with this success message, instead of a preview of the image.
 config.success.previewDuration = 1.0;
@@ -209,7 +214,7 @@ config.imageLimitReachedMessage = "You have reached the image limit";
 // The message to display when the cancel button has tapped.
 config.cancelConfirmationMessage = "Delete photos and exit scanner?";
 
-// The text of the delete imeage button.
+// The text of the delete image button.
 config.deleteButtonText = "Delete Photo";
 
 // The text of the retake image button.
@@ -226,6 +231,30 @@ config.storeImagesToCameraRol = true;
 
 // What the default color conversion will be (grayscale, original, enhanced).
 config.defaultColor = DefaultColor.original;
+
+// Enable Single Document Mode
+config.cameraModeSingle = new CameraMode();
+// Localize the name of Single Document Mode
+config.cameraModeSingle?.name = "Single Document Mode";
+// Localize the instructions of Single Document Mode
+config.cameraModeSingle?.message = "Used for a single document";
+
+// Enable Multi Document Mode
+config.cameraModeMulti = new CameraMode();
+// Localize the name of Multi Document Mode
+config.cameraModeMulti?.name = "Multi Document Mode";
+// Localize the instructions of Multi Document Mode
+config.cameraModeMulti?.message = "Used for a multiple documents";
+
+// Enable Segmented Document Mode
+config.cameraModeSegmented = new CameraMode();
+// Localize the name of Segmented Document Mode
+config.cameraModeSegmented?.name = "Segmented Document Mode";
+// Localize the instructions of Segmented Document Mode
+config.cameraModeSegmented?.message = "Used for a single document segmented into multiple photos";
+
+// When multiple camera modes are enabled select which should show first by index.
+config.startingIndex = 0;
 
 ```
 

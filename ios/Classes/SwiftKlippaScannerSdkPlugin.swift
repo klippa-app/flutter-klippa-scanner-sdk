@@ -9,6 +9,10 @@ public class SwiftKlippaScannerSdkPlugin: NSObject, FlutterPlugin, KlippaScanner
     private var E_CANCELED = "E_CANCELED"
     private var E_UNKNOWN_ERROR = "E_UNKNOWN_ERROR"
 
+    private var singleDocumentModeInstructionsDismissed = false
+    private var multiDocumentModeInstructionsDismissed = false
+    private var segmentedDocumentModeInstructionsDismissed = false
+
     public static func register(with registrar: FlutterPluginRegistrar) {
         let channel = FlutterMethodChannel(name: "klippa_scanner_sdk", binaryMessenger: registrar.messenger())
         let instance = SwiftKlippaScannerSdkPlugin()
@@ -37,14 +41,6 @@ public class SwiftKlippaScannerSdkPlugin: NSObject, FlutterPlugin, KlippaScanner
         }
 
         let builder = KlippaScannerBuilder(builderDelegate: self, license: license as? String ?? "")
-
-        if let allowMultipleDocumentsMode = builderArgs?["AllowMultipleDocuments"] {
-            builder.klippaMenu.allowMultipleDocumentsMode = allowMultipleDocumentsMode as? Bool ?? true
-        }
-
-        if let isMultipleDocumentsModeEnabled = builderArgs?["DefaultMultipleDocuments"] {
-            builder.klippaMenu.isMultipleDocumentsModeEnabled = isMultipleDocumentsModeEnabled as? Bool ?? false
-        }
 
         if let isCropEnabled = builderArgs?["DefaultCrop"] {
             builder.klippaMenu.isCropEnabled = isCropEnabled as? Bool ?? true
@@ -238,6 +234,68 @@ public class SwiftKlippaScannerSdkPlugin: NSObject, FlutterPlugin, KlippaScanner
             builder.klippaImageAttributes.storeImagesToCameraRoll = storeImagesToCameraRoll as? Bool ?? true
         }
 
+        var modes: [KlippaDocumentMode] = []
+
+        if let cameraModeSingle = builderArgs?["CameraModeSingle"] as? Dictionary<String, String> {
+            let singleDocumentMode = KlippaSingleDocumentMode()
+            if let name = cameraModeSingle["name"] {
+                singleDocumentMode.name = name
+            }
+            if let message = cameraModeSingle["message"] {
+                singleDocumentMode.instructions = Instructions(message: message)
+            }
+
+            singleDocumentMode.instructions?.dismissHandler = { [weak self] in
+                self?.singleDocumentModeInstructionsDismissed = true
+            }
+            modes.append(singleDocumentMode)
+        }
+
+        if let cameraModeMulti = builderArgs?["CameraModeMulti"] as? Dictionary<String, String> {
+            let multiDocumentMode = KlippaMultipleDocumentMode()
+            if let name = cameraModeMulti["name"] {
+                multiDocumentMode.name = name
+            }
+            if let message = cameraModeMulti["message"] {
+                multiDocumentMode.instructions = Instructions(message: message)
+            }
+
+            multiDocumentMode.instructions?.dismissHandler = { [weak self] in
+                self?.multiDocumentModeInstructionsDismissed = true
+            }
+            modes.append(multiDocumentMode)
+        }
+
+        if let cameraModeSegmented = builderArgs?["CameraModeSegmented"] as? Dictionary<String, String> {
+            let segmentedDocumentMode = KlippaSegmentedDocumentMode()
+            if let name = cameraModeSegmented["name"] {
+                segmentedDocumentMode.name = name
+            }
+            if let message = cameraModeSegmented["message"] {
+                segmentedDocumentMode.instructions = Instructions(message: message)
+            }
+
+            segmentedDocumentMode.instructions?.dismissHandler = { [weak self] in
+                self?.segmentedDocumentModeInstructionsDismissed = true
+            }
+            modes.append(segmentedDocumentMode)
+        }
+
+        if !modes.isEmpty {
+            var index = 0
+            if let setIndex = builderArgs?["StartingIndex"] as? Double {
+                index = Int(setIndex)
+            }
+
+            let cameraModes = KlippaCameraModes(
+                modes: modes,
+                startingIndex: index
+            )
+
+            builder.klippaCameraModes = cameraModes
+        }
+
+
         if let imageLimit = builderArgs?["ImageLimit"] {
             builder.klippaImageAttributes.imageLimit = imageLimit as? Int ?? 0
         }
@@ -247,16 +305,23 @@ public class SwiftKlippaScannerSdkPlugin: NSObject, FlutterPlugin, KlippaScanner
         let modelLabels = builderArgs?["Model.modelLabels"] as? String ?? ""
 
         if modelFile != "" && modelLabels != "" {
-            builder.klippaObjectDetectionModel.modelFile = modelFile
-            builder.klippaObjectDetectionModel.modelLabels = modelLabels
-            builder.klippaObjectDetectionModel.runWithModel = true
+            let model = KlippaObjectDetectionModel(modelFile: modelFile, modelLabels: modelLabels)
+            builder.klippaObjectDetectionModel = model
         }
 
         resultHandler = result
 
-        let viewController = builder.build()
+        let viewControllerResult = builder.build()
         let rootViewController = UIApplication.shared.windows.last!.rootViewController!
-        rootViewController.present(viewController, animated:true, completion:nil)
+
+        switch viewControllerResult {
+        case .success(let controller):
+            rootViewController.present(controller, animated:true, completion:nil)
+        case .failure(let err):
+            result(FlutterError.init(code: E_FAILED_TO_SHOW_SESSION, message: "error: \(err)", details: nil))
+        }
+
+
     }
 
     public func klippaScannerDidFailWithError(error: Error) {
@@ -279,9 +344,11 @@ public class SwiftKlippaScannerSdkPlugin: NSObject, FlutterPlugin, KlippaScanner
 
         let resultDict = [
             "Images" : images,
-            "MultipleDocuments" : result.multipleDocumentsModeEnabled,
             "Crop": result.cropEnabled,
-            "TimerEnabled" : result.timerEnabled
+            "TimerEnabled" : result.timerEnabled,
+            "SingleDocumentModeInstructionsDismissed": singleDocumentModeInstructionsDismissed,
+            "MultiDocumentModeInstructionsDismissed": multiDocumentModeInstructionsDismissed,
+            "SegmentedDocumentModeInstructionsDismissed": segmentedDocumentModeInstructionsDismissed
         ] as [String : Any]
 
         resultHandler!(resultDict)

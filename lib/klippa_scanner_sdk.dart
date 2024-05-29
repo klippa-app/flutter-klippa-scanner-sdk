@@ -1,6 +1,5 @@
 import 'dart:async';
 
-import 'package:flutter/foundation.dart';
 import 'package:flutter/services.dart';
 
 class ModelOptions {
@@ -28,8 +27,6 @@ class Dimensions {
 
   /// To add extra vertical padding to the cropped image.
   num? height;
-
-  Dimensions(this.width, this.height);
 }
 
 class SuccessOptions {
@@ -44,20 +41,22 @@ enum DefaultColor { original, grayscale, enhanced }
 
 class ShutterButton {
   /// Whether to allow or disallow the shutter button to work (can only be disabled if a model is supplied)
-  bool? allowshutterButton;
+  bool? allowShutterButton;
 
   /// Whether the shutter button should be hidden (only works if allowShutterButton is false)
   bool? hideShutterButton;
 }
 
+class CameraMode {
+  /// The name of the mode (localized).
+  String? name;
+
+  /// The instructions that are shown to the user.
+  String? message;
+}
+
 class CameraConfig {
   /// Global options.
-
-  /// Whether to show the icon to enable "multi-document"mode".
-  bool? allowMultipleDocuments;
-
-  /// Whethe the "multi-document-mode" should be enabled by default.
-  bool? defaultMultipleDocuments;
 
   /// Whether the crop mode (auto edge detection) should be enabled by default.
   bool? defaultCrop;
@@ -123,7 +122,7 @@ class CameraConfig {
   TimerOptions timer = new TimerOptions();
 
   /// To add extra horizontal and / or vertical padding to the cropped image.
-  Dimensions cropPadding = new Dimensions(0, 0);
+  Dimensions cropPadding = new Dimensions();
 
   /// After capture, show a checkmark preview with this success message, instead of a preview of the image.
   SuccessOptions success = new SuccessOptions();
@@ -133,6 +132,18 @@ class CameraConfig {
 
   /// Whether the camera automatically saves the images to the camera roll (iOS) / gallery (Android). Default true.
   bool? storeImagesToCameraRol;
+
+  /// The camera mode for scanning one part documents.
+  CameraMode? cameraModeSingle;
+
+  /// The camera mode for scanning documents that consist of multiple pages.
+  CameraMode? cameraModeMulti;
+
+  /// The camera mode for scanning long documents in separate parts.
+  CameraMode? cameraModeSegmented;
+
+  /// The starting index for which mode will be preselected when starting.
+  num? startingIndex;
 
   /// Android Options
 
@@ -154,13 +165,13 @@ class CameraConfig {
   String? imageTooBrightMessage;
 
   /// The warning message when the camera result is too dark.
-  String? imagetooDarkMessage;
+  String? imageTooDarkMessage;
 
   /// The text inside of the color selection alert dialog button named original.
   String? imageColorOriginalText;
 
   /// The text inside of the color selection alert dialog button named grayscale.
-  String? imageColorGrayscaleText;
+  String? imageColorGrayScaleText;
 
   /// The text inside of the color selection alert dialog button named enhanced.
   String? imageColorEnhancedText;
@@ -221,14 +232,6 @@ class KlippaScannerSdk {
     parameters['License'] = license;
 
     /// Global options.
-
-    if (config.allowMultipleDocuments != null) {
-      parameters["AllowMultipleDocuments"] = config.allowMultipleDocuments;
-    }
-
-    if (config.defaultMultipleDocuments != null) {
-      parameters["DefaultMultipleDocuments"] = config.defaultMultipleDocuments;
-    }
 
     if (config.defaultCrop != null) {
       parameters["DefaultCrop"] = config.defaultCrop;
@@ -294,9 +297,9 @@ class KlippaScannerSdk {
       parameters["Success.message"] = config.success.message;
     }
 
-    if (config.shutterButton.allowshutterButton != null) {
+    if (config.shutterButton.allowShutterButton != null) {
       parameters["ShutterButton.allowShutterButton"] =
-          config.shutterButton.allowshutterButton;
+          config.shutterButton.allowShutterButton;
     }
     if (config.shutterButton.hideShutterButton != null) {
       parameters["ShutterButton.hideShutterButton"] =
@@ -334,7 +337,7 @@ class KlippaScannerSdk {
     }
 
     if (config.defaultColor != null) {
-      parameters["DefaultColor"] = describeEnum(config.defaultColor!);
+      parameters["DefaultColor"] = config.defaultColor!.name;
     }
 
     /// Android only
@@ -358,16 +361,16 @@ class KlippaScannerSdk {
       parameters["ImageTooBrightMessage"] = config.imageTooBrightMessage;
     }
 
-    if (config.imagetooDarkMessage != null) {
-      parameters["ImageTooDarkMessage"] = config.imagetooDarkMessage;
+    if (config.imageTooDarkMessage != null) {
+      parameters["ImageTooDarkMessage"] = config.imageTooDarkMessage;
     }
 
     if (config.imageColorOriginalText != null) {
       parameters["ImageColorOriginalText"] = config.imageColorOriginalText;
     }
 
-    if (config.imageColorGrayscaleText != null) {
-      parameters["ImageColorGrayscaleText"] = config.imageColorGrayscaleText;
+    if (config.imageColorGrayScaleText != null) {
+      parameters["ImageColorGrayScaleText"] = config.imageColorGrayScaleText;
     }
 
     if (config.imageColorEnhancedText != null) {
@@ -447,6 +450,35 @@ class KlippaScannerSdk {
 
     if (config.storeImagesToCameraRol != null) {
       parameters["StoreImagesToCameraRoll"] = config.storeImagesToCameraRol;
+    }
+
+    if (config.cameraModeSingle != null) {
+      parameters["CameraModeSingle"] = {
+        'name': config.cameraModeSingle?.name,
+        'message': config.cameraModeSingle?.message
+      };
+    }
+
+    if (config.cameraModeMulti != null) {
+      parameters["CameraModeMulti"] = {
+        'name': config.cameraModeMulti?.name,
+        'message': config.cameraModeMulti?.message
+      };
+    }
+
+    if (config.cameraModeSegmented != null) {
+      parameters["CameraModeSegmented"] = {
+        'name': config.cameraModeSegmented?.name,
+        'message': config.cameraModeSegmented?.message
+      };
+    }
+
+    if (config.startingIndex != null) {
+      parameters["StartingIndex"] = config.startingIndex;
+    }
+
+    if (config.startingIndex != null) {
+      parameters["StartingIndex"] = config.startingIndex;
     }
 
     final Map startSessionResult =
