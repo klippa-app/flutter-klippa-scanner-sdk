@@ -242,7 +242,6 @@ public class SwiftKlippaScannerSdkPlugin: NSObject, FlutterPlugin, KlippaScanner
                 singleDocumentMode.name = name
             }
 
-
             if let message = cameraModeSingle["message"], let message {
                 singleDocumentMode.instructions = Instructions(message: message)
             }
