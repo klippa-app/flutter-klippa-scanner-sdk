@@ -236,12 +236,13 @@ public class SwiftKlippaScannerSdkPlugin: NSObject, FlutterPlugin, KlippaScanner
 
         var modes: [KlippaDocumentMode] = []
 
-        if let cameraModeSingle = builderArgs?["CameraModeSingle"] as? Dictionary<String, String> {
+        if let cameraModeSingle = builderArgs?["CameraModeSingle"] as? Dictionary<String, String?> {
             let singleDocumentMode = KlippaSingleDocumentMode()
-            if let name = cameraModeSingle["name"] {
+            if let name = cameraModeSingle["name"], let name  {
                 singleDocumentMode.name = name
             }
-            if let message = cameraModeSingle["message"] {
+
+            if let message = cameraModeSingle["message"], let message {
                 singleDocumentMode.instructions = Instructions(message: message)
             }
 
@@ -251,12 +252,12 @@ public class SwiftKlippaScannerSdkPlugin: NSObject, FlutterPlugin, KlippaScanner
             modes.append(singleDocumentMode)
         }
 
-        if let cameraModeMulti = builderArgs?["CameraModeMulti"] as? Dictionary<String, String> {
+        if let cameraModeMulti = builderArgs?["CameraModeMulti"] as? Dictionary<String, String?> {
             let multiDocumentMode = KlippaMultipleDocumentMode()
-            if let name = cameraModeMulti["name"] {
+            if let name = cameraModeMulti["name"], let name {
                 multiDocumentMode.name = name
             }
-            if let message = cameraModeMulti["message"] {
+            if let message = cameraModeMulti["message"], let message {
                 multiDocumentMode.instructions = Instructions(message: message)
             }
 
@@ -266,12 +267,12 @@ public class SwiftKlippaScannerSdkPlugin: NSObject, FlutterPlugin, KlippaScanner
             modes.append(multiDocumentMode)
         }
 
-        if let cameraModeSegmented = builderArgs?["CameraModeSegmented"] as? Dictionary<String, String> {
+        if let cameraModeSegmented = builderArgs?["CameraModeSegmented"] as? Dictionary<String, String?> {
             let segmentedDocumentMode = KlippaSegmentedDocumentMode()
-            if let name = cameraModeSegmented["name"] {
+            if let name = cameraModeSegmented["name"], let name {
                 segmentedDocumentMode.name = name
             }
-            if let message = cameraModeSegmented["message"] {
+            if let message = cameraModeSegmented["message"], let message {
                 segmentedDocumentMode.instructions = Instructions(message: message)
             }
 

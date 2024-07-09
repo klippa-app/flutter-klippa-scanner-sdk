@@ -1,3 +1,8 @@
+## 0.3.1
+
+* Bump Android to 3.1.5
+* Fixed issue where `CameraMode` was not being parsed correctly on iOS.
+
 ## 0.3.0
 
 * Bump Android to 3.1.4
