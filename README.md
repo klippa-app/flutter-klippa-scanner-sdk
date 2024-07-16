@@ -114,7 +114,7 @@ allprojects {
 }
 ```
 
-Replace the `{version` value with the version you want to use.
+Replace the `{version}` value with the version you want to use.
 
 If you want to change the repository:
 
