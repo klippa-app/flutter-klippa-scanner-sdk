@@ -1,3 +1,8 @@
+## 0.3.3
+
+* Bump Android to 3.1.10
+* Now use Gradle declarative plugin in Android Example. 
+
 ## 0.3.2
 
 * Bump Android to 3.1.8
