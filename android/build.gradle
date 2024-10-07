@@ -2,7 +2,7 @@ group 'com.klippa.scanner.klippa_scanner_sdk'
 version '1.0-SNAPSHOT'
 
 def DEFAULT_COMPILE_SDK_VERSION = 33
-def DEFAULT_BUILD_TOOLS_VERSION = '30.0.3'
+def DEFAULT_BUILD_TOOLS_VERSION = '34.0.0'
 def DEFAULT_MIN_SDK_VERSION = 21
 def DEFAULT_TARGET_SDK_VERSION = 33
 
@@ -12,14 +12,14 @@ def safeExtGet(prop, fallback) {
 
 
 buildscript {
-    ext.kotlin_version = '1.6.10'
+    ext.kotlin_version = '1.9.20'
     repositories {
         google()
         jcenter()
     }
 
     dependencies {
-        classpath 'com.android.tools.build:gradle:7.0.2'
+        classpath 'com.android.tools.build:gradle:7.0.4'
         classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version"
     }
 }
@@ -49,6 +49,7 @@ apply plugin: 'com.android.library'
 apply plugin: 'kotlin-android'
 
 android {
+    namespace "com.klippa.scanner.klippa_scanner_sdk"
     compileSdkVersion safeExtGet('compileSdkVersion', DEFAULT_COMPILE_SDK_VERSION)
     buildToolsVersion safeExtGet('buildToolsVersion', DEFAULT_BUILD_TOOLS_VERSION)
 
@@ -63,11 +64,20 @@ android {
         disable 'InvalidPackage'
         checkReleaseBuilds false
     }
+
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_21
+        targetCompatibility JavaVersion.VERSION_21
+    }
+
+    kotlinOptions {
+        jvmTarget = '21'
+    }
+
 }
 
 dependencies {
-    implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
-    def fallbackKlippaScannerVersion = "3.1.10"
+    def fallbackKlippaScannerVersion = "3.1.11"
     def klippaScannerVersion = project.hasProperty('klippaScannerVersion') ? project.klippaScannerVersion : fallbackKlippaScannerVersion
     implementation "com.klippa:scanner:$klippaScannerVersion"
     implementation 'com.google.android.material:material:1.6.1'

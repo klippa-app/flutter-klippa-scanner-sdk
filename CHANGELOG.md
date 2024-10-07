@@ -1,3 +1,9 @@
+## 0.3.4
+
+* Bump Android to 3.1.11
+* Bump gradle version to 8.6 on example app
+* Make Android flutter SDK compatible with gradle 8.6+
+
 ## 0.3.3
 
 * Bump Android to 3.1.10
