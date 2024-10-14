@@ -1,5 +1,4 @@
-<manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.klippa.scanner.klippa_scanner_sdk_example">
+<manifest xmlns:android="http://schemas.android.com/apk/res/android">
    <application
         android:label="klippa_scanner_sdk_example"
         android:icon="@mipmap/ic_launcher">
