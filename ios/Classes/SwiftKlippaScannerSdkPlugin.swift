@@ -9,10 +9,6 @@ public class SwiftKlippaScannerSdkPlugin: NSObject, FlutterPlugin, KlippaScanner
     private var E_CANCELED = "E_CANCELED"
     private var E_UNKNOWN_ERROR = "E_UNKNOWN_ERROR"
 
-    private var singleDocumentModeInstructionsDismissed = false
-    private var multiDocumentModeInstructionsDismissed = false
-    private var segmentedDocumentModeInstructionsDismissed = false
-
     public static func register(with registrar: FlutterPluginRegistrar) {
         let channel = FlutterMethodChannel(name: "klippa_scanner_sdk", binaryMessenger: registrar.messenger())
         let instance = SwiftKlippaScannerSdkPlugin()
@@ -35,88 +31,89 @@ public class SwiftKlippaScannerSdkPlugin: NSObject, FlutterPlugin, KlippaScanner
 
         let builderArgs = args as? [String: Any]
 
-        guard let license = builderArgs?["License"] else {
+        guard let license = builderArgs?["License"] as? String else {
             result(FlutterError.init(code: E_MISSING_LICENSE, message: "Missing license", details: nil))
             return
         }
 
-        let builder = KlippaScannerBuilder(builderDelegate: self, license: license as? String ?? "")
+        let builder = KlippaScannerBuilder(builderDelegate: self, license: license)
 
-        if let isCropEnabled = builderArgs?["DefaultCrop"] {
-            builder.klippaMenu.isCropEnabled = isCropEnabled as? Bool ?? true
+        if let isCropEnabled = builderArgs?["DefaultCrop"] as? Bool {
+            builder.klippaMenu.isCropEnabled = isCropEnabled
         }
 
-        if let moveCloserMessage = builderArgs?["MoveCloserMessage"] {
-            builder.klippaMessages.moveCloserMessage = moveCloserMessage as? String ?? ""
+        if let moveCloserMessage = builderArgs?["MoveCloserMessage"] as? String {
+            builder.klippaMessages.moveCloserMessage = moveCloserMessage
         }
 
-        if let imageMovingMessage = builderArgs?["ImageMovingMessage"] {
-            builder.klippaMessages.imageMovingMessage = imageMovingMessage as? String ?? ""
+        if let imageMovingMessage = builderArgs?["ImageMovingMessage"] as? String {
+            builder.klippaMessages.imageMovingMessage = imageMovingMessage
         }
 
-        if let orientationWarningMessage = builderArgs?["OrientationWarningMessage"] {
-            builder.klippaMessages.orientationWarningMessage = orientationWarningMessage as? String ?? ""
+        if let orientationWarningMessage = builderArgs?["OrientationWarningMessage"] as? String {
+            builder.klippaMessages.orientationWarningMessage = orientationWarningMessage
         }
 
-        if let imageMaxWidth = builderArgs?["ImageMaxWidth"] {
-            builder.klippaImageAttributes.imageMaxWidth = imageMaxWidth as? CGFloat ?? 0
+        if let imageMaxWidth = builderArgs?["ImageMaxWidth"] as? CGFloat {
+            builder.klippaImageAttributes.imageMaxWidth = imageMaxWidth
         }
 
-        if let imageMaxHeight = builderArgs?["ImageMaxHeight"] {
-            builder.klippaImageAttributes.imageMaxHeight = imageMaxHeight as? CGFloat ?? 0
+        if let imageMaxHeight = builderArgs?["ImageMaxHeight"] as? CGFloat {
+            builder.klippaImageAttributes.imageMaxHeight = imageMaxHeight
         }
 
-        if let imageMaxQuality = builderArgs?["ImageMaxQuality"] {
-            builder.klippaImageAttributes.imageMaxQuality = imageMaxQuality as? CGFloat ?? 100
+        if let imageMaxQuality = builderArgs?["ImageMaxQuality"] as? CGFloat {
+            builder.klippaImageAttributes.imageMaxQuality = imageMaxQuality
         }
 
-        if let previewDuration = builderArgs?["PreviewDuration"] {
-            builder.klippaDurations.previewDuration = previewDuration as? Double ?? 0
+        if let previewDuration = builderArgs?["PreviewDuration"] as? Double {
+            builder.klippaDurations.previewDuration = previewDuration
         }
 
-        if let isTimerAllowed = builderArgs?["Timer.allowed"] {
-            builder.klippaMenu.allowTimer = isTimerAllowed as? Bool ?? false
+        if let isTimerAllowed = builderArgs?["Timer.allowed"] as? Bool {
+            builder.klippaMenu.allowTimer = isTimerAllowed
         }
 
-        if let isTimerEnabled = builderArgs?["Timer.enabled"] {
-            builder.klippaMenu.isTimerEnabled = isTimerEnabled as? Bool ?? false
+        if let isTimerEnabled = builderArgs?["Timer.enabled"] as? Bool {
+            builder.klippaMenu.isTimerEnabled = isTimerEnabled
         }
 
-        if let timerDuration = builderArgs?["Timer.duration"] {
-            builder.klippaDurations.timerDuration = timerDuration as? Double ?? 0
+        if let timerDuration = builderArgs?["Timer.duration"] as? Double {
+            builder.klippaDurations.timerDuration = timerDuration
         }
 
-        let width = builderArgs?["CropPadding.width"] as? Int ?? 0
-        let height = builderArgs?["CropPadding.height"] as? Int ?? 0
-
-        builder.klippaImageAttributes.cropPadding = CGSize(width:  width, height: height)
-
-        if let successPreviewDuration = builderArgs?["Success.previewDuration"] {
-            builder.klippaDurations.successPreviewDuration = successPreviewDuration as? Double ?? 0
+        if let width = builderArgs?["CropPadding.width"] as? Double {
+            builder.klippaImageAttributes.cropPadding.width = width
         }
 
-        if let successMessage = builderArgs?["Success.message"] {
-            builder.klippaMessages.successMessage = successMessage as? String ?? ""
+        if let height = builderArgs?["CropPadding.height"] as? Double {
+            builder.klippaImageAttributes.cropPadding.height = height
         }
 
-        if let allowShutterButton = builderArgs?["ShutterButton.allowShutterButton"] {
-            if let hideShutterButton = builderArgs?["ShutterButton.hideShutterButton"] {
-                builder.klippaShutterbutton.allowShutterButton = allowShutterButton as? Bool ?? true
-                builder.klippaShutterbutton.hideShutterButton = hideShutterButton as? Bool ?? false
-            }
+
+        if let successPreviewDuration = builderArgs?["Success.previewDuration"] as? Double {
+            builder.klippaDurations.successPreviewDuration = successPreviewDuration
         }
 
-        if let imageTooBrightMessage = builderArgs?["ImageTooBrightMessage"] {
-            builder.klippaMessages.imageTooBrightMessage = imageTooBrightMessage as? String ?? ""
+        if let successMessage = builderArgs?["Success.message"] as? String {
+            builder.klippaMessages.successMessage = successMessage
         }
 
-        if let imageTooDarkMessage = builderArgs?["ImageTooDarkMessage"] {
-            builder.klippaMessages.imageTooDarkMessage = imageTooDarkMessage  as? String ?? ""
+        if let allowShutterButton = builderArgs?["ShutterButton.allowShutterButton"] as? Bool, let hideShutterButton = builderArgs?["ShutterButton.hideShutterButton"] as? Bool {
+            builder.klippaShutterbutton.allowShutterButton = allowShutterButton
+            builder.klippaShutterbutton.hideShutterButton = hideShutterButton
         }
 
-        if let defaultColor = builderArgs?["DefaultColor"] {
-            let imageColor = defaultColor  as? String ?? "original"
-            switch imageColor {
+        if let imageTooBrightMessage = builderArgs?["ImageTooBrightMessage"] as? String {
+            builder.klippaMessages.imageTooBrightMessage = imageTooBrightMessage
+        }
+
+        if let imageTooDarkMessage = builderArgs?["ImageTooDarkMessage"] as? String {
+            builder.klippaMessages.imageTooDarkMessage = imageTooDarkMessage
+        }
+
+        if let defaultColor = builderArgs?["DefaultColor"] as? String {
+            switch defaultColor {
             case "grayscale":
                 builder.klippaColors.imageColor = .grayscale
             case "enhanced":
@@ -126,159 +123,195 @@ public class SwiftKlippaScannerSdkPlugin: NSObject, FlutterPlugin, KlippaScanner
             }
         }
 
-        if let imageColorOriginalText = builderArgs?["ImageColorOriginalText"] {
-            builder.klippaButtonTexts.imageColorOriginalText = imageColorOriginalText  as? String ?? ""
+        if let imageColorOriginalText = builderArgs?["ImageColorOriginalText"] as? String {
+            builder.klippaButtonTexts.imageColorOriginalText = imageColorOriginalText
         }
 
-        if let imageColorGrayscaleText = builderArgs?["ImageColorGrayscaleText"] {
-            builder.klippaButtonTexts.imageColorGrayscaleText = imageColorGrayscaleText  as? String ?? ""
+        if let imageColorGrayscaleText = builderArgs?["ImageColorGrayscaleText"] as? String {
+            builder.klippaButtonTexts.imageColorGrayscaleText = imageColorGrayscaleText
         }
 
-        if let imageColorEnhancedText = builderArgs?["ImageColorEnhancedText"] {
-            builder.klippaButtonTexts.imageColorEnhancedText = imageColorEnhancedText  as? String ?? ""
+        if let imageColorEnhancedText = builderArgs?["ImageColorEnhancedText"] as? String {
+            builder.klippaButtonTexts.imageColorEnhancedText = imageColorEnhancedText
         }
 
-        if let imageLimitReachedMessage = builderArgs?["ImageLimitReachedMessage"] {
-            builder.klippaMessages.imageLimitReachedMessage = imageLimitReachedMessage  as? String ?? ""
+        if let imageLimitReachedMessage = builderArgs?["ImageLimitReachedMessage"] as? String {
+            builder.klippaMessages.imageLimitReachedMessage = imageLimitReachedMessage
         }
 
-        if let deleteButtonText = builderArgs?["DeleteButtonText"] {
-            builder.klippaButtonTexts.deleteButtonText = deleteButtonText  as? String ?? ""
+        if let deleteButtonText = builderArgs?["DeleteButtonText"] as? String {
+            builder.klippaButtonTexts.deleteButtonText = deleteButtonText
         }
 
-        if let retakeButtonText = builderArgs?["RetakeButtonText"] {
-            builder.klippaButtonTexts.retakeButtonText = retakeButtonText  as? String ?? ""
+        if let retakeButtonText = builderArgs?["RetakeButtonText"] as? String {
+            builder.klippaButtonTexts.retakeButtonText = retakeButtonText
         }
 
-        if let cancelButtonText = builderArgs?["CancelButtonText"] {
-            builder.klippaButtonTexts.cancelButtonText = cancelButtonText  as? String ?? ""
+        if let cancelButtonText = builderArgs?["CancelButtonText"] as? String {
+            builder.klippaButtonTexts.cancelButtonText = cancelButtonText
         }
 
-        if let cancelAndDeleteImagesButtonText = builderArgs?["CancelAndDeleteImagesButtonText"] {
-            builder.klippaButtonTexts.cancelAndDeleteImagesButtonText = cancelAndDeleteImagesButtonText  as? String ?? ""
+        if let cancelAndDeleteImagesButtonText = builderArgs?["CancelAndDeleteImagesButtonText"] as? String {
+            builder.klippaButtonTexts.cancelAndDeleteImagesButtonText = cancelAndDeleteImagesButtonText
         }
 
-        if let cancelConfirmationMessage = builderArgs?["CancelConfirmationMessage"] {
-            builder.klippaMessages.cancelConfirmationMessage = cancelConfirmationMessage  as? String ?? ""
+        if let cropEditButtonText = builderArgs?["CropEditButtonText"] as? String {
+            builder.klippaButtonTexts.cropEditButtonText = cropEditButtonText
         }
 
-        if let shouldGoToReviewScreenWhenImageLimitReached = builderArgs?["ShouldGoToReviewScreenWhenImageLimitReached"] {
-            builder.klippaMenu.shouldGoToReviewScreenWhenImageLimitReached = shouldGoToReviewScreenWhenImageLimitReached as? Bool ?? false
+        if let filterEditButtonText = builderArgs?["FilterEditButtonText"] as? String {
+            builder.klippaButtonTexts.filterEditButtonText = filterEditButtonText
         }
 
-        if let userCanRotateImage = builderArgs?["UserCanRotateImage"] {
-            builder.klippaMenu.userCanRotateImage = userCanRotateImage as? Bool ?? true
+        if let rotateEditButtonText = builderArgs?["RotateEditButtonText"] as? String {
+            builder.klippaButtonTexts.rotateEditButtonText = rotateEditButtonText
         }
 
-        if let userCanCropManually = builderArgs?["UserCanCropManually"] {
-            builder.klippaMenu.userCanCropManually = userCanCropManually as? Bool ?? true
+        if let deleteEditButtonText = builderArgs?["DeleteEditButtonText"] as? String {
+            builder.klippaButtonTexts.deleteEditButtonText = deleteEditButtonText
         }
 
-        if let userCanChangeColorSetting = builderArgs?["UserCanChangeColorSetting"] {
-            builder.klippaMenu.userCanChangeColorSetting = userCanChangeColorSetting as? Bool ?? true
+        if let cancelCropButtonText = builderArgs?["CancelCropButtonText"] as? String {
+            builder.klippaButtonTexts.cancelCropButtonText = cancelCropButtonText
         }
 
-        if let primaryColor = builderArgs?["PrimaryColor"] {
-            let color = primaryColor as? String ?? ""
-            builder.klippaColors.primaryColor = hexColorToUIColor(hex: color)
+        if let expandCropButtonText = builderArgs?["ExpandCropButtonText"] as? String {
+            builder.klippaButtonTexts.expandCropButtonText = expandCropButtonText
         }
 
-        if let accentColor = builderArgs?["AccentColor"] {
-            let color = accentColor as? String ?? ""
-            builder.klippaColors.accentColor = hexColorToUIColor(hex: color)
+        if let saveCropButtonText = builderArgs?["SaveCropButtonText"] as? String {
+            builder.klippaButtonTexts.saveCropButtonText = saveCropButtonText
         }
 
-        if let overlayColor = builderArgs?["OverlayColor"] {
-            let color = overlayColor as? String ?? ""
-            builder.klippaColors.overlayColor = hexColorToUIColor(hex: color)
+        if let cancelConfirmationMessage = builderArgs?["CancelConfirmationMessage"] as? String {
+            builder.klippaMessages.cancelConfirmationMessage = cancelConfirmationMessage
         }
 
-        if let overlayColorAlpha = builderArgs?["OverlayColorAlpha"] {
-            builder.klippaColors.overlayColorAlpha = overlayColorAlpha as? CGFloat ?? 0.75
+        if let segmentedModeImageCountMessage = builderArgs?["SegmentedModeImageCountMessage"] as? String {
+            builder.klippaMessages.segmentedModeImageCountMessage = segmentedModeImageCountMessage
         }
 
-        if let warningBackgroundColor = builderArgs?["WarningBackgroundColor"] {
-            let color = warningBackgroundColor as? String ?? ""
-            builder.klippaColors.warningBackgroundColor = hexColorToUIColor(hex: color)
+        if let shouldGoToReviewScreenWhenImageLimitReached = builderArgs?["ShouldGoToReviewScreenWhenImageLimitReached"] as? Bool {
+            builder.klippaMenu.shouldGoToReviewScreenWhenImageLimitReached = shouldGoToReviewScreenWhenImageLimitReached
         }
 
-        if let warningTextColor = builderArgs?["WarningTextColor"] {
-            let color = warningTextColor as? String ?? ""
-            builder.klippaColors.warningTextColor = hexColorToUIColor(hex: color)
+        if let userCanRotateImage = builderArgs?["UserCanRotateImage"] as? Bool {
+            builder.klippaMenu.userCanRotateImage = userCanRotateImage
         }
 
-        if let iconEnabledColor = builderArgs?["IconEnabledColor"] {
-            let color = iconEnabledColor as? String ?? ""
-            builder.klippaColors.iconEnabledColor = hexColorToUIColor(hex: color)
+        if let userCanCropManually = builderArgs?["UserCanCropManually"] as? Bool {
+            builder.klippaMenu.userCanCropManually = userCanCropManually
         }
 
-        if let iconDisabledColor = builderArgs?["IconDisabledColor"] {
-            let color = iconDisabledColor as? String ?? ""
-            builder.klippaColors.iconDisabledColor = hexColorToUIColor(hex: color)
+        if let userCanChangeColorSetting = builderArgs?["UserCanChangeColorSetting"] as? Bool {
+            builder.klippaMenu.userCanChangeColorSetting = userCanChangeColorSetting
         }
 
-        if let reviewIconColor = builderArgs?["ReviewIconColor"] {
-            let color = reviewIconColor as? String ?? ""
-            builder.klippaColors.reviewIconColor = hexColorToUIColor(hex: color)
+        if let primaryColor = builderArgs?["PrimaryColor"] as? String {
+            builder.klippaColors.primaryColor = hexColorToUIColor(hex: primaryColor)
         }
 
-        if let isViewFinderEnabled = builderArgs?["IsViewFinderEnabled"] {
-            builder.klippaMenu.isViewFinderEnabled = isViewFinderEnabled as? Bool ?? true
+        if let accentColor = builderArgs?["AccentColor"] as? String {
+            builder.klippaColors.accentColor = hexColorToUIColor(hex: accentColor)
         }
 
-        if let imageMovingSensitivity = builderArgs?["ImageMovingSensitivityiOS"] {
-            builder.klippaImageAttributes.imageMovingSensitivity = imageMovingSensitivity as? CGFloat ?? 200
+        if let secondaryColor = builderArgs?["SecondaryColor"] as? String {
+            builder.klippaColors.secondaryColor = hexColorToUIColor(hex: secondaryColor)
         }
 
-        if let storeImagesToCameraRoll = builderArgs?["StoreImagesToCameraRoll"] {
-            builder.klippaImageAttributes.storeImagesToCameraRoll = storeImagesToCameraRoll as? Bool ?? true
+        if let overlayColorAlpha = builderArgs?["OverlayColorAlpha"] as? CGFloat {
+            builder.klippaColors.overlayColorAlpha = overlayColorAlpha
+        }
+
+        if let warningBackgroundColor = builderArgs?["WarningBackgroundColor"] as? String {
+            builder.klippaColors.warningBackgroundColor = hexColorToUIColor(hex: warningBackgroundColor)
+        }
+
+        if let warningTextColor = builderArgs?["WarningTextColor"] as? String {
+            builder.klippaColors.warningTextColor = hexColorToUIColor(hex: warningTextColor)
+        }
+
+        if let iconEnabledColor = builderArgs?["IconEnabledColor"] as? String {
+            builder.klippaColors.iconEnabledColor = hexColorToUIColor(hex: iconEnabledColor)
+        }
+
+        if let iconDisabledColor = builderArgs?["IconDisabledColor"] as? String {
+            builder.klippaColors.iconDisabledColor = hexColorToUIColor(hex: iconDisabledColor)
+        }
+
+        if let buttonWithIconForegroundColor = builderArgs?["ButtonWithIconForegroundColor"] as? String {
+            builder.klippaColors.buttonWithIconForegroundColor = hexColorToUIColor(hex: buttonWithIconForegroundColor)
+        }
+
+        if let buttonWithIconBackgroundColor = builderArgs?["ButtonWithIconBackgroundColor"] as? String {
+            builder.klippaColors.buttonWithIconBackgroundColor = hexColorToUIColor(hex: buttonWithIconBackgroundColor)
+        }
+
+        if let isViewFinderEnabled = builderArgs?["IsViewFinderEnabled"] as? Bool {
+            builder.klippaMenu.isViewFinderEnabled = isViewFinderEnabled
+        }
+
+        if let imageMovingSensitivity = builderArgs?["ImageMovingSensitivityiOS"] as? CGFloat {
+            builder.klippaImageAttributes.imageMovingSensitivity = imageMovingSensitivity
+        }
+
+        if let storeImagesToCameraRoll = builderArgs?["StoreImagesToCameraRoll"] as? Bool {
+            builder.klippaImageAttributes.storeImagesToCameraRoll = storeImagesToCameraRoll
         }
 
         var modes: [KlippaDocumentMode] = []
 
         if let cameraModeSingle = builderArgs?["CameraModeSingle"] as? Dictionary<String, String?> {
             let singleDocumentMode = KlippaSingleDocumentMode()
-            if let name = cameraModeSingle["name"], let name  {
+            if let name = cameraModeSingle["name"] as? String {
                 singleDocumentMode.name = name
             }
 
-            if let message = cameraModeSingle["message"], let message {
-                singleDocumentMode.instructions = Instructions(message: message)
+            if let message = cameraModeSingle["message"] as? String ?? singleDocumentMode.instructions?.message {
+                let image = cameraModeSingle["image"] as? String
+                singleDocumentMode.instructions = Instructions(
+                    title: singleDocumentMode.name,
+                    message: message,
+                    image: image ?? KlippaSingleDocumentMode.image
+                )
             }
 
-            singleDocumentMode.instructions?.dismissHandler = { [weak self] in
-                self?.singleDocumentModeInstructionsDismissed = true
-            }
             modes.append(singleDocumentMode)
         }
 
         if let cameraModeMulti = builderArgs?["CameraModeMulti"] as? Dictionary<String, String?> {
             let multiDocumentMode = KlippaMultipleDocumentMode()
-            if let name = cameraModeMulti["name"], let name {
+            if let name = cameraModeMulti["name"] as? String {
                 multiDocumentMode.name = name
             }
-            if let message = cameraModeMulti["message"], let message {
-                multiDocumentMode.instructions = Instructions(message: message)
+
+            if let message = cameraModeMulti["message"] as? String ?? multiDocumentMode.instructions?.message {
+                let image = cameraModeMulti["image"] as? String
+                multiDocumentMode.instructions = Instructions(
+                    title: multiDocumentMode.name,
+                    message: message,
+                    image: image ?? KlippaMultipleDocumentMode.image
+                )
             }
 
-            multiDocumentMode.instructions?.dismissHandler = { [weak self] in
-                self?.multiDocumentModeInstructionsDismissed = true
-            }
             modes.append(multiDocumentMode)
         }
 
         if let cameraModeSegmented = builderArgs?["CameraModeSegmented"] as? Dictionary<String, String?> {
             let segmentedDocumentMode = KlippaSegmentedDocumentMode()
-            if let name = cameraModeSegmented["name"], let name {
+            if let name = cameraModeSegmented["name"] as? String {
                 segmentedDocumentMode.name = name
             }
-            if let message = cameraModeSegmented["message"], let message {
-                segmentedDocumentMode.instructions = Instructions(message: message)
+
+            if let message = cameraModeSegmented["message"] as? String ?? segmentedDocumentMode.instructions?.message {
+                let image = cameraModeSegmented["image"] as? String
+                segmentedDocumentMode.instructions = Instructions(
+                    title: segmentedDocumentMode.name,
+                    message: message,
+                    image: image ?? KlippaSegmentedDocumentMode.image
+                )
             }
 
-            segmentedDocumentMode.instructions?.dismissHandler = { [weak self] in
-                self?.segmentedDocumentModeInstructionsDismissed = true
-            }
             modes.append(segmentedDocumentMode)
         }
 
@@ -297,17 +330,15 @@ public class SwiftKlippaScannerSdkPlugin: NSObject, FlutterPlugin, KlippaScanner
         }
 
 
-        if let imageLimit = builderArgs?["ImageLimit"] {
-            builder.klippaImageAttributes.imageLimit = imageLimit as? Int ?? 0
+        if let imageLimit = builderArgs?["ImageLimit"] as? Int {
+            builder.klippaImageAttributes.imageLimit = imageLimit
         }
 
-        let modelFile = builderArgs?["Model.fileName"] as? String ?? ""
-
-        let modelLabels = builderArgs?["Model.modelLabels"] as? String ?? ""
-
-        if modelFile != "" && modelLabels != "" {
-            let model = KlippaObjectDetectionModel(modelFile: modelFile, modelLabels: modelLabels)
-            builder.klippaObjectDetectionModel = model
+        if let modelFile = builderArgs?["Model.fileName"] as? String, let modelLabels = builderArgs?["Model.modelLabels"] as? String {
+            builder.klippaObjectDetectionModel = KlippaObjectDetectionModel(
+                modelFile: modelFile,
+                modelLabels: modelLabels
+            )
         }
 
         resultHandler = result
@@ -317,12 +348,11 @@ public class SwiftKlippaScannerSdkPlugin: NSObject, FlutterPlugin, KlippaScanner
 
         switch viewControllerResult {
         case .success(let controller):
+            controller.modalPresentationStyle = .fullScreen
             rootViewController.present(controller, animated:true, completion:nil)
         case .failure(let err):
             result(FlutterError.init(code: E_FAILED_TO_SHOW_SESSION, message: "error: \(err)", details: nil))
         }
-
-
     }
 
     public func klippaScannerDidFailWithError(error: Error) {
@@ -342,6 +372,10 @@ public class SwiftKlippaScannerSdkPlugin: NSObject, FlutterPlugin, KlippaScanner
             let imageDict = ["Filepath" : image.path]
             images.append(imageDict)
         }
+
+        let singleDocumentModeInstructionsDismissed = result.dismissedInstructions[DocModeType.singleDocument.name] ?? false
+        let multiDocumentModeInstructionsDismissed = result.dismissedInstructions[DocModeType.multipleDocument.name] ?? false
+        let segmentedDocumentModeInstructionsDismissed = result.dismissedInstructions[DocModeType.segmentedDocument.name] ?? false
 
         let resultDict = [
             "Images" : images,

@@ -53,6 +53,9 @@ class CameraMode {
 
   /// The instructions that are shown to the user.
   String? message;
+
+  /// The image that is shown in the instructions (iOS only).
+  String? image;
 }
 
 class CameraConfig {
@@ -102,6 +105,9 @@ class CameraConfig {
 
   /// The text inside of the alert to confirm exiting the scanner.
   String? cancelConfirmationMessage;
+
+  /// The text at the top to indicate the picture count on segmented camera mode.
+  String? segmentedModeImageCountMessage;
 
   /// Whether to go to the Review Screen once the image limit has been reached. (default false)
   bool? shouldGoToReviewScreenWhenImageLimitReached;
@@ -183,7 +189,7 @@ class CameraConfig {
   Color? accentColor;
 
   /// The overlay color (when using document detection), should be a hex RGB color string.
-  Color? overlayColor;
+  Color? secondaryColor;
 
   /// The color of the background of the warning message, should be a hex RGB color string.
   Color? warningBackgroundColor;
@@ -201,7 +207,31 @@ class CameraConfig {
   Color? iconDisabledColor;
 
   /// The color of the menu icons of the screen where you can review/edit the images, should be a hex RGB color string.
-  Color? reviewIconColor;
+  Color? buttonWithIconForegroundColor;
+
+  /// The color of the menu icons of the screen where you can review/edit the images, should be a hex RGB color string.
+  Color? buttonWithIconBackgroundColor;
+
+  /// The text below the crop button in the review screen.
+  String? cropEditButtonText;
+
+  /// The text below the filter button in the review screen.
+  String? filterEditButtonText;
+
+  /// The text below the rotate button in the review screen.
+  String? rotateEditButtonText;
+
+  /// The text below the delete button in the review screen.
+  String? deleteEditButtonText;
+
+  /// The text below the cancel button in the crop screen.
+  String? cancelCropButtonText;
+
+  /// The text below the expand button in the crop screen.
+  String? expandCropButtonText;
+
+  /// The text below the save button in the crop screen.
+  String? saveCropButtonText;
 
   /// Whether the camera has a view finder overlay (a helper grid so the user knows where the document should be), should be a Boolean.
   bool? isViewFinderEnabled;
@@ -235,19 +265,6 @@ class KlippaScannerSdk {
 
     if (config.defaultCrop != null) {
       parameters["DefaultCrop"] = config.defaultCrop;
-    }
-
-    if (config.moveCloserMessage != null) {
-      parameters["MoveCloserMessage"] = config.moveCloserMessage;
-    }
-
-    if (config.imageMovingMessage != null) {
-      parameters["ImageMovingMessage"] = config.imageMovingMessage;
-    }
-
-    if (config.orientationWarningMessage != null) {
-      parameters["OrientationWarningMessage"] =
-          config.orientationWarningMessage;
     }
 
     if (config.imageMaxWidth != null) {
@@ -293,9 +310,6 @@ class KlippaScannerSdk {
     if (config.success.previewDuration != null) {
       parameters["Success.previewDuration"] = config.success.previewDuration;
     }
-    if (config.success.message != null) {
-      parameters["Success.message"] = config.success.message;
-    }
 
     if (config.shutterButton.allowShutterButton != null) {
       parameters["ShutterButton.allowShutterButton"] =
@@ -310,34 +324,53 @@ class KlippaScannerSdk {
       parameters["ImageLimit"] = config.imageLimit;
     }
 
-    if (config.imageLimitReachedMessage != null) {
-      parameters["ImageLimitReachedMessage"] = config.imageLimitReachedMessage;
-    }
-
-    if (config.cancelConfirmationMessage != null) {
-      parameters["CancelConfirmationMessage"] =
-          config.cancelConfirmationMessage;
-    }
-
-    if (config.deleteButtonText != null) {
-      parameters["DeleteButtonText"] = config.deleteButtonText;
-    }
-
-    if (config.retakeButtonText != null) {
-      parameters["RetakeButtonText"] = config.retakeButtonText;
-    }
-
-    if (config.cancelButtonText != null) {
-      parameters["CancelButtonText"] = config.cancelButtonText;
-    }
-
-    if (config.cancelAndDeleteImagesButtonText != null) {
-      parameters["CancelAndDeleteImagesButtonText"] =
-          config.cancelAndDeleteImagesButtonText;
-    }
-
     if (config.defaultColor != null) {
       parameters["DefaultColor"] = config.defaultColor!.name;
+    }
+
+    if (config.storeImagesToCameraRol != null) {
+      parameters["StoreImagesToCameraRoll"] = config.storeImagesToCameraRol;
+    }
+
+    if (config.cameraModeSingle != null) {
+      parameters["CameraModeSingle"] = {
+        'name': config.cameraModeSingle?.name,
+        'message': config.cameraModeSingle?.message,
+        'image': config.cameraModeSingle?.image
+      };
+    }
+
+    if (config.cameraModeMulti != null) {
+      parameters["CameraModeMulti"] = {
+        'name': config.cameraModeMulti?.name,
+        'message': config.cameraModeMulti?.message,
+        'image': config.cameraModeMulti?.image
+      };
+    }
+
+    if (config.cameraModeSegmented != null) {
+      parameters["CameraModeSegmented"] = {
+        'name': config.cameraModeSegmented?.name,
+        'message': config.cameraModeSegmented?.message,
+        'image': config.cameraModeSegmented?.image
+      };
+    }
+
+    if (config.startingIndex != null) {
+      parameters["StartingIndex"] = config.startingIndex;
+    }
+
+    if (config.userCanRotateImage != null) {
+      parameters["UserCanRotateImage"] = config.userCanRotateImage;
+    }
+
+    if (config.userCanCropManually != null) {
+      parameters["UserCanCropManually"] = config.userCanCropManually;
+    }
+
+    if (config.userCanChangeColorSetting != null) {
+      parameters["UserCanChangeColorSetting"] =
+          config.userCanChangeColorSetting;
     }
 
     /// Android only
@@ -365,6 +398,54 @@ class KlippaScannerSdk {
       parameters["ImageTooDarkMessage"] = config.imageTooDarkMessage;
     }
 
+    if (config.moveCloserMessage != null) {
+      parameters["MoveCloserMessage"] = config.moveCloserMessage;
+    }
+
+    if (config.imageMovingMessage != null) {
+      parameters["ImageMovingMessage"] = config.imageMovingMessage;
+    }
+
+    if (config.orientationWarningMessage != null) {
+      parameters["OrientationWarningMessage"] =
+          config.orientationWarningMessage;
+    }
+
+    if (config.success.message != null) {
+      parameters["Success.message"] = config.success.message;
+    }
+
+    if (config.imageLimitReachedMessage != null) {
+      parameters["ImageLimitReachedMessage"] = config.imageLimitReachedMessage;
+    }
+
+    if (config.segmentedModeImageCountMessage != null) {
+      parameters["SegmentedModeImageCountMessage"] =
+          config.segmentedModeImageCountMessage;
+    }
+
+    if (config.cancelConfirmationMessage != null) {
+      parameters["CancelConfirmationMessage"] =
+          config.cancelConfirmationMessage;
+    }
+
+    if (config.deleteButtonText != null) {
+      parameters["DeleteButtonText"] = config.deleteButtonText;
+    }
+
+    if (config.retakeButtonText != null) {
+      parameters["RetakeButtonText"] = config.retakeButtonText;
+    }
+
+    if (config.cancelButtonText != null) {
+      parameters["CancelButtonText"] = config.cancelButtonText;
+    }
+
+    if (config.cancelAndDeleteImagesButtonText != null) {
+      parameters["CancelAndDeleteImagesButtonText"] =
+          config.cancelAndDeleteImagesButtonText;
+    }
+
     if (config.imageColorOriginalText != null) {
       parameters["ImageColorOriginalText"] = config.imageColorOriginalText;
     }
@@ -382,19 +463,6 @@ class KlippaScannerSdk {
           config.shouldGoToReviewScreenWhenImageLimitReached;
     }
 
-    if (config.userCanRotateImage != null) {
-      parameters["UserCanRotateImage"] = config.userCanRotateImage;
-    }
-
-    if (config.userCanCropManually != null) {
-      parameters["UserCanCropManually"] = config.userCanCropManually;
-    }
-
-    if (config.userCanChangeColorSetting != null) {
-      parameters["UserCanChangeColorSetting"] =
-          config.userCanChangeColorSetting;
-    }
-
     if (config.primaryColor != null) {
       parameters["PrimaryColor"] =
           KIVHexColor.flutterColorToHex(config.primaryColor!, true);
@@ -405,9 +473,9 @@ class KlippaScannerSdk {
           KIVHexColor.flutterColorToHex(config.accentColor!, true);
     }
 
-    if (config.overlayColor != null) {
-      parameters["OverlayColor"] =
-          KIVHexColor.flutterColorToHex(config.overlayColor!, true);
+    if (config.secondaryColor != null) {
+      parameters["SecondaryColor"] =
+          KIVHexColor.flutterColorToHex(config.secondaryColor!, true);
     }
 
     if (config.overlayColorAlpha != null) {
@@ -434,9 +502,16 @@ class KlippaScannerSdk {
           KIVHexColor.flutterColorToHex(config.iconDisabledColor!, true);
     }
 
-    if (config.reviewIconColor != null) {
-      parameters["ReviewIconColor"] =
-          KIVHexColor.flutterColorToHex(config.reviewIconColor!, true);
+    if (config.buttonWithIconForegroundColor != null) {
+      parameters["ButtonWithIconForegroundColor"] =
+          KIVHexColor.flutterColorToHex(
+              config.buttonWithIconForegroundColor!, true);
+    }
+
+    if (config.buttonWithIconBackgroundColor != null) {
+      parameters["ButtonWithIconBackgroundColor"] =
+          KIVHexColor.flutterColorToHex(
+              config.buttonWithIconBackgroundColor!, true);
     }
 
     if (config.isViewFinderEnabled != null) {
@@ -446,39 +521,6 @@ class KlippaScannerSdk {
     if (config.imageMovingSensitivityiOS != null) {
       parameters["ImageMovingSensitivityiOS"] =
           config.imageMovingSensitivityiOS;
-    }
-
-    if (config.storeImagesToCameraRol != null) {
-      parameters["StoreImagesToCameraRoll"] = config.storeImagesToCameraRol;
-    }
-
-    if (config.cameraModeSingle != null) {
-      parameters["CameraModeSingle"] = {
-        'name': config.cameraModeSingle?.name,
-        'message': config.cameraModeSingle?.message
-      };
-    }
-
-    if (config.cameraModeMulti != null) {
-      parameters["CameraModeMulti"] = {
-        'name': config.cameraModeMulti?.name,
-        'message': config.cameraModeMulti?.message
-      };
-    }
-
-    if (config.cameraModeSegmented != null) {
-      parameters["CameraModeSegmented"] = {
-        'name': config.cameraModeSegmented?.name,
-        'message': config.cameraModeSegmented?.message
-      };
-    }
-
-    if (config.startingIndex != null) {
-      parameters["StartingIndex"] = config.startingIndex;
-    }
-
-    if (config.startingIndex != null) {
-      parameters["StartingIndex"] = config.startingIndex;
     }
 
     final Map startSessionResult =

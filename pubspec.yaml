@@ -1,6 +1,6 @@
 name: klippa_scanner_sdk
 description: Allows you to do document scanning with the Klippa Scanner SDK from Flutter apps.
-version: 0.3.3
+version: 1.0.0
 homepage: https://github.com/klippa-app/flutter-klippa-scanner-sdk
 
 environment:
