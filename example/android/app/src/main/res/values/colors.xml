@@ -1,10 +1,15 @@
 <resources>
-    <color name="klippa_scanner_sdk_color_Primary">#fcba03</color>
-    <color name="klippa_scanner_sdk_color_PrimaryDark">#805e01</color>
-    <color name="klippa_scanner_sdk_color_Accent">#07c6e3</color>
-    <color name="klippa_scanner_sdk_color_Overlay">#4a507d</color>
-    <color name="klippa_scanner_sdk_color_Warning">#bf1ba9</color>
-    <color name="klippa_scanner_sdk_color_IconDisabledColor">#fcba03</color>
-    <color name="klippa_scanner_sdk_color_IconEnabledColor">#07c6e3</color>
-    <color name="klippa_scanner_sdk_color_ReviewIconColor">#07c6e3</color>
+    <color name="klippa_scanner_sdk_color_primary">#000000</color>
+    <color name="klippa_scanner_sdk_color_accent">#ffffff</color>
+
+    <color name="klippa_scanner_sdk_color_secondary">#2dc36a</color>
+
+    <color name="klippa_scanner_sdk_color_warning_background">#BF000000</color>
+    <color name="klippa_scanner_sdk_color_warning_text">#ffffff</color>
+
+    <color name="klippa_scanner_sdk_color_icon_disabled">#444</color>
+    <color name="klippa_scanner_sdk_color_icon_enabled">#ffffff</color>
+
+    <color name="klippa_scanner_sdk_color_button_with_icon_foreground">#ffffff</color>
+    <color name="klippa_scanner_sdk_color_button_with_icon_background">#444444</color>
 </resources>

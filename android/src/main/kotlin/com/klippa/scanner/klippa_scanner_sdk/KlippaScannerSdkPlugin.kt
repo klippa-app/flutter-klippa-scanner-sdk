@@ -79,11 +79,6 @@ class KlippaScannerSdkPlugin: FlutterPlugin, MethodCallHandler, ActivityAware, P
         }
     }
 
-    private var singleDocumentModeInstructionsDismissed = false
-    private var multiDocumentModeInstructionsDismissed = false
-    private var segmentedDocumentModeInstructionsDismissed = false
-
-
     private fun startSession(call: MethodCall, result: Result) {
         val activity = activityPluginBinding?.activity ?: kotlin.run {
             result.error(E_ACTIVITY_DOES_NOT_EXIST, "Activity doesn't exist", null)
@@ -319,6 +314,10 @@ class KlippaScannerSdkPlugin: FlutterPlugin, MethodCallHandler, ActivityAware, P
 
         val cropEnabled: Boolean = result.cropEnabled
         val timerEnabled: Boolean = result.timerEnabled
+
+        val singleDocumentModeInstructionsDismissed = result.dismissedInstructions["SINGLE_DOCUMENT"] ?: false
+        val multiDocumentModeInstructionsDismissed = result.dismissedInstructions["MULTIPLE_DOCUMENT"] ?: false
+        val segmentedDocumentModeInstructionsDismissed = result.dismissedInstructions["SEGMENTED_DOCUMENT"] ?: false
 
         val resultDict = mapOf(
             "Images" to images,
