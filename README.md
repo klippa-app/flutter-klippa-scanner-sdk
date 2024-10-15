@@ -164,15 +164,6 @@ config.imageMaxHeight = 1080;
 // Set the output quality (between 0-100) of the jpg encoder. Default is 100.
 config.imageMaxQuality = 95;
 
-// The warning message when someone should move closer to a document, should be a string.
-config.moveCloserMessage = "Move closer to the document";
-
-// The warning message when the camera preview has to much motion to be able to automatically take a photo.
-config.imageMovingMessage = "Too much movement";
-
-// The warning message when the camera turned out of portrait mode.
-config.orientationWarningMessage = "Hold your phone in portrait mode";
-
 // If you would like to use a custom model for object detection. Model + labels file should be packaged in your bundle.
 config.model.fileName = "model";
 config.model.modelLabels = "labelmap";
@@ -200,31 +191,12 @@ config.cropPadding.height =  100;
 
 // After capture, show a checkmark preview with this success message, instead of a preview of the image.
 config.success.previewDuration = 1.0;
-config.success.message = "Success!";
 
 // The amount of seconds the preview should be visible for, should be a float.
 config.previewDuration = 1.0;
 
 // To limit the amount of images that can be taken.
 config.imageLimit = 10;
-
-// The message to display when the limit has been reached.
-config.imageLimitReachedMessage = "You have reached the image limit";
-
-// The message to display when the cancel button has tapped.
-config.cancelConfirmationMessage = "Delete photos and exit scanner?";
-
-// The text of the delete image button.
-config.deleteButtonText = "Delete Photo";
-
-// The text of the retake image button.
-config.retakeButtonText = "Retake Photo";
-
-// The text of the cancel event button.
-config.cancelButtonText = "Cancel";
-
-// The text of the button shown as one of the delete confirmation alert dialog options.
-config.cancelAndDeleteImagesButtonText = "Delete photos and exit";
 
 // Whether the camera automatically saves the images to the camera roll (iOS) / gallery (Android). Default true.
 config.storeImagesToCameraRol = true;
@@ -255,7 +227,6 @@ config.cameraModeSegmented?.message = "Used for a single document segmented into
 
 // When multiple camera modes are enabled select which should show first by index.
 config.startingIndex = 0;
-
 ```
 
 ## Android only
@@ -284,12 +255,6 @@ config.imageColorGrayscaleText = "grayscale";
 // The text inside of the color selection alert dialog button named enhanced.
 config.imageColorEnhancedText = "enhanced";
 
-// The warning message when the camera result is too bright.
-config.imageTooBrightMessage = "The image is too bright";
-
-// The warning message when the camera result is too dark.
-config.imagetooDarkMessage = "The image is too dark";
-
 // Whether the camera has a view finder overlay (a helper grid so the user knows where the document should be), should be a Boolean.
 config.isViewFinderEnabled = true;
 
@@ -306,14 +271,15 @@ Add or edit the file `android/app/src/res/values/colors.xml`, add the following:
 
 ```XML
 <resources>
-    <color name="klippa_scanner_sdk_color_Primary">#fcba03</color>
-    <color name="klippa_scanner_sdk_color_PrimaryDark">#805e01</color>
-    <color name="klippa_scanner_sdk_color_Accent">#07c6e3</color>
-    <color name="klippa_scanner_sdk_color_Overlay">#4a507d</color>
-    <color name="klippa_scanner_sdk_color_Warning">#bf1ba9</color>
-    <color name="klippa_scanner_sdk_color_IconDisabledColor">#fcba03</color>
-    <color name="klippa_scanner_sdk_color_IconEnabledColor">#07c6e3</color>
-    <color name="klippa_scanner_sdk_color_ReviewIconColor">#07c6e3</color>
+  <color name="klippa_scanner_sdk_color_accent">#ffffff</color>
+  <color name="klippa_scanner_sdk_color_button_with_icon_background">#444444</color>
+  <color name="klippa_scanner_sdk_color_button_with_icon_foreground">#ffffff</color>
+  <color name="klippa_scanner_sdk_color_icon_disabled">#444</color>
+  <color name="klippa_scanner_sdk_color_icon_enabled">#ffffff</color>
+  <color name="klippa_scanner_sdk_color_primary">#000000</color>
+  <color name="klippa_scanner_sdk_color_secondary">#2dc36a</color>
+  <color name="klippa_scanner_sdk_color_warning_background">#BF000000</color>
+  <color name="klippa_scanner_sdk_color_warning_text">#ffffff</color>
 </resources>
 ```
 
@@ -322,18 +288,19 @@ Add or edit the file `android/app/src/res/values/colors.xml`, add the following:
 Use the following properties in the config:
 
 ```dart
-config.accentColor = Color.fromARGB(255, 219, 73, 73);
-config.primaryColor = Color.fromARGB(255, 0, 59, 255);
-config.overlayColor = Color.fromARGB(255, 255, 0, 191);
-config.warningBackgroundColor = Color.fromARGB(255, 252, 252, 252);
-config.warningTextColor = Color.fromARGB(255, 0, 0, 0);
-config.iconEnabledColor = Color.fromARGB(255, 0, 59, 255);
-config.iconDisabledColor = Color.fromARGB(255, 255, 0, 191);
-config.reviewIconColor = Color.fromARGB(255, 219, 73, 73);
-config.overlayColorAlpha = 0.75; // manually set the alpha of the overlay bounding box.
+  config.accentColor = Color.fromARGB(255, 255, 255, 255);
+  config.buttonWithIconBackgroundColor = Color.fromARGB(255, 68, 68, 68);
+  config.buttonWithIconForegroundColor = Color.fromARGB(255, 255, 255, 255);
+  config.iconDisabledColor = Color.fromARGB(255, 255, 0, 191);
+  config.iconEnabledColor = Color.fromARGB(255, 0, 59, 255);
+  config.primaryColor = Color.fromARGB(255, 0, 0, 0);
+  config.secondaryColor = Color.fromARGB(255, 255, 0, 191);
+  config.warningBackgroundColor = Color.fromARGB(255, 252, 252, 252);
+  config.warningTextColor = Color.fromARGB(255, 0, 0, 0);
+  config.overlayColorAlpha = 0.75; // manually set the alpha of the overlay bounding box.
 ```
 
-## How to change the strings of the SDK? (Android only)
+## How to change the strings of the SDK?
 
 ### Android
 
@@ -341,17 +308,119 @@ Add or edit the file `android/app/src/res/values/strings.xml`, add the following
 
 ```XML
 <resources>
-    <string name="klippa_zoom_message">Move closer to the document</string>
-    <string name="klippa_image_limit_reached">You have reached the image limit</string>
-    <string name="klippa_success_message">Success</string>
-    <string name="klippa_image_moving_message">Moving too much</string>
-    <string name="klippa_orientation_warning_message">Hold your phone in portrait mode</string>
-    <string name="klippa_delete_button_text">Delete Photo</string>
-    <string name="klippa_retake_button_text">Retake Photo</string>
-    <string name="klippa_cancel_button_text">Cancel</string>
-    <string name="klippa_cancel_delete_images">Delete photos and exit</string>
-    <string name="klippa_cancel_confirmation">Delete photos and exit scanner?</string>
+  <string name="klippa_action_crop">Crop</string>
+  <string name="klippa_action_delete">Delete</string>
+  <string name="klippa_action_expand">Expand</string>
+  <string name="klippa_action_filter">Filter</string>
+  <string name="klippa_action_rotate">Rotate</string>
+  <string name="klippa_action_save">Save</string>
+  <string name="klippa_auto_capture">Auto-Capture</string>
+  <string name="klippa_cancel_button_text">Cancel</string>
+  <string name="klippa_cancel_confirmation">When you close the taken scans will be deleted. Are you sure you want to cancel without saving?</string>
+  <string name="klippa_cancel_delete_images">Cancel Scanner</string>
+  <string name="klippa_continue_button_text">Continue</string>
+  <string name="klippa_delete_button_text">Delete</string>
+  <string name="klippa_image_color_enhanced">Enhanced</string>
+  <string name="klippa_image_color_grayscale">Grayscale</string>
+  <string name="klippa_image_color_original">Original</string>
+  <string name="klippa_image_limit_reached">You have reached the image limit</string>
+  <string name="klippa_image_moving_message">Moving too much</string>
+  <string name="klippa_images">Images</string>
+  <string name="klippa_manual_capture">Manual</string>
+  <string name="klippa_orientation_warning_message">Hold your phone in portrait mode</string>
+  <string name="klippa_retake_button_text">Retake</string>
+  <string name="klippa_success_message">Success</string>
+  <string name="klippa_zoom_message">Move closer to the document</string>
 </resources>
+```
+
+### iOS
+
+Use the following properties in the config:
+
+```dart
+// The warning message when someone should move closer to a document, should be a string.
+config.moveCloserMessage = "Move closer to the document";
+
+// The warning message when the camera preview has to much motion to be able to automatically take a photo.
+config.imageMovingMessage = "Too much movement";
+
+// The warning message when the camera turned out of portrait mode.
+config.orientationWarningMessage = "Hold your phone in portrait mode";
+
+// The message to display when the image was successfully taken.
+config.success.message = "Success!";
+
+// The message to display when the limit has been reached.
+config.imageLimitReachedMessage = "You have reached the image limit";
+
+// The message to display when the cancel button has tapped.
+config.cancelConfirmationMessage = "Delete photos and exit scanner?";
+
+// The text of the delete image button.
+config.deleteButtonText = "Delete Photo";
+
+// The text of the retake image button.
+config.retakeButtonText = "Retake Photo";
+
+// The text of the cancel event button.
+config.cancelButtonText = "Cancel";
+
+// The text of the button shown as one of the delete confirmation alert dialog options.
+config.cancelAndDeleteImagesButtonText = "Delete photos and exit";
+
+// The warning message when the camera result is too bright.
+config.imageTooBrightMessage = "The image is too bright";
+
+// The warning message when the camera result is too dark.
+config.imageTooDarkMessage = "The image is too dark";
+
+// The message displayed at the top of segmented document mode.
+config.segmentedModeImageCountMessage = "Images"
+
+// The text shown in the review screen to edit the bounding box.
+config.cropEditButtonText = "Crop"
+
+// The text shown in the review screen to change the filter on the image.
+config.filterEditButtonText = "Filter"
+
+// The text shown in the review screen to rotate the image.
+config.rotateEditButtonText = "Rotate"
+
+// The text shown in the review screen to delete the image.
+config.deleteEditButtonText = "Delete"
+
+// The text shown in the crop screen cancel editing.
+config.cancelCropButtonText = "Cancel"
+
+// The text shown in the crop screen to expand the bounding box.
+config.expandCropButtonText = "Expand"
+
+// The text shown in the crop screen to save the bounding box.
+config.saveCropButtonText = "Save"
+```
+
+## How to change the image in the instructions?
+
+### Android
+
+Add an XML file in `android/app/src/res/drawable/` with name `klippa_camera_mode_single_document.xml` to change the image in Single Document Mode.
+Add an XML file in `android/app/src/res/drawable/` with name `klippa_camera_mode_multiple_documents.xml` to change the image in Multiple Document Mode.
+Add an XML file in `android/app/src/res/drawable/` with name `klippa_camera_mode_segmented_document.xml` to change the image in Segmented Document Mode.
+
+### iOS
+
+Use the following properties in the config:
+
+```dart
+// Change the default image in the Segmented Document Mode instructions.
+config.cameraModeSegmented?.image = "{name of image in Assets.xcassets}";
+
+// Change the default image in the Multi Document Mode instructions.
+config.cameraModeMulti?.image = "{name of image in Assets.xcassets}";
+
+// Change the default image in the Single Document Mode instructions.
+config.cameraModeSingle?.image = "{name of image in Assets.xcassets}";
 ```
 
 ## Important iOS notes
