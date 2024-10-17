@@ -1,3 +1,7 @@
+## 1.0.1
+
+* Bump Android to 4.0.1
+
 ## 1.0.0
 
 **NOTE:** This version introduces breaking changes, please see our documentation for the new implementation.
