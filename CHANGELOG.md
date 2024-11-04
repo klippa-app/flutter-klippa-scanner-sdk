@@ -1,3 +1,7 @@
+## 1.0.2
+
+* Fixed issue where `PreviewDuration` was set incorrectly.
+
 ## 1.0.1
 
 * Bump Android to 4.0.1
