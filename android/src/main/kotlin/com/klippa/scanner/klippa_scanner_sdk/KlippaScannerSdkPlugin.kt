@@ -111,7 +111,7 @@ class KlippaScannerSdkPlugin: FlutterPlugin, MethodCallHandler, ActivityAware, P
                 scannerSession.imageAttributes.outputQuality = it
             }
 
-            call.argument<Double>("ImageMaxQuality")?.let {
+            call.argument<Double>("PreviewDuration")?.let {
                 scannerSession.durations.previewDuration = it
             }
 
