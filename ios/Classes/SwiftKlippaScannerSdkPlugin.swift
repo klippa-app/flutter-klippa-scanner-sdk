@@ -356,13 +356,7 @@ public class SwiftKlippaScannerSdkPlugin: NSObject, FlutterPlugin, KlippaScanner
     }
 
     public func klippaScannerDidFailWithError(error: Error) {
-        print("didFailWithError");
-        switch error {
-        case let licenseError as KlippaScannerLicenseError:
-            resultHandler!(FlutterError.init(code: E_MISSING_LICENSE, message: licenseError.localizedDescription, details: nil))
-        default:
-            resultHandler!(FlutterError.init(code: E_MISSING_LICENSE, message: error.localizedDescription, details: nil))
-        }
+        resultHandler?(FlutterError.init(code: E_CANCELED, message: "Scanner canceled with error: \(error.localizedDescription)", details: nil))
         resultHandler = nil;
     }
 
@@ -386,13 +380,12 @@ public class SwiftKlippaScannerSdkPlugin: NSObject, FlutterPlugin, KlippaScanner
             "SegmentedDocumentModeInstructionsDismissed": segmentedDocumentModeInstructionsDismissed
         ] as [String : Any]
 
-        resultHandler!(resultDict)
+        resultHandler?(resultDict)
         resultHandler = nil
     }
 
     public func klippaScannerDidCancel() {
-        print("imageScannerControllerDidCancel");
-        resultHandler!(FlutterError.init(code: E_CANCELED, message: "The user canceled", details: nil))
+        resultHandler?(FlutterError.init(code: E_CANCELED, message: "The user canceled", details: nil))
         resultHandler = nil;
     }
 

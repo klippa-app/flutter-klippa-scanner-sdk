@@ -333,7 +333,7 @@ class KlippaScannerSdkPlugin: FlutterPlugin, MethodCallHandler, ActivityAware, P
     }
 
     private fun klippaScannerDidFailWithError(error: KlippaError) {
-        resultHandler?.error(E_CANCELED, "Scanner was canceled with error: ${error.message()}", null)
+        resultHandler?.error(E_CANCELED, "Scanner canceled with error: ${error.message()}", null)
         resultHandler = null
     }
 
