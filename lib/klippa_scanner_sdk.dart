@@ -151,6 +151,12 @@ class CameraConfig {
   /// The starting index for which mode will be preselected when starting.
   num? startingIndex;
 
+  /// Whether to allow users to select media from their device (Shows a media button bottom left on the scanner screen).
+  bool? userCanPickMediaFromStorage;
+
+  /// Whether the next button in the bottom right of the scanner screen goes to the review screen instead of finishing the session.
+  bool? shouldGoToReviewScreenOnFinishPressed;
+
   /// Android Options
 
   /// Where to put the image results
@@ -238,6 +244,12 @@ class CameraConfig {
 
   /// The threshold sensitive the motion detection is. (lower value is higher sensitivity, default 200).
   num? imageMovingSensitivityiOS;
+
+  /// The lower threshold before the warning message informs the environment is too dark (default 0).
+  num? brightnessLowerThreshold;
+
+  /// The upper threshold before the warning message informs the environment is too bright (default 6).
+  num? brightnessUpperThreshold;
 }
 
 /// A helper to convert flutter Color to a hex ARGB.
@@ -371,6 +383,16 @@ class KlippaScannerSdk {
     if (config.userCanChangeColorSetting != null) {
       parameters["UserCanChangeColorSetting"] =
           config.userCanChangeColorSetting;
+    }
+
+    if (config.userCanPickMediaFromStorage != null) {
+      parameters["UserCanPickMediaFromStorage"] =
+          config.userCanPickMediaFromStorage;
+    }
+
+    if (config.shouldGoToReviewScreenOnFinishPressed != null) {
+      parameters["ShouldGoToReviewScreenOnFinishPressed"] =
+          config.shouldGoToReviewScreenOnFinishPressed;
     }
 
     /// Android only
@@ -521,6 +543,14 @@ class KlippaScannerSdk {
     if (config.imageMovingSensitivityiOS != null) {
       parameters["ImageMovingSensitivityiOS"] =
           config.imageMovingSensitivityiOS;
+    }
+
+    if (config.brightnessLowerThreshold != null) {
+      parameters["BrightnessLowerThreshold"] = config.brightnessLowerThreshold;
+    }
+
+    if (config.brightnessUpperThreshold != null) {
+      parameters["BrightnessUpperThreshold"] = config.brightnessUpperThreshold;
     }
 
     final Map startSessionResult =

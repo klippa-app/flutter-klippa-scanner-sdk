@@ -204,6 +204,13 @@ class KlippaScannerSdkPlugin: FlutterPlugin, MethodCallHandler, ActivityAware, P
                 scannerSession.menu.userCanChangeColorSetting = it
             }
 
+            call.argument<Boolean>("UserCanPickMediaFromStorage")?.let {
+                scannerSession.menu.userCanPickMediaFromStorage = it
+            }
+
+            call.argument<Boolean>("ShouldGoToReviewScreenOnFinishPressed")?.let {
+                scannerSession.menu.shouldGoToReviewScreenOnFinishPressed = it
+            }
 
             val modes: MutableList<KlippaDocumentMode> = mutableListOf()
 
