@@ -77,7 +77,7 @@ android {
 }
 
 dependencies {
-    def fallbackKlippaScannerVersion = "4.0.1"
+    def fallbackKlippaScannerVersion = "4.0.5"
     def klippaScannerVersion = project.hasProperty('klippaScannerVersion') ? project.klippaScannerVersion : fallbackKlippaScannerVersion
     implementation "com.klippa:scanner:$klippaScannerVersion"
 }

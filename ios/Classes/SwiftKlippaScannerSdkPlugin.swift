@@ -259,6 +259,22 @@ public class SwiftKlippaScannerSdkPlugin: NSObject, FlutterPlugin, KlippaScanner
             builder.klippaImageAttributes.storeImagesToCameraRoll = storeImagesToCameraRoll
         }
 
+        if let userCanPickMediaFromStorage = builderArgs?["UserCanPickMediaFromStorage"] as? Bool {
+            builder.klippaMenu.userCanPickMediaFromStorage = userCanPickMediaFromStorage
+        }
+
+        if let shouldGoToReviewScreenOnFinishPressed = builderArgs?["ShouldGoToReviewScreenOnFinishPressed"] as? Bool {
+            builder.klippaMenu.shouldGoToReviewScreenOnFinishPressed = shouldGoToReviewScreenOnFinishPressed
+        }
+
+        if let brightnessLowerThreshold = builderArgs?["BrightnessLowerThreshold"] as? Double {
+            builder.klippaImageAttributes.brightnessLowerThreshold = brightnessLowerThreshold
+        }
+
+        if let brightnessUpperThreshold = builderArgs?["BrightnessUpperThreshold"] as? Double {
+            builder.klippaImageAttributes.brightnessUpperThreshold = brightnessUpperThreshold
+        }
+
         var modes: [KlippaDocumentMode] = []
 
         if let cameraModeSingle = builderArgs?["CameraModeSingle"] as? Dictionary<String, String?> {
