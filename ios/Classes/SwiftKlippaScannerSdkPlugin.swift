@@ -259,6 +259,22 @@ public class SwiftKlippaScannerSdkPlugin: NSObject, FlutterPlugin, KlippaScanner
             builder.klippaImageAttributes.storeImagesToCameraRoll = storeImagesToCameraRoll
         }
 
+        if let userCanPickMediaFromStorage = builderArgs?["UserCanPickMediaFromStorage"] as? Bool {
+            builder.klippaMenu.userCanPickMediaFromStorage = userCanPickMediaFromStorage
+        }
+
+        if let shouldGoToReviewScreenOnFinishPressed = builderArgs?["ShouldGoToReviewScreenOnFinishPressed"] as? Bool {
+            builder.klippaMenu.shouldGoToReviewScreenOnFinishPressed = shouldGoToReviewScreenOnFinishPressed
+        }
+
+        if let brightnessLowerThreshold = builderArgs?["BrightnessLowerThreshold"] as? Double {
+            builder.klippaImageAttributes.brightnessLowerThreshold = brightnessLowerThreshold
+        }
+
+        if let brightnessUpperThreshold = builderArgs?["BrightnessUpperThreshold"] as? Double {
+            builder.klippaImageAttributes.brightnessUpperThreshold = brightnessUpperThreshold
+        }
+
         var modes: [KlippaDocumentMode] = []
 
         if let cameraModeSingle = builderArgs?["CameraModeSingle"] as? Dictionary<String, String?> {
@@ -356,13 +372,7 @@ public class SwiftKlippaScannerSdkPlugin: NSObject, FlutterPlugin, KlippaScanner
     }
 
     public func klippaScannerDidFailWithError(error: Error) {
-        print("didFailWithError");
-        switch error {
-        case let licenseError as KlippaScannerLicenseError:
-            resultHandler!(FlutterError.init(code: E_MISSING_LICENSE, message: licenseError.localizedDescription, details: nil))
-        default:
-            resultHandler!(FlutterError.init(code: E_MISSING_LICENSE, message: error.localizedDescription, details: nil))
-        }
+        resultHandler?(FlutterError.init(code: E_CANCELED, message: "Scanner canceled with error: \(error.localizedDescription)", details: nil))
         resultHandler = nil;
     }
 
@@ -386,13 +396,12 @@ public class SwiftKlippaScannerSdkPlugin: NSObject, FlutterPlugin, KlippaScanner
             "SegmentedDocumentModeInstructionsDismissed": segmentedDocumentModeInstructionsDismissed
         ] as [String : Any]
 
-        resultHandler!(resultDict)
+        resultHandler?(resultDict)
         resultHandler = nil
     }
 
     public func klippaScannerDidCancel() {
-        print("imageScannerControllerDidCancel");
-        resultHandler!(FlutterError.init(code: E_CANCELED, message: "The user canceled", details: nil))
+        resultHandler?(FlutterError.init(code: E_CANCELED, message: "The user canceled", details: nil))
         resultHandler = nil;
     }
 

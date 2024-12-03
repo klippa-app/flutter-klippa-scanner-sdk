@@ -201,6 +201,12 @@ config.imageLimit = 10;
 // Whether the camera automatically saves the images to the camera roll (iOS) / gallery (Android). Default true.
 config.storeImagesToCameraRol = true;
 
+// Whether to allow users to select media from their device (Shows a media button bottom left on the scanner screen).
+config.userCanPickMediaFromStorage = true;
+
+// Whether the next button in the bottom right of the scanner screen goes to the review screen instead of finishing the session.
+config.shouldGoToReviewScreenOnFinishPressed = true;
+
 // What the default color conversion will be (grayscale, original, enhanced).
 config.defaultColor = DefaultColor.original;
 
@@ -260,6 +266,12 @@ config.isViewFinderEnabled = true;
 
 // The threshold sensitive the motion detection is. (lower value is higher sensitivity, default 200).
 config.imageMovingSensitivityiOS = 200;
+
+// The lower threshold before the warning message informs the environment is too dark (default 0).
+config.brightnessLowerThreshold = 0;
+
+// The upper threshold before the warning message informs the environment is too bright (default 6).
+config.brightnessUpperThreshold = 6;
 ```
 
 

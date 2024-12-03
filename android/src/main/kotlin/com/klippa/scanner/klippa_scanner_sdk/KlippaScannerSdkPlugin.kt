@@ -204,6 +204,13 @@ class KlippaScannerSdkPlugin: FlutterPlugin, MethodCallHandler, ActivityAware, P
                 scannerSession.menu.userCanChangeColorSetting = it
             }
 
+            call.argument<Boolean>("UserCanPickMediaFromStorage")?.let {
+                scannerSession.menu.userCanPickMediaFromStorage = it
+            }
+
+            call.argument<Boolean>("ShouldGoToReviewScreenOnFinishPressed")?.let {
+                scannerSession.menu.shouldGoToReviewScreenOnFinishPressed = it
+            }
 
             val modes: MutableList<KlippaDocumentMode> = mutableListOf()
 
@@ -333,7 +340,7 @@ class KlippaScannerSdkPlugin: FlutterPlugin, MethodCallHandler, ActivityAware, P
     }
 
     private fun klippaScannerDidFailWithError(error: KlippaError) {
-        resultHandler?.error(E_CANCELED, "Scanner was canceled with error: ${error.message()}", null)
+        resultHandler?.error(E_CANCELED, "Scanner canceled with error: ${error.message()}", null)
         resultHandler = null
     }
 

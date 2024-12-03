@@ -1,3 +1,10 @@
+## 1.0.3
+
+* Bumped Android to 4.0.5
+* Bumped iOS to 2.0.4
+* Added `userCanPickMediaFromStorage` and `shouldGoToReviewScreenOnFinishPressed`.
+* Added `brightnessLowerThreshold` and `brightnessUpperThreshold` for iOS.
+
 ## 1.0.2
 
 * Fixed issue where `PreviewDuration` was set incorrectly.
