@@ -284,6 +284,10 @@ class KlippaScannerSdkPlugin: FlutterPlugin, MethodCallHandler, ActivityAware, P
     }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?): Boolean {
+        if (requestCode != REQUEST_CODE) {
+            return false
+        }
+
         val reason = ScannerFinishedReason.mapResultCode(resultCode)
 
         when (reason) {
