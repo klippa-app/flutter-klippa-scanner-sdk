@@ -195,6 +195,10 @@ public class SwiftKlippaScannerSdkPlugin: NSObject, FlutterPlugin, KlippaScanner
             builder.klippaMenu.shouldGoToReviewScreenWhenImageLimitReached = shouldGoToReviewScreenWhenImageLimitReached
         }
 
+        if let userShouldAcceptResultToContinue = builderArgs?["UserShouldAcceptResultToContinue"] as? Bool {
+            builder.klippaMenu.userShouldAcceptResultToContinue = userShouldAcceptResultToContinue
+        }
+
         if let userCanRotateImage = builderArgs?["UserCanRotateImage"] as? Bool {
             builder.klippaMenu.userCanRotateImage = userCanRotateImage
         }

@@ -112,6 +112,9 @@ class CameraConfig {
   /// Whether to go to the Review Screen once the image limit has been reached. (default false)
   bool? shouldGoToReviewScreenWhenImageLimitReached;
 
+  /// Whether the user must confirm the taken photo before the SDK continues. (default false)
+  bool? userShouldAcceptResultToContinue;
+
   /// Whether to hide or show the rotate button in the Review Screen. (default shown/true)
   bool? userCanRotateImage;
 
@@ -483,6 +486,11 @@ class KlippaScannerSdk {
     if (config.shouldGoToReviewScreenWhenImageLimitReached != null) {
       parameters["ShouldGoToReviewScreenWhenImageLimitReached"] =
           config.shouldGoToReviewScreenWhenImageLimitReached;
+    }
+
+    if (config.userShouldAcceptResultToContinue != null) {
+      parameters["UserShouldAcceptResultToContinue"] =
+          config.userShouldAcceptResultToContinue;
     }
 
     if (config.primaryColor != null) {

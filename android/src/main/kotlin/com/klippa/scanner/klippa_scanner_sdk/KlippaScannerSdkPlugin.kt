@@ -192,6 +192,10 @@ class KlippaScannerSdkPlugin: FlutterPlugin, MethodCallHandler, ActivityAware, P
                 scannerSession.menu.shouldGoToReviewScreenWhenImageLimitReached = it
             }
 
+            call.argument<Boolean>("UserShouldAcceptResultToContinue")?.let {
+                scannerSession.menu.userShouldAcceptResultToContinue = it
+            }
+
             call.argument<Boolean>("UserCanRotateImage")?.let {
                 scannerSession.menu.userCanRotateImage = it
             }
@@ -284,6 +288,10 @@ class KlippaScannerSdkPlugin: FlutterPlugin, MethodCallHandler, ActivityAware, P
     }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?): Boolean {
+        if (requestCode != REQUEST_CODE) {
+            return false
+        }
+
         val reason = ScannerFinishedReason.mapResultCode(resultCode)
 
         when (reason) {
