@@ -207,6 +207,9 @@ config.userCanPickMediaFromStorage = true;
 // Whether the next button in the bottom right of the scanner screen goes to the review screen instead of finishing the session.
 config.shouldGoToReviewScreenOnFinishPressed = true;
 
+// Whether the user must confirm the taken photo before the SDK continues.
+config.userShouldAcceptResultToContinue = false;
+
 // What the default color conversion will be (grayscale, original, enhanced).
 config.defaultColor = DefaultColor.original;
 

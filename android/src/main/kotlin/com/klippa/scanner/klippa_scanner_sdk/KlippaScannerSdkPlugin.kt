@@ -192,6 +192,10 @@ class KlippaScannerSdkPlugin: FlutterPlugin, MethodCallHandler, ActivityAware, P
                 scannerSession.menu.shouldGoToReviewScreenWhenImageLimitReached = it
             }
 
+            call.argument<Boolean>("UserShouldAcceptResultToContinue")?.let {
+                scannerSession.menu.userShouldAcceptResultToContinue = it
+            }
+
             call.argument<Boolean>("UserCanRotateImage")?.let {
                 scannerSession.menu.userCanRotateImage = it
             }
