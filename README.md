@@ -213,6 +213,12 @@ config.userShouldAcceptResultToContinue = false;
 // What the default color conversion will be (grayscale, original, enhanced).
 config.defaultColor = DefaultColor.original;
 
+/// Whether to perform on-device OCR after scanning completes.
+config.performOnDeviceOCR = false;
+
+/// What the output format will be (jpeg, pdfMerged, pdfSingle). (Default jpeg)
+config.outputFormat = OutputFormat.jpeg;
+
 // Enable Single Document Mode
 config.cameraModeSingle = new CameraMode();
 // Localize the name of Single Document Mode
@@ -437,6 +443,19 @@ config.cameraModeMulti?.image = "{name of image in Assets.xcassets}";
 // Change the default image in the Single Document Mode instructions.
 config.cameraModeSingle?.image = "{name of image in Assets.xcassets}";
 ```
+
+## How to clear the storage.
+
+```dart
+import 'package:klippa_scanner_sdk/klippa_scanner_sdk.dart';
+
+try {
+  await KlippaScannerSdk.purge();
+} on PlatformException catch (e) {
+  print('Failed to purge storage: ' + e.toString());
+}
+```
+
 
 ## Important iOS notes
 Older iOS versions do not ship the Swift libraries. To make sure the SDK works on older iOS versions, you can configure the build to embed the Swift libraries using the build setting `EMBEDDED_CONTENT_CONTAINS_SWIFT = YES`.
