@@ -58,6 +58,12 @@ class CameraMode {
   String? image;
 }
 
+enum OutputFormat {
+  jpeg,
+  pdfSingle,
+  pdfMerged
+}
+
 class CameraConfig {
   /// Global options.
 
@@ -141,6 +147,12 @@ class CameraConfig {
 
   /// Whether the camera automatically saves the images to the camera roll (iOS) / gallery (Android). Default true.
   bool? storeImagesToCameraRol;
+
+  /// Whether to perform on-device OCR after scanning completes.
+  bool? performOnDeviceOCR;
+
+  /// What the output format will be (jpeg, pdfMerged, pdfSingle). (Default jpeg)
+  OutputFormat? outputFormat; 
 
   /// The camera mode for scanning one part documents.
   CameraMode? cameraModeSingle;
@@ -271,6 +283,10 @@ class KlippaScannerSdk {
   static const MethodChannel _channel =
       const MethodChannel('klippa_scanner_sdk');
 
+  static Future<void> purge() async {
+    return await _channel.invokeMethod('purge');
+  }
+
   static Future<Map> startSession(
       final CameraConfig config, String license) async {
     Map<String, dynamic> parameters = {};
@@ -345,6 +361,14 @@ class KlippaScannerSdk {
 
     if (config.storeImagesToCameraRol != null) {
       parameters["StoreImagesToCameraRoll"] = config.storeImagesToCameraRol;
+    }
+
+    if (config.performOnDeviceOCR != null) {
+      parameters["PerformOnDeviceOCR"] = config.performOnDeviceOCR;
+    }
+
+    if (config.outputFormat != null) {
+      parameters["OutputFormat"] = config.outputFormat;
     }
 
     if (config.cameraModeSingle != null) {
