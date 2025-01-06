@@ -13,10 +13,12 @@ import com.klippa.scanner.model.KlippaError
 import com.klippa.scanner.model.KlippaImageColor
 import com.klippa.scanner.model.KlippaMultipleDocumentMode
 import com.klippa.scanner.model.KlippaObjectDetectionModel
+import com.klippa.scanner.model.KlippaOutputFormat
 import com.klippa.scanner.model.KlippaScannerResult
 import com.klippa.scanner.model.KlippaSegmentedDocumentMode
 import com.klippa.scanner.model.KlippaSingleDocumentMode
 import com.klippa.scanner.model.KlippaSize
+import com.klippa.scanner.storage.KlippaStorage
 import io.flutter.embedding.engine.plugins.FlutterPlugin
 import io.flutter.embedding.engine.plugins.activity.ActivityAware
 import io.flutter.embedding.engine.plugins.activity.ActivityPluginBinding
@@ -72,11 +74,21 @@ class KlippaScannerSdkPlugin: FlutterPlugin, MethodCallHandler, ActivityAware, P
     }
 
     override fun onMethodCall(call: MethodCall, result: Result) {
-        if (call.method == "startSession") {
-            startSession(call, result)
-        } else {
-            result.notImplemented()
+        when (call.method) {
+            "startSession" -> startSession(call, result)
+            "purge" -> purge(result)
+            else -> result.notImplemented()
         }
+    }
+
+    private fun purge(result: Result) {
+        val activity = activityPluginBinding?.activity ?: kotlin.run {
+            result.error(E_ACTIVITY_DOES_NOT_EXIST, "Activity doesn't exist", null)
+            return
+        }
+
+        KlippaStorage.purge(activity)
+        result.success(null)
     }
 
     private fun startSession(call: MethodCall, result: Result) {
@@ -172,6 +184,20 @@ class KlippaScannerSdkPlugin: FlutterPlugin, MethodCallHandler, ActivityAware, P
                 }
             }
 
+            call.argument<String>("OutputFormat")?.let {
+                when (it) {
+                    "jpeg" -> {
+                        scannerSession.imageAttributes.outputFormat = KlippaOutputFormat.JPEG
+                    }
+                    "pdfSingle" -> {
+                        scannerSession.imageAttributes.outputFormat = KlippaOutputFormat.PDF_SINGLE
+                    }
+                    "pdfMerged" -> {
+                        scannerSession.imageAttributes.outputFormat = KlippaOutputFormat.PDF_MERGED
+                    }
+                }
+            }
+
             call.argument<Int>("ImageLimit")?.let {
                 scannerSession.imageAttributes.imageLimit = it
             }
@@ -182,6 +208,10 @@ class KlippaScannerSdkPlugin: FlutterPlugin, MethodCallHandler, ActivityAware, P
 
             call.argument<Int>("ImageMovingSensitivityAndroid")?.let {
                 scannerSession.imageAttributes.imageMovingSensitivity = it
+            }
+
+            call.argument<Boolean>("PerformOnDeviceOCR")?.let {
+                scannerSession.imageAttributes.performOnDeviceOCR = it
             }
 
             call.argument<Boolean>("StoreImagesToCameraRoll")?.let {
@@ -322,7 +352,7 @@ class KlippaScannerSdkPlugin: FlutterPlugin, MethodCallHandler, ActivityAware, P
     private fun klippaScannerDidFinishScanningWithResult(result: KlippaScannerResult) {
         val images: MutableList<Map<String, String>> = mutableListOf()
 
-        for (image in result.images) {
+        for (image in result.results) {
             val imageDict = mapOf("Filepath" to image.location)
             images.add(imageDict)
         }

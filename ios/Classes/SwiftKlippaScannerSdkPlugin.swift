@@ -16,11 +16,19 @@ public class SwiftKlippaScannerSdkPlugin: NSObject, FlutterPlugin, KlippaScanner
     }
 
     public func handle(_ call: FlutterMethodCall, result: @escaping FlutterResult) {
-        if call.method == "startSession" {
+        switch call.method {
+        case "startSession":
             startSession(call, result: result)
-        } else {
+        case "purge":
+            purge(result: result)
+        default:
             result(FlutterMethodNotImplemented)
         }
+    }
+
+    private func purge(result: @escaping FlutterResult) {
+        KlippaScannerStorage.purge()
+        result(nil)
     }
 
     private func startSession(_ call: FlutterMethodCall, result: @escaping FlutterResult) {
@@ -271,6 +279,24 @@ public class SwiftKlippaScannerSdkPlugin: NSObject, FlutterPlugin, KlippaScanner
             builder.klippaMenu.shouldGoToReviewScreenOnFinishPressed = shouldGoToReviewScreenOnFinishPressed
         }
 
+
+        if let outputFormat = builderArgs?["OutputFormat"] as? String {
+            switch outputFormat {
+            case "jpeg":
+                builder.klippaImageAttributes.outputFormat = .jpeg
+            case "pdfSingle":
+                builder.klippaImageAttributes.outputFormat = .pdfSingle
+            case "pdfMerged":
+                builder.klippaImageAttributes.outputFormat = .pdfMerged
+            default:
+                builder.klippaImageAttributes.outputFormat = .jpeg
+            }
+        }
+
+        if let performOnDeviceOCR = builderArgs?["PerformOnDeviceOCR"] as? Bool {
+            builder.klippaImageAttributes.performOnDeviceOCR = performOnDeviceOCR
+        }
+
         if let brightnessLowerThreshold = builderArgs?["BrightnessLowerThreshold"] as? Double {
             builder.klippaImageAttributes.brightnessLowerThreshold = brightnessLowerThreshold
         }
@@ -382,7 +408,7 @@ public class SwiftKlippaScannerSdkPlugin: NSObject, FlutterPlugin, KlippaScanner
 
     public func klippaScannerDidFinishScanningWithResult(result: KlippaScannerResult) {
         var images: [[String: String]] = []
-        for image in result.images {
+        for image in result.results {
             let imageDict = ["Filepath" : image.path]
             images.append(imageDict)
         }

@@ -1,3 +1,10 @@
+## 1.0.5
+
+* Bumped Android to 4.0.8
+* Bumped iOS to 2.0.6
+* Added method `purge()`.
+* Added setup options `PerformOnDeviceOCR` and `OutputFormat`.
+
 ## 1.0.4
 
 * Bumped Android to 4.0.6
