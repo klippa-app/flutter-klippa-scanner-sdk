@@ -1,3 +1,8 @@
+## 1.0.7
+
+* Bumped Android to 4.0.10
+* Bumped iOS to 2.0.9
+
 ## 1.0.6
 
 * Bumped iOS to 2.0.7
