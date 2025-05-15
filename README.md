@@ -417,6 +417,9 @@ config.cancelCropButtonText = "Cancel"
 // The text shown in the crop screen to expand the bounding box.
 config.expandCropButtonText = "Expand"
 
+// The text to finish the scanner on the edit screen.
+config.continueButtonText = "Continue"
+
 // The text shown in the crop screen to save the bounding box.
 config.saveCropButtonText = "Save"
 ```
