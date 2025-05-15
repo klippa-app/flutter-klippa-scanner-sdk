@@ -143,6 +143,10 @@ public class SwiftKlippaScannerSdkPlugin: NSObject, FlutterPlugin, KlippaScanner
             builder.klippaButtonTexts.imageColorEnhancedText = imageColorEnhancedText
         }
 
+        if let continueButtonText = builderArgs?["ContinueButtonText"] as? String {
+            builder.klippaButtonTexts.continueButtonText = continueButtonText
+        }
+
         if let imageLimitReachedMessage = builderArgs?["ImageLimitReachedMessage"] as? String {
             builder.klippaMessages.imageLimitReachedMessage = imageLimitReachedMessage
         }
