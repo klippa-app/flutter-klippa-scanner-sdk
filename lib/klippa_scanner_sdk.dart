@@ -58,11 +58,7 @@ class CameraMode {
   String? image;
 }
 
-enum OutputFormat {
-  jpeg,
-  pdfSingle,
-  pdfMerged
-}
+enum OutputFormat { jpeg, pdfSingle, pdfMerged }
 
 class CameraConfig {
   /// Global options.
@@ -152,7 +148,7 @@ class CameraConfig {
   bool? performOnDeviceOCR;
 
   /// What the output format will be (jpeg, pdfMerged, pdfSingle). (Default jpeg)
-  OutputFormat? outputFormat; 
+  OutputFormat? outputFormat;
 
   /// The camera mode for scanning one part documents.
   CameraMode? cameraModeSingle;
@@ -202,6 +198,9 @@ class CameraConfig {
 
   /// The text inside of the color selection alert dialog button named enhanced.
   String? imageColorEnhancedText;
+
+  /// The text to finish the scanner on the edit screen.
+  String? continueButtonText;
 
   /// The primary color of the interface, should be a hex RGB color string.
   Color? primaryColor;
@@ -505,6 +504,10 @@ class KlippaScannerSdk {
 
     if (config.imageColorEnhancedText != null) {
       parameters["ImageColorEnhancedText"] = config.imageColorEnhancedText;
+    }
+
+    if (config.continueButtonText != null) {
+      parameters["ContinueButtonText"] = config.continueButtonText;
     }
 
     if (config.shouldGoToReviewScreenWhenImageLimitReached != null) {
