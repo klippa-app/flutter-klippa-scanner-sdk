@@ -292,15 +292,17 @@ Add or edit the file `android/app/src/res/values/colors.xml`, add the following:
 
 ```XML
 <resources>
-  <color name="klippa_scanner_sdk_color_accent">#ffffff</color>
-  <color name="klippa_scanner_sdk_color_button_with_icon_background">#444444</color>
-  <color name="klippa_scanner_sdk_color_button_with_icon_foreground">#ffffff</color>
-  <color name="klippa_scanner_sdk_color_icon_disabled">#444</color>
-  <color name="klippa_scanner_sdk_color_icon_enabled">#ffffff</color>
   <color name="klippa_scanner_sdk_color_primary">#000000</color>
+  <color name="klippa_scanner_sdk_color_accent">#ffffff</color>
   <color name="klippa_scanner_sdk_color_secondary">#2dc36a</color>
   <color name="klippa_scanner_sdk_color_warning_background">#BF000000</color>
   <color name="klippa_scanner_sdk_color_warning_text">#ffffff</color>
+  <color name="klippa_scanner_sdk_color_icon_disabled">#444</color>
+  <color name="klippa_scanner_sdk_color_icon_enabled">#ffffff</color>
+  <color name="klippa_scanner_sdk_color_button_with_icon_foreground">#ffffff</color>
+  <color name="klippa_scanner_sdk_color_button_with_icon_background">#444444</color>
+  <color name="klippa_scanner_sdk_color_primary_action_foreground">#ffffff</color>
+  <color name="klippa_scanner_sdk_color_primary_action_background">#2dc36a</color>
 </resources>
 ```
 
@@ -319,6 +321,8 @@ Use the following properties in the config:
   config.warningBackgroundColor = Color.fromARGB(255, 252, 252, 252);
   config.warningTextColor = Color.fromARGB(255, 0, 0, 0);
   config.overlayColorAlpha = 0.75; // manually set the alpha of the overlay bounding box.
+  config.primaryActionForegroundColor = Color.fromARGB(255, 0, 0, 0)
+  config.primaryActionBackgroundColor = Color.fromARGB(255, 255, 255, 255)
 ```
 
 ## How to change the strings of the SDK?
@@ -352,6 +356,8 @@ Add or edit the file `android/app/src/res/values/strings.xml`, add the following
   <string name="klippa_retake_button_text">Retake</string>
   <string name="klippa_success_message">Success</string>
   <string name="klippa_zoom_message">Move closer to the document</string>
+  <string name="klippa_too_bright_warning_message">The image is too bright</string>
+  <string name="klippa_too_dark_warning_message">The image is too dark</string>
 </resources>
 ```
 

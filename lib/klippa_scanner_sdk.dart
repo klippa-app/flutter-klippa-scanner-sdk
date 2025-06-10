@@ -18,15 +18,15 @@ class TimerOptions {
   bool? enabled;
 
   /// The duration of the interval (in seconds) in which images are automatically captured, should be a float.
-  num? duration;
+  double? duration;
 }
 
 class Dimensions {
   /// To add extra horizontal padding to the cropped image.
-  num? width;
+  int? width;
 
   /// To add extra vertical padding to the cropped image.
-  num? height;
+  int? height;
 }
 
 class SuccessOptions {
@@ -34,7 +34,7 @@ class SuccessOptions {
   String? message;
 
   /// The amount of seconds the success message should be visible for, should be a float.
-  num? previewDuration;
+  double? previewDuration;
 }
 
 enum DefaultColor { original, grayscale, enhanced }
@@ -76,19 +76,19 @@ class CameraConfig {
   String? orientationWarningMessage;
 
   /// The max width of the result image.
-  num? imageMaxWidth;
+  int? imageMaxWidth;
 
   /// The max height of the result image.
-  num? imageMaxHeight;
+  int? imageMaxHeight;
 
   /// Set the quality (between 0-100) of the jpg encoder. Default is 100.
-  num? imageMaxQuality;
+  int? imageMaxQuality;
 
   /// The amount of seconds the preview should be visible for, should be a float.
-  num? previewDuration;
+  double? previewDuration;
 
   /// To limit the amount of images that can be taken.
-  num? imageLimit;
+  int? imageLimit;
 
   /// The message to display when the limit has reached.
   String? imageLimitReachedMessage;
@@ -160,7 +160,7 @@ class CameraConfig {
   CameraMode? cameraModeSegmented;
 
   /// The starting index for which mode will be preselected when starting.
-  num? startingIndex;
+  int? startingIndex;
 
   /// Whether to allow users to select media from their device (Shows a media button bottom left on the scanner screen).
   bool? userCanPickMediaFromStorage;
@@ -180,7 +180,7 @@ class CameraConfig {
   String? outputFileName;
 
   /// The threshold of how sensitive the motion detection is. (lower value is higher sensitivity, default 50)
-  num? imageMovingSensitivityAndroid;
+  int? imageMovingSensitivityAndroid;
 
   /// iOS Options
 
@@ -218,7 +218,7 @@ class CameraConfig {
   Color? warningTextColor;
 
   /// The amount of opacity for the overlay, should be a float.
-  num? overlayColorAlpha;
+  double? overlayColorAlpha;
 
   /// The color of the menu icons when they are enabled, should be a hex RGB color string.
   Color? iconEnabledColor;
@@ -231,6 +231,12 @@ class CameraConfig {
 
   /// The color of the menu icons of the screen where you can review/edit the images, should be a hex RGB color string.
   Color? buttonWithIconBackgroundColor;
+
+  /// The foreground color of the primary action buttons.
+  Color? primaryActionForegroundColor;
+
+  /// The background color of the primary action buttons.
+  Color? primaryActionBackgroundColor;
 
   /// The text below the crop button in the review screen.
   String? cropEditButtonText;
@@ -257,13 +263,13 @@ class CameraConfig {
   bool? isViewFinderEnabled;
 
   /// The threshold sensitive the motion detection is. (lower value is higher sensitivity, default 200).
-  num? imageMovingSensitivityiOS;
+  double? imageMovingSensitivityiOS;
 
   /// The lower threshold before the warning message informs the environment is too dark (default 0).
-  num? brightnessLowerThreshold;
+  double? brightnessLowerThreshold;
 
   /// The upper threshold before the warning message informs the environment is too bright (default 6).
-  num? brightnessUpperThreshold;
+  double? brightnessUpperThreshold;
 }
 
 /// A helper to convert flutter Color to a hex ARGB.
@@ -481,6 +487,22 @@ class KlippaScannerSdk {
       parameters["DeleteButtonText"] = config.deleteButtonText;
     }
 
+    if (config.saveCropButtonText != null) {
+      parameters["SaveCropButtonText"] = config.saveCropButtonText;
+    }
+
+    if (config.expandCropButtonText != null) {
+      parameters["ExpandCropButtonText"] = config.expandCropButtonText;
+    }
+
+    if (config.cancelCropButtonText != null) {
+      parameters["CancelCropButtonText"] = config.cancelCropButtonText;
+    }
+
+    if (config.filterEditButtonText != null) {
+      parameters["FilterEditButtonText"] = config.filterEditButtonText;
+    }
+
     if (config.deleteEditButtonText != null) {
       parameters["DeleteEditButtonText"] = config.deleteEditButtonText;
     }
@@ -581,6 +603,18 @@ class KlippaScannerSdk {
       parameters["ButtonWithIconBackgroundColor"] =
           KIVHexColor.flutterColorToHex(
               config.buttonWithIconBackgroundColor!, true);
+    }
+
+    if (config.primaryActionForegroundColor != null) {
+      parameters["PrimaryActionForegroundColor"] =
+          KIVHexColor.flutterColorToHex(
+              config.primaryActionForegroundColor!, true);
+    }
+
+    if (config.primaryActionBackgroundColor != null) {
+      parameters["PrimaryActionBackgroundColor"] =
+          KIVHexColor.flutterColorToHex(
+              config.primaryActionBackgroundColor!, true);
     }
 
     if (config.isViewFinderEnabled != null) {
