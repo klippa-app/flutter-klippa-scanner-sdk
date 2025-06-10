@@ -5,6 +5,8 @@
 .pub/
 
 build/
+.cxx/
+.kotlin/
 *.iml
 *.ipr
 *.iws

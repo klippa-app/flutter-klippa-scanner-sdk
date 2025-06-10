@@ -263,6 +263,14 @@ public class SwiftKlippaScannerSdkPlugin: NSObject, FlutterPlugin, KlippaScanner
             builder.klippaColors.buttonWithIconBackgroundColor = hexColorToUIColor(hex: buttonWithIconBackgroundColor)
         }
 
+        if let primaryActionForegroundColor = builderArgs?["PrimaryActionForegroundColor"] as? String {
+            builder.klippaColors.primaryActionForegroundColor = hexColorToUIColor(hex: primaryActionForegroundColor)
+        }
+
+        if let primaryActionBackgroundColor = builderArgs?["PrimaryActionBackgroundColor"] as? String {
+            builder.klippaColors.primaryActionBackgroundColor = hexColorToUIColor(hex: primaryActionBackgroundColor)
+        }
+
         if let isViewFinderEnabled = builderArgs?["IsViewFinderEnabled"] as? Bool {
             builder.klippaMenu.isViewFinderEnabled = isViewFinderEnabled
         }

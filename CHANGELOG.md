@@ -1,3 +1,9 @@
+## 1.1.0
+
+* Added `primaryActionForegroundColor`, `primaryActionBackgroundColor` support.
+* Fixed issue where `saveCropButtonText`, `expandCropButtonText`, `cancelCropButtonText`, `filterEditButtonText`, `deleteEditButtonText`, `rotateEditButtonText` and `cropEditButtonText` were not being set correctly. 
+* Converted all `num` types to their actual type (either `int` or `double`).
+
 ## 1.0.8
 
 * Added `continueButtonText` to change the text on the finish screen for iOS.
