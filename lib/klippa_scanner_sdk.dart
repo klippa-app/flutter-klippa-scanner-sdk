@@ -481,6 +481,18 @@ class KlippaScannerSdk {
       parameters["DeleteButtonText"] = config.deleteButtonText;
     }
 
+    if (config.deleteEditButtonText != null) {
+      parameters["DeleteEditButtonText"] = config.deleteEditButtonText;
+    }
+
+    if (config.rotateEditButtonText != null) {
+      parameters["RotateEditButtonText"] = config.rotateEditButtonText;
+    }
+
+    if (config.cropEditButtonText != null) {
+      parameters["CropEditButtonText"] = config.cropEditButtonText;
+    }
+
     if (config.retakeButtonText != null) {
       parameters["RetakeButtonText"] = config.retakeButtonText;
     }
