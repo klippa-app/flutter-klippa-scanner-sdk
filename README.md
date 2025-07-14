@@ -15,7 +15,7 @@ If you would like to use our scanner, please contact us [here](https://www.klipp
 #### Android
 Edit the file android/key.properties, if it doesn't exist yet, create it. Add the SDK credentials:
 
-```txt
+```bash
 klippa.scanner.sdk.username={your-username}
 klippa.scanner.sdk.password={your-password}
 ```
@@ -118,7 +118,7 @@ If you want to change the repository:
 
 Edit the file `android/key.properties`, add the sdk repository URL:
 
-```txt
+```bash
 klippa.scanner.sdk.url={repository-url}
 ```
 
