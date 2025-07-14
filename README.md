@@ -143,9 +143,7 @@ ENV['KLIPPA_SCANNER_SDK_URL'] = '{repository-url}'
 
 Replace `{repository-url}` with the URL that you want to use.
 
-### How to change the setup of the SDK:
-
-### General
+### Customize Setup
 
 ```dart
 // Ability to disable/hide the shutter button (only works when a model is supplied as well).
@@ -242,7 +240,7 @@ config.cameraModeSegmented?.message = "Used for a single document segmented into
 config.startingIndex = 0;
 ```
 
-### Android only
+#### Android only
 
 ```dart
 
@@ -256,7 +254,7 @@ config.outputFileName = "KlippaScannerExample-%dateTime%-%randomUUID%";
 config.imageMovingSensitivityAndroid = 50;
 ```
 
-### iOS only
+#### iOS only
 ```dart
 
 // The text inside of the color selection alert dialog button named original.
