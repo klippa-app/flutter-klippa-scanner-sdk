@@ -97,7 +97,7 @@ The reject reason object has a code and a message, the used codes are:
 - E_CANCELED
 - E_UNKNOWN_ERROR
 
-### How to use a specific version of the SDK?
+### Specify SDK Version
 
 #### Android
 
@@ -282,7 +282,7 @@ config.brightnessUpperThreshold = 6;
 ```
 
 
-### How to change the colors of the SDK?
+### Customize the colours
 
 #### Android
 
@@ -323,7 +323,7 @@ Use the following properties in the config:
   config.primaryActionBackgroundColor = Color.fromARGB(255, 255, 255, 255)
 ```
 
-### How to change the strings of the SDK?
+### Customize the texts
 
 #### Android
 
@@ -428,7 +428,7 @@ config.continueButtonText = "Continue"
 config.saveCropButtonText = "Save"
 ```
 
-### How to change the image in the instructions?
+### Customize image in CameraMode instructions
 
 #### Android
 
@@ -451,7 +451,7 @@ config.cameraModeMulti?.image = "{name of image in Assets.xcassets}";
 config.cameraModeSingle?.image = "{name of image in Assets.xcassets}";
 ```
 
-### How to clear the storage.
+### Clear Storage
 
 ```dart
 import 'package:klippa_scanner_sdk/klippa_scanner_sdk.dart';
