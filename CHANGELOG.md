@@ -1,3 +1,8 @@
+## 1.1.1
+
+* Bumped Android to 4.2.0
+* Bumped iOS to 2.1.2
+
 ## 1.1.0
 
 * Added `primaryActionForegroundColor`, `primaryActionBackgroundColor` support.
