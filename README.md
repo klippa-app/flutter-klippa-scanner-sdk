@@ -206,13 +206,13 @@ config.shouldGoToReviewScreenOnFinishPressed = true;
 // Whether the user must confirm the taken photo before the SDK continues.
 config.userShouldAcceptResultToContinue = false;
 
-// What the default color conversion will be (grayscale, original, enhanced).
+// What the default color conversion will be (grayscale, original, enhanced, blackAndWhite).
 config.defaultColor = DefaultColor.original;
 
 /// Whether to perform on-device OCR after scanning completes.
 config.performOnDeviceOCR = false;
 
-/// What the output format will be (jpeg, pdfMerged, pdfSingle). (Default jpeg)
+/// What the output format will be (jpeg, pdfMerged, pdfSingle, png). (Default jpeg)
 config.outputFormat = OutputFormat.jpeg;
 
 // Enable Single Document Mode
@@ -238,6 +238,14 @@ config.cameraModeSegmented?.message = "Used for a single document segmented into
 
 // When multiple camera modes are enabled select which should show first by index.
 config.startingIndex = 0;
+
+// The page format to which the scanned images will be resized. Default is off. (this overrides imageMaxWidth and imageMaxHeight)
+// Options: off, a3, a4, a5, a6, b4, b5, letter
+config.pageFormat = PageFormat.off;
+
+// The DPI setting for the scanned images. Default is auto.
+// Options: auto, dpi200, dpi300
+config.dpi = DPI.auto;
 ```
 
 #### Android only
@@ -265,6 +273,9 @@ config.imageColorGrayscaleText = "grayscale";
 
 // The text inside of the color selection alert dialog button named enhanced.
 config.imageColorEnhancedText = "enhanced";
+
+// The text inside of the color selection alert dialog button named black and white.
+config.imageColorBlackAndWhiteText = "Black & White";
 
 // Whether the camera has a view finder overlay (a helper grid so the user knows where the document should be), should be a Boolean.
 config.isViewFinderEnabled = true;
@@ -354,6 +365,7 @@ Add or edit the file `android/app/src/res/values/strings.xml`, add the following
   <string name="klippa_zoom_message">Move closer to the document</string>
   <string name="klippa_too_bright_warning_message">The image is too bright</string>
   <string name="klippa_too_dark_warning_message">The image is too dark</string>
+  <string name="klippa_image_color_black_and_white">Black and White</string>
 </resources>
 ```
 
