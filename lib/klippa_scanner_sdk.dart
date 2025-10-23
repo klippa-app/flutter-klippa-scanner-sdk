@@ -37,7 +37,16 @@ class SuccessOptions {
   double? previewDuration;
 }
 
-enum DefaultColor { original, grayscale, enhanced }
+/// What the default color conversion will be (original, grayscale, enhanced, black and white).
+enum DefaultColor { original, grayscale, enhanced, blackAndWhite }
+
+/// Set the output resolution, uses the DPI to calculate the resolution. (Default OFF)
+/// The resulting image will be stretched/compressed to match the set PageFormat.
+/// Setting this to anything other than OFF will override `imageMaxWidth` & `imageMaxHeight`
+enum PageFormat { off, a3, a4, a5, a6, b4, b5, letter }
+
+/// The DPI which is used to calculate the PageFormat resolution.
+enum DPI { auto, dpi200, dpi300 }
 
 class ShutterButton {
   /// Whether to allow or disallow the shutter button to work (can only be disabled if a model is supplied)
@@ -58,7 +67,7 @@ class CameraMode {
   String? image;
 }
 
-enum OutputFormat { jpeg, pdfSingle, pdfMerged }
+enum OutputFormat { jpeg, pdfSingle, pdfMerged, png }
 
 class CameraConfig {
   /// Global options.
@@ -168,13 +177,19 @@ class CameraConfig {
   /// Whether the next button in the bottom right of the scanner screen goes to the review screen instead of finishing the session.
   bool? shouldGoToReviewScreenOnFinishPressed;
 
+  /// What the default color conversion will be (grayscale, original, enhanced, blackAndWhite).
+  DefaultColor? defaultColor;
+
+  /// The page format to which the scanned images will be resized. Default is off. (this overrides imageMaxWidth and imageMaxHeight)
+  PageFormat? pageFormat;
+
+  ///The DPI setting for the scanned images. Default is auto.
+  DPI? dpi;
+
   /// Android Options
 
   /// Where to put the image results
   String? storagePath;
-
-  /// What the default color conversion will be (grayscale, original, enhanced).
-  DefaultColor? defaultColor;
 
   /// The filename to be given to the image results.
   String? outputFileName;
@@ -198,6 +213,9 @@ class CameraConfig {
 
   /// The text inside of the color selection alert dialog button named enhanced.
   String? imageColorEnhancedText;
+
+  /// The text inside of the color selection alert dialog button named black and white.
+  String? imageColorBlackAndWhiteText;
 
   /// The text to finish the scanner on the edit screen.
   String? continueButtonText;
@@ -427,6 +445,14 @@ class KlippaScannerSdk {
           config.shouldGoToReviewScreenOnFinishPressed;
     }
 
+    if (config.pageFormat != null) {
+      parameters["PageFormat"] = config.pageFormat!.name;
+    }
+
+    if (config.dpi != null) {
+      parameters["DPI"] = config.dpi!.name;
+    }
+
     /// Android only
 
     if (config.storagePath != null) {
@@ -538,6 +564,11 @@ class KlippaScannerSdk {
 
     if (config.imageColorEnhancedText != null) {
       parameters["ImageColorEnhancedText"] = config.imageColorEnhancedText;
+    }
+
+    if (config.imageColorBlackAndWhiteText != null) {
+      parameters["ImageColorBlackAndWhiteText"] =
+          config.imageColorBlackAndWhiteText;
     }
 
     if (config.continueButtonText != null) {

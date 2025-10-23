@@ -108,8 +108,8 @@ public class SwiftKlippaScannerSdkPlugin: NSObject, FlutterPlugin, KlippaScanner
         }
 
         if let allowShutterButton = builderArgs?["ShutterButton.allowShutterButton"] as? Bool, let hideShutterButton = builderArgs?["ShutterButton.hideShutterButton"] as? Bool {
-            builder.klippaShutterbutton.allowShutterButton = allowShutterButton
-            builder.klippaShutterbutton.hideShutterButton = hideShutterButton
+            builder.klippaShutterButton.allowShutterButton = allowShutterButton
+            builder.klippaShutterButton.hideShutterButton = hideShutterButton
         }
 
         if let imageTooBrightMessage = builderArgs?["ImageTooBrightMessage"] as? String {
@@ -126,6 +126,8 @@ public class SwiftKlippaScannerSdkPlugin: NSObject, FlutterPlugin, KlippaScanner
                 builder.klippaColors.imageColor = .grayscale
             case "enhanced":
                 builder.klippaColors.imageColor = .enhanced
+            case "blackAndWhite":
+                builder.klippaColors.imageColor = .blackAndWhite
             default:
                 builder.klippaColors.imageColor = .original
             }
@@ -193,6 +195,10 @@ public class SwiftKlippaScannerSdkPlugin: NSObject, FlutterPlugin, KlippaScanner
 
         if let saveCropButtonText = builderArgs?["SaveCropButtonText"] as? String {
             builder.klippaButtonTexts.saveCropButtonText = saveCropButtonText
+        }
+
+        if let imageColorBlackAndWhiteText = builderArgs?["ImageColorBlackAndWhiteText"] as? String {
+            builder.klippaButtonTexts.imageColorBlackAndWhiteText = imageColorBlackAndWhiteText
         }
 
         if let cancelConfirmationMessage = builderArgs?["CancelConfirmationMessage"] as? String {
@@ -300,6 +306,8 @@ public class SwiftKlippaScannerSdkPlugin: NSObject, FlutterPlugin, KlippaScanner
                 builder.klippaImageAttributes.outputFormat = .pdfSingle
             case "pdfMerged":
                 builder.klippaImageAttributes.outputFormat = .pdfMerged
+            case "png":
+                builder.klippaImageAttributes.outputFormat = .png
             default:
                 builder.klippaImageAttributes.outputFormat = .jpeg
             }
@@ -315,6 +323,42 @@ public class SwiftKlippaScannerSdkPlugin: NSObject, FlutterPlugin, KlippaScanner
 
         if let brightnessUpperThreshold = builderArgs?["BrightnessUpperThreshold"] as? Double {
             builder.klippaImageAttributes.brightnessUpperThreshold = brightnessUpperThreshold
+        }
+
+        if let pageFormat = builderArgs?["PageFormat"] as? String {
+            switch pageFormat {
+                case "off":
+                    builder.klippaImageAttributes.pageFormat = .off
+                case "a3":
+                    builder.klippaImageAttributes.pageFormat = .a3
+                case "a4":
+                    builder.klippaImageAttributes.pageFormat = .a4
+                case "a5":
+                    builder.klippaImageAttributes.pageFormat = .a5
+                case "a6":
+                    builder.klippaImageAttributes.pageFormat = .a6
+                case "b4":
+                    builder.klippaImageAttributes.pageFormat = .b4
+                case "b5":
+                    builder.klippaImageAttributes.pageFormat = .b5
+                case "letter":
+                    builder.klippaImageAttributes.pageFormat = .letter
+                default:
+                    builder.klippaImageAttributes.pageFormat = .off
+            }
+        }
+
+        if let dpi = builderArgs?["DPI"] as? String {
+            switch dpi {
+                case "auto":
+                    builder.klippaImageAttributes.dpi = .auto
+                case "dpi200":
+                    builder.klippaImageAttributes.dpi = .dpi200
+                case "dpi300":
+                    builder.klippaImageAttributes.dpi = .dpi300
+                default:
+                    builder.klippaImageAttributes.dpi = .auto
+            }
         }
 
         var modes: [KlippaDocumentMode] = []
