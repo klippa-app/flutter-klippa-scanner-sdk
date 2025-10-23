@@ -1,3 +1,11 @@
+## 1.2.0
+
+* Bumped Android to 4.3.0
+* Bumped iOS to 2.2.0
+* Added `pageFormat` and`dpi` support.
+* Added `imageColorBlackAndWhiteText` (iOS only) support.
+* Added `PNG` support to `OutputFormat`.
+
 ## 1.1.3
 
 * Bumped Android to 4.2.3

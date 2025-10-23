@@ -8,12 +8,14 @@ import com.klippa.scanner.ScannerSession.Companion.KLIPPA_ERROR
 import com.klippa.scanner.ScannerSession.Companion.KLIPPA_RESULT
 import com.klippa.scanner.model.Instructions
 import com.klippa.scanner.model.KlippaCameraModes
+import com.klippa.scanner.model.KlippaDPI
 import com.klippa.scanner.model.KlippaDocumentMode
 import com.klippa.scanner.model.KlippaError
 import com.klippa.scanner.model.KlippaImageColor
 import com.klippa.scanner.model.KlippaMultipleDocumentMode
 import com.klippa.scanner.model.KlippaObjectDetectionModel
 import com.klippa.scanner.model.KlippaOutputFormat
+import com.klippa.scanner.model.KlippaPageFormat
 import com.klippa.scanner.model.KlippaScannerResult
 import com.klippa.scanner.model.KlippaSegmentedDocumentMode
 import com.klippa.scanner.model.KlippaSingleDocumentMode
@@ -181,6 +183,9 @@ class KlippaScannerSdkPlugin: FlutterPlugin, MethodCallHandler, ActivityAware, P
                     "grayscale" -> {
                         scannerSession.imageAttributes.imageColorMode = KlippaImageColor.GRAYSCALE
                     }
+                    "blackAndWhite" -> {
+                        scannerSession.imageAttributes.imageColorMode = KlippaImageColor.BLACK_AND_WHITE
+                    }
                 }
             }
 
@@ -194,6 +199,9 @@ class KlippaScannerSdkPlugin: FlutterPlugin, MethodCallHandler, ActivityAware, P
                     }
                     "pdfMerged" -> {
                         scannerSession.imageAttributes.outputFormat = KlippaOutputFormat.PDF_MERGED
+                    }
+                    "png" -> {
+                        scannerSession.imageAttributes.outputFormat = KlippaOutputFormat.PNG
                     }
                 }
             }
@@ -216,6 +224,49 @@ class KlippaScannerSdkPlugin: FlutterPlugin, MethodCallHandler, ActivityAware, P
 
             call.argument<Boolean>("StoreImagesToCameraRoll")?.let {
                 scannerSession.imageAttributes.storeImagesToGallery = it
+            }
+
+            call.argument<String>("PageFormat")?.let {
+                when (it) {
+                    "off" -> {
+                        scannerSession.imageAttributes.pageFormat = KlippaPageFormat.OFF
+                    }
+                    "a3" -> {
+                        scannerSession.imageAttributes.pageFormat = KlippaPageFormat.A3
+                    }
+                    "a4" -> {
+                        scannerSession.imageAttributes.pageFormat = KlippaPageFormat.A4
+                    }
+                    "a5" -> {
+                        scannerSession.imageAttributes.pageFormat = KlippaPageFormat.A5
+                    }
+                    "a6" -> {
+                        scannerSession.imageAttributes.pageFormat = KlippaPageFormat.A6
+                    }
+                    "b4" -> {
+                        scannerSession.imageAttributes.pageFormat = KlippaPageFormat.B4
+                    }
+                    "b5" -> {
+                        scannerSession.imageAttributes.pageFormat = KlippaPageFormat.B5
+                    }
+                    "letter" -> {
+                        scannerSession.imageAttributes.pageFormat = KlippaPageFormat.LETTER
+                    }
+                }
+            }
+
+            call.argument<String>("DPI")?.let {
+                when (it) {
+                    "auto" -> {
+                        scannerSession.imageAttributes.dpi = KlippaDPI.AUTO
+                    }
+                    "dpi200" -> {
+                        scannerSession.imageAttributes.dpi = KlippaDPI.DPI_200
+                    }
+                    "dpi300" -> {
+                        scannerSession.imageAttributes.dpi = KlippaDPI.DPI_300
+                    }
+                }
             }
 
             call.argument<Boolean>("ShouldGoToReviewScreenWhenImageLimitReached")?.let {
