@@ -217,6 +217,15 @@ class CameraConfig {
   /// The text inside of the color selection alert dialog button named black and white.
   String? imageColorBlackAndWhiteText;
 
+  /// The text above the shutter button to indicate whether auto capture is enabled or not.
+  String? autoCaptureButtonText;
+
+  /// The text above the shutter button to indicate whether manual capture is enabled or not.
+  String? manualButtonText;
+
+  /// The text inside of the delete options alert dialog.
+  String? deleteOptionsButtonText;
+
   /// The text to finish the scanner on the edit screen.
   String? continueButtonText;
 
@@ -569,6 +578,18 @@ class KlippaScannerSdk {
     if (config.imageColorBlackAndWhiteText != null) {
       parameters["ImageColorBlackAndWhiteText"] =
           config.imageColorBlackAndWhiteText;
+    }
+
+    if (config.autoCaptureButtonText != null) {
+      parameters["AutoCaptureButtonText"] = config.autoCaptureButtonText;
+    }
+
+    if (config.manualButtonText != null) {
+      parameters["ManualButtonText"] = config.manualButtonText;
+    }
+
+    if (config.deleteOptionsButtonText != null) {
+      parameters["DeleteOptionsButtonText"] = config.deleteOptionsButtonText;
     }
 
     if (config.continueButtonText != null) {

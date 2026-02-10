@@ -201,6 +201,18 @@ public class SwiftKlippaScannerSdkPlugin: NSObject, FlutterPlugin, KlippaScanner
             builder.klippaButtonTexts.imageColorBlackAndWhiteText = imageColorBlackAndWhiteText
         }
 
+        if let autoCaptureButtonText = builderArgs?["AutoCaptureButtonText"] as? String {
+            builder.klippaButtonTexts.autoCaptureButtonText = autoCaptureButtonText
+        }
+
+        if let manualButtonText = builderArgs?["ManualButtonText"] as? String {
+            builder.klippaButtonTexts.manualButtonText = manualButtonText
+        }
+
+        if let deleteOptionsButtonText = builderArgs?["DeleteOptionsButtonText"] as? String {
+            builder.klippaButtonTexts.deleteOptionsButtonText = deleteOptionsButtonText
+        }
+
         if let cancelConfirmationMessage = builderArgs?["CancelConfirmationMessage"] as? String {
             builder.klippaMessages.cancelConfirmationMessage = cancelConfirmationMessage
         }

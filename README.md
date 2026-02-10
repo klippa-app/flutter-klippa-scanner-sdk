@@ -264,19 +264,6 @@ config.imageMovingSensitivityAndroid = 50;
 
 #### iOS only
 ```dart
-
-// The text inside of the color selection alert dialog button named original.
-config.imageColorOriginalText = "original";
-
-// The text inside of the color selection alert dialog button named grayscale.
-config.imageColorGrayscaleText = "grayscale";
-
-// The text inside of the color selection alert dialog button named enhanced.
-config.imageColorEnhancedText = "enhanced";
-
-// The text inside of the color selection alert dialog button named black and white.
-config.imageColorBlackAndWhiteText = "Black & White";
-
 // Whether the camera has a view finder overlay (a helper grid so the user knows where the document should be), should be a Boolean.
 config.isViewFinderEnabled = true;
 
@@ -310,6 +297,10 @@ Add or edit the file `android/app/src/res/values/colors.xml`, add the following:
   <color name="klippa_scanner_sdk_color_button_with_icon_background">#444444</color>
   <color name="klippa_scanner_sdk_color_primary_action_foreground">#ffffff</color>
   <color name="klippa_scanner_sdk_color_primary_action_background">#2dc36a</color>
+  <color name="klippa_scanner_sdk_color_dialog_background">#ffffff</color>
+  <color name="klippa_scanner_sdk_color_dialog_text">#000000</color>
+  <color name="klippa_scanner_sdk_color_dialog_confirm_button">#d32f2f</color>
+  <color name="klippa_scanner_sdk_color_dialog_dismiss_button">#1976d2</color>
 </resources>
 ```
 
@@ -436,6 +427,27 @@ config.continueButtonText = "Continue"
 
 // The text shown in the crop screen to save the bounding box.
 config.saveCropButtonText = "Save"
+
+// The text inside of the color selection alert dialog button named original.
+config.imageColorOriginalText = "original";
+
+// The text inside of the color selection alert dialog button named grayscale.
+config.imageColorGrayscaleText = "grayscale";
+
+// The text inside of the color selection alert dialog button named enhanced.
+config.imageColorEnhancedText = "enhanced";
+
+// The text inside of the color selection alert dialog button named black and white.
+config.imageColorBlackAndWhiteText = "Black & White";
+
+// The text above the shutter button to indicate auto capture status.
+config.autoCaptureButtonText = "Auto";
+
+// The text above the shutter button to indicate auto capture status.
+config.manualButtonText = "Manual";
+
+// The title in the delete action alert dialog.
+config.deleteOptionsButtonText = "Delete or Retake?"
 ```
 
 ### Customize image in CameraMode instructions
