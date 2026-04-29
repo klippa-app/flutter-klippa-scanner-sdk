@@ -181,6 +181,12 @@ config.userCanCropManually = false;
 // Whether to hide or show the color changing button in the Review Screen. (default shown/true)
 config.userCanChangeColorSetting = false;
 
+// Whether to show the DPI button in the edit menu. (default false)
+config.userCanChangeDPI = false;
+
+// Whether to show the Page Size button in the edit menu. (default false)
+config.userCanChangePageSize = false;
+
 // To add extra horizontal and / or vertical padding to the cropped image.
 config.cropPadding.width = 100;
 config.cropPadding.height =  100;
@@ -446,8 +452,23 @@ config.autoCaptureButtonText = "Auto";
 // The text above the shutter button to indicate auto capture status.
 config.manualButtonText = "Manual";
 
-// The title in the delete action alert dialog.
-config.deleteOptionsButtonText = "Delete or Retake?"
+// The title in the delete action alert dialog. (Deprecated: will be removed in a future version)
+config.deleteOptionsButtonText = "Delete or Retake?";
+
+// The text on the edit button in the review screen.
+config.editMenuButtonText = "Edit";
+
+// The text on the DPI button inside the edit menu.
+config.dpiEditButtonText = "DPI";
+
+// The text on the Page Size button inside the edit menu.
+config.pageSizeEditButtonText = "Page Size";
+
+// The text on the done button inside the edit menu.
+config.doneButtonText = "Done";
+
+// The text on the undo button in the crop screen.
+config.undoCropButtonText = "Undo";
 ```
 
 ### Customize image in CameraMode instructions

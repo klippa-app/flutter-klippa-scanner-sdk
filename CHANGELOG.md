@@ -1,7 +1,13 @@
-## 1.2.1
+## 1.3.0
 
-* Bumped Android to 4.3.3
-* Bumped iOS to 2.2.4
+* Bumped Android to 4.4.0
+* Bumped iOS to 2.3.0
+* Added `userCanChangeDPI` and `userCanChangePageSize` to control visibility of DPI and page-size buttons in the per-image edit menu (both platforms).
+* Added `editMenuButtonText`, `dpiEditButtonText`, `pageSizeEditButtonText`, `doneButtonText`, and `undoCropButtonText` for localizing the edit mode and crop screen controls (iOS only).
+* Each image in the result now includes `DetectedTexts`, a list of detected text strings with bounding box positions. Populated when `performOnDeviceOCR` is `true`.
+* `DPI.auto` (the default) now outputs images at native camera resolution regardless of `pageFormat` on both platforms.
+* Deprecated `deleteOptionsButtonText` — will be removed in a future version.
+* Minimum iOS version bumped to 15.
 
 ## 1.2.0
 

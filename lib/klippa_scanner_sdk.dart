@@ -135,6 +135,12 @@ class CameraConfig {
   /// Whether to hide or show the color changing button in the Review Screen. (default shown/true)
   bool? userCanChangeColorSetting;
 
+  /// Whether to show the DPI button in the edit menu. (default false)
+  bool? userCanChangeDPI;
+
+  /// Whether to show the Page Size button in the edit menu. (default false)
+  bool? userCanChangePageSize;
+
   /// If you would like to use a custom model for object detection. Model + labels file should be packaged in your bundle.
   ModelOptions model = new ModelOptions();
 
@@ -223,8 +229,24 @@ class CameraConfig {
   /// The text above the shutter button to indicate whether manual capture is enabled or not.
   String? manualButtonText;
 
-  /// The text inside of the delete options alert dialog.
+  /// Deprecated: The text inside of the delete options alert dialog.
+  @Deprecated('deleteOptionsButtonText will be removed in a future version.')
   String? deleteOptionsButtonText;
+
+  /// The text on the edit button in the review screen (replaces the old filter button).
+  String? editMenuButtonText;
+
+  /// The text on the DPI button inside the edit menu.
+  String? dpiEditButtonText;
+
+  /// The text on the Page Size button inside the edit menu.
+  String? pageSizeEditButtonText;
+
+  /// The text on the done button inside the edit menu.
+  String? doneButtonText;
+
+  /// The text on the undo button in the crop screen.
+  String? undoCropButtonText;
 
   /// The text to finish the scanner on the edit screen.
   String? continueButtonText;
@@ -444,6 +466,14 @@ class KlippaScannerSdk {
           config.userCanChangeColorSetting;
     }
 
+    if (config.userCanChangeDPI != null) {
+      parameters["UserCanChangeDPI"] = config.userCanChangeDPI;
+    }
+
+    if (config.userCanChangePageSize != null) {
+      parameters["UserCanChangePageSize"] = config.userCanChangePageSize;
+    }
+
     if (config.userCanPickMediaFromStorage != null) {
       parameters["UserCanPickMediaFromStorage"] =
           config.userCanPickMediaFromStorage;
@@ -588,8 +618,29 @@ class KlippaScannerSdk {
       parameters["ManualButtonText"] = config.manualButtonText;
     }
 
+    // ignore: deprecated_member_use_from_same_package
     if (config.deleteOptionsButtonText != null) {
       parameters["DeleteOptionsButtonText"] = config.deleteOptionsButtonText;
+    }
+
+    if (config.editMenuButtonText != null) {
+      parameters["EditMenuButtonText"] = config.editMenuButtonText;
+    }
+
+    if (config.dpiEditButtonText != null) {
+      parameters["DpiEditButtonText"] = config.dpiEditButtonText;
+    }
+
+    if (config.pageSizeEditButtonText != null) {
+      parameters["PageSizeEditButtonText"] = config.pageSizeEditButtonText;
+    }
+
+    if (config.doneButtonText != null) {
+      parameters["DoneButtonText"] = config.doneButtonText;
+    }
+
+    if (config.undoCropButtonText != null) {
+      parameters["UndoCropButtonText"] = config.undoCropButtonText;
     }
 
     if (config.continueButtonText != null) {

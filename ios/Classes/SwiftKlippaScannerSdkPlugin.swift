@@ -213,6 +213,26 @@ public class SwiftKlippaScannerSdkPlugin: NSObject, FlutterPlugin, KlippaScanner
             builder.klippaButtonTexts.deleteOptionsButtonText = deleteOptionsButtonText
         }
 
+        if let editMenuButtonText = builderArgs?["EditMenuButtonText"] as? String {
+            builder.klippaButtonTexts.editMenuButtonText = editMenuButtonText
+        }
+
+        if let dpiEditButtonText = builderArgs?["DpiEditButtonText"] as? String {
+            builder.klippaButtonTexts.dpiEditButtonText = dpiEditButtonText
+        }
+
+        if let pageSizeEditButtonText = builderArgs?["PageSizeEditButtonText"] as? String {
+            builder.klippaButtonTexts.pageSizeEditButtonText = pageSizeEditButtonText
+        }
+
+        if let doneButtonText = builderArgs?["DoneButtonText"] as? String {
+            builder.klippaButtonTexts.doneButtonText = doneButtonText
+        }
+
+        if let undoCropButtonText = builderArgs?["UndoCropButtonText"] as? String {
+            builder.klippaButtonTexts.undoCropButtonText = undoCropButtonText
+        }
+
         if let cancelConfirmationMessage = builderArgs?["CancelConfirmationMessage"] as? String {
             builder.klippaMessages.cancelConfirmationMessage = cancelConfirmationMessage
         }
@@ -239,6 +259,14 @@ public class SwiftKlippaScannerSdkPlugin: NSObject, FlutterPlugin, KlippaScanner
 
         if let userCanChangeColorSetting = builderArgs?["UserCanChangeColorSetting"] as? Bool {
             builder.klippaMenu.userCanChangeColorSetting = userCanChangeColorSetting
+        }
+
+        if let userCanChangeDPI = builderArgs?["UserCanChangeDPI"] as? Bool {
+            builder.klippaMenu.userCanChangeDPI = userCanChangeDPI
+        }
+
+        if let userCanChangePageSize = builderArgs?["UserCanChangePageSize"] as? Bool {
+            builder.klippaMenu.userCanChangePageSize = userCanChangePageSize
         }
 
         if let primaryColor = builderArgs?["PrimaryColor"] as? String {
@@ -475,9 +503,19 @@ public class SwiftKlippaScannerSdkPlugin: NSObject, FlutterPlugin, KlippaScanner
     }
 
     public func klippaScannerDidFinishScanningWithResult(result: KlippaScannerResult) {
-        var images: [[String: String]] = []
+        var images: [[String: Any]] = []
         for image in result.results {
-            let imageDict = ["Filepath" : image.path]
+            var detectedTexts: [[String: Any]] = []
+            for detectedText in image.detectedTexts {
+                let boundingBox: [String: Any] = [
+                    "x": detectedText.boundingBox.origin.x,
+                    "y": detectedText.boundingBox.origin.y,
+                    "width": detectedText.boundingBox.size.width,
+                    "height": detectedText.boundingBox.size.height
+                ]
+                detectedTexts.append(["Text": detectedText.text, "BoundingBox": boundingBox])
+            }
+            let imageDict: [String: Any] = ["Filepath": image.path, "DetectedTexts": detectedTexts]
             images.append(imageDict)
         }
 
