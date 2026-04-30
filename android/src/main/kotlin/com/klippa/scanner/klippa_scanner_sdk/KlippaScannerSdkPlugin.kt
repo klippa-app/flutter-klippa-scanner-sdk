@@ -289,6 +289,14 @@ class KlippaScannerSdkPlugin: FlutterPlugin, MethodCallHandler, ActivityAware, P
                 scannerSession.menu.userCanChangeColorSetting = it
             }
 
+            call.argument<Boolean>("UserCanChangeDPI")?.let {
+                scannerSession.menu.userCanChangeDPI = it
+            }
+
+            call.argument<Boolean>("UserCanChangePageSize")?.let {
+                scannerSession.menu.userCanChangePageSize = it
+            }
+
             call.argument<Boolean>("UserCanPickMediaFromStorage")?.let {
                 scannerSession.menu.userCanPickMediaFromStorage = it
             }
@@ -401,10 +409,20 @@ class KlippaScannerSdkPlugin: FlutterPlugin, MethodCallHandler, ActivityAware, P
     }
 
     private fun klippaScannerDidFinishScanningWithResult(result: KlippaScannerResult) {
-        val images: MutableList<Map<String, String>> = mutableListOf()
+        val images: MutableList<Map<String, Any>> = mutableListOf()
 
         for (image in result.results) {
-            val imageDict = mapOf("Filepath" to image.location)
+            val detectedTexts: MutableList<Map<String, Any>> = mutableListOf()
+            for (detectedText in image.detectedTexts) {
+                val boundingBox = mapOf(
+                    "x" to detectedText.boundingBox.x.toDouble(),
+                    "y" to detectedText.boundingBox.y.toDouble(),
+                    "width" to detectedText.boundingBox.width.toDouble(),
+                    "height" to detectedText.boundingBox.height.toDouble()
+                )
+                detectedTexts.add(mapOf("Text" to detectedText.text, "BoundingBox" to boundingBox))
+            }
+            val imageDict = mapOf("Filepath" to image.location, "DetectedTexts" to detectedTexts)
             images.add(imageDict)
         }
 

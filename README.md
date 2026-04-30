@@ -181,6 +181,12 @@ config.userCanCropManually = false;
 // Whether to hide or show the color changing button in the Review Screen. (default shown/true)
 config.userCanChangeColorSetting = false;
 
+// Whether to show the DPI button in the edit menu. (default false)
+config.userCanChangeDPI = false;
+
+// Whether to show the Page Size button in the edit menu. (default false)
+config.userCanChangePageSize = false;
+
 // To add extra horizontal and / or vertical padding to the cropped image.
 config.cropPadding.width = 100;
 config.cropPadding.height =  100;
@@ -264,19 +270,6 @@ config.imageMovingSensitivityAndroid = 50;
 
 #### iOS only
 ```dart
-
-// The text inside of the color selection alert dialog button named original.
-config.imageColorOriginalText = "original";
-
-// The text inside of the color selection alert dialog button named grayscale.
-config.imageColorGrayscaleText = "grayscale";
-
-// The text inside of the color selection alert dialog button named enhanced.
-config.imageColorEnhancedText = "enhanced";
-
-// The text inside of the color selection alert dialog button named black and white.
-config.imageColorBlackAndWhiteText = "Black & White";
-
 // Whether the camera has a view finder overlay (a helper grid so the user knows where the document should be), should be a Boolean.
 config.isViewFinderEnabled = true;
 
@@ -310,6 +303,10 @@ Add or edit the file `android/app/src/res/values/colors.xml`, add the following:
   <color name="klippa_scanner_sdk_color_button_with_icon_background">#444444</color>
   <color name="klippa_scanner_sdk_color_primary_action_foreground">#ffffff</color>
   <color name="klippa_scanner_sdk_color_primary_action_background">#2dc36a</color>
+  <color name="klippa_scanner_sdk_color_dialog_background">#ffffff</color>
+  <color name="klippa_scanner_sdk_color_dialog_text">#000000</color>
+  <color name="klippa_scanner_sdk_color_dialog_confirm_button">#d32f2f</color>
+  <color name="klippa_scanner_sdk_color_dialog_dismiss_button">#1976d2</color>
 </resources>
 ```
 
@@ -436,6 +433,42 @@ config.continueButtonText = "Continue"
 
 // The text shown in the crop screen to save the bounding box.
 config.saveCropButtonText = "Save"
+
+// The text inside of the color selection alert dialog button named original.
+config.imageColorOriginalText = "original";
+
+// The text inside of the color selection alert dialog button named grayscale.
+config.imageColorGrayscaleText = "grayscale";
+
+// The text inside of the color selection alert dialog button named enhanced.
+config.imageColorEnhancedText = "enhanced";
+
+// The text inside of the color selection alert dialog button named black and white.
+config.imageColorBlackAndWhiteText = "Black & White";
+
+// The text above the shutter button to indicate auto capture status.
+config.autoCaptureButtonText = "Auto";
+
+// The text above the shutter button to indicate auto capture status.
+config.manualButtonText = "Manual";
+
+// The title in the delete action alert dialog. (Deprecated: will be removed in a future version)
+config.deleteOptionsButtonText = "Delete or Retake?";
+
+// The text on the edit button in the review screen.
+config.editMenuButtonText = "Edit";
+
+// The text on the DPI button inside the edit menu.
+config.dpiEditButtonText = "DPI";
+
+// The text on the Page Size button inside the edit menu.
+config.pageSizeEditButtonText = "Page Size";
+
+// The text on the done button inside the edit menu.
+config.doneButtonText = "Done";
+
+// The text on the undo button in the crop screen.
+config.undoCropButtonText = "Undo";
 ```
 
 ### Customize image in CameraMode instructions
