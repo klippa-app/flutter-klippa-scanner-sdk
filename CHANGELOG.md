@@ -1,3 +1,11 @@
+## 1.3.1
+
+* Bumped Android to 4.4.6
+* Bumped iOS to 2.3.3
+* Fixed crashes on both platforms: when opening the scanner (Android) and in the crop screen (Android and iOS).
+* Output images now include horizontal/vertical DPI in their EXIF metadata (JPEG and PNG).
+* `DPI.auto` combined with a `pageFormat` now resizes output to the page format's proportions at the maximum DPI the captured image supports, without upscaling.
+
 ## 1.3.0
 
 * Bumped Android to 4.4.0
